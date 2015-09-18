@@ -1,0 +1,21 @@
+RewriteOptions inherit
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(.*)\.php$ $1.html [R=301,L]
+
+ErrorDocument 404 /404.html
+
+Redirect 301 /stream* /stream.html
+
+DirectoryIndex mane.html
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+deny from 72.46.196.219
+
+deny from 72.60.133.0
+deny from 209.141.38.66

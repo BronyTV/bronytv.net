@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>BronyTV</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href='/Pictures/BTVpurple.png' />
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel='stylesheet' id='btv-css' href='/style.css' type='text/css' media='all' />
+    <link href="http://cdn.jotfor.ms/static/formCss.css?3.1.513" rel="stylesheet" type="text/css" />
+    <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
+    <script type='text/javascript' src='/nowplaying.js?ver=1.1'></script>
+    <script type="text/javascript" src='/countdown.js'></script>
+  </head>
+  <body onLoad="countdown(year,month,day,hour,minute);">
+    <div id="header" class="container"></div>
+    <div class="container">
+      <table style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <td style="width:64%;vertical-align:top;">
+            <div class="floating">
+              <h1 id='Post0Title'></h1>
+              <span id='Post0Date'></span>
+              <span id='Post0Content'></span>
+              <hr />
+              <h1 id='Post1Title'></h1>
+              <span id='Post1Date'></span>
+              <span id='Post1Content'></span>
+              <hr />
+              <h1 id='Post2Title'></h1>
+              <span id='Post2Date'></span>
+              <span id='Post2Content'></span>
+              <hr />
+              <h1 id='Post3Title'></h1>
+              <span id='Post3Date'></span>
+              <span id='Post3Content'></span>
+              <hr />
+              <h1 id='Post4Title'></h1>
+              <span id='Post4Date'></span>
+              <span id='Post4Content'></span>
+            </div>
+          </td>
+          <td id="scroll-anchor" style="width:36%;vertical-align:top;">
+            <div id="scroll" class="floating">
+              <div class="countdiv">
+                <table class="countdown">
+                  <tr><td colspan="8">
+                    <h3 style="color: #9E75E3; text-align: center;">How long until Pony Time?</h3>
+                  </td></tr>
+                  <tr><td colspan="8">
+                    <div class="numbers" id="count2" style="text-align: center;"></div>
+                  </td></tr>
+                  <tr>
+                    <td><div class="numbers" id="dday"></div></td>        
+                    <td><div class="title" id="days">Days</div></td>
+                    <td><div class="numbers" id="dhour"></div></td>
+                    <td><div class="title" id="hours">Hours</div></td>
+                    <td><div class="numbers" id="dmin"></div></td>
+                    <td><div class="title" id="minutes">Minutes</div></td>
+                    <td><div class="numbers" id="dsec"></div></td>
+                    <td><div class="title" id="seconds">Seconds</div></td>
+                  </tr>
+                  <tr><td colspan="8">
+                    <h5>The next episode airs at 11:30 AM Eastern Time on Saturday</h5>
+                  </td></tr>
+                </table>
+              </div>
+              <hr />
+              <h4><a href="https://www.facebook.com/TVBrony" target="_blank">Our Facebook Page!</a></h4>
+              <h4><a href="https://twitter.com/TVBrony" target="_blank">Follow us on Twitter!</a></h4>
+              <h4><a href="http://www.youtube.com/user/TheBronyTV" target="_blank">See past recordings on YouTube!</a></h4>
+              <h4><a href="http://btv-news.tumblr.com/" target="_blank">See more news on Tumblr!</a></h4>
+<!--			  <h4><a href="https://www.patreon.com/PonyvilleLive" target="_blank">Support PonyVilleLive's Patreon!</a></h4>-->
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <script type="text/javascript">
+    function postTime(unix_tm) {
+      var d = new Date((unix_tm-18000)*1000)
+      return d.toDateString()+" "+d.getUTCHours()+":"+d.getUTCMinutes()+" ET";
+    }
+
+    $.getJSON("//api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&limit=5&callback=?", function(blog) {
+      for (var i=0; i<5; i++) {
+        var data = blog.response.posts[i];
+        if ( data.type == 'quote' ) {
+          blogTitle = '<a href="' + data.short_url + '">' + data.text + '</a>';
+          blogContent = data.source
+        } else if ( data.type == 'photo' ) {
+          blogTitle = '<a href="' + data.short_url + '">BronyTV</a>';
+          blogContent = '<img src="' + data.photos[0].original_size.url + '" /><br />' + data.caption
+        } else if ( data.type == 'link' ) {
+          blogTitle = '<a href="' + data.url + '">' + (data.title || 'Quote') + '</a>';
+          blogContent = data.description
+        } else if ( data.type == 'video' ) {
+          blogTitle = '<a href="' + data.short_url + '">BronyTV</a>';
+          blogContent = data.player[2].embed_code + '<br />' + data.caption
+        } else {
+          blogTitle = '<a href="' + data.short_url + '">' + (data.title || 'BronyTV') + '</a>';
+          blogContent = data.body
+        }
+        $('#Post'+i+'Title').html(blogTitle);
+        $('#Post'+i+'Date').html('<strong>'+postTime(data.timestamp)+'</strong> ' +
+            (data.reblog ? 'reblogged ' : '') + 'by <a href="//' + data.post_author + '.tumblr.com/">' +
+            data.post_author + ' <img src="//api.tumblr.com/v2/blog/' +
+            data.post_author + '.tumblr.com/avatar/16" width="16" height="16" /></a>');
+        $('#Post'+i+'Content').html(blogContent);
+      }
+    });
+
+    $(function() {
+      var a = function() {
+        var b = $(window).scrollTop();
+        var d = $("#scroll-anchor").offset().top;
+        var c = $("#scroll");
+        if (b > d) {
+          c.css({position:"fixed",top:"0px",width:"31%"})
+        } else {
+          c.css({position:"relative",top:"",width:""})
+        }
+      };
+      $(window).scroll(a);a()
+    });
+    </script>
+    <script type="text/javascript" src="/common.js"></script>
+<!--    <script type="text/javascript" src="http://www.ponyvillelive.com/static/header/script.js"></script>-->
+  </body>
+</html>

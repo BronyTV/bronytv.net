@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-US">
+ <head>
+  <title>Competitor's Viewer Count</title>
+  <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
+ </head>
+<body>
+<table style='text-align:right'>
+<tr><td>BronyTV:</td><td style='text-align:left' id="btv">Offline</td></tr>
+<tr><td>BronyState:</td><td style='text-align:left' id="bs">Offline</td></tr>
+<tr><td>Brony Network 1:</td><td style='text-align:left' id="bn">Offline</td></tr>
+<tr><td>Brony Network 2:</td><td style='text-align:left' id="bn2">Offline</td></tr>
+<tr><td>Otaku Ascended:</td><td style='text-align:left' id="otaku">Offline</td></tr>
+<tr><td>CinemaQuestria:</td><td style='text-align:left' id="cinema">Offline</td></tr>
+</table>
+<script type="text/javascript">
+$(function() {
+	btvCount(); //UStream - btvstream2
+        bnCount(); //LiveStream - thebronynetwork7
+        bsCount(); //UStream - BRST20131018
+        bn2Count(); //UStream - the-brony-network
+        otakuCount(); //LiveStream - otakuascendedlive
+        cinemaCount(); //UStream - CQStream3
+});
+function btvCount() {
+	$.getJSON("//api.ustream.tv/json/channel/btvstream2/listAllChannels?callback=?", function(btv) {
+		btvViewers = btv[0].viewersNow;
+		$('#btv').html(btvViewers);
+	});
+	setTimeout('btvCount()', 10000);
+};
+function otakuCount() {
+        $.getJSON("//xotakuascendedlivex.api.channel.livestream.com/2.0/livestatus.json?callback=?", function(otaku) {
+                otakuViewers = otaku.channel.currentViewerCount;
+                $('#otaku').html(otakuViewers);
+        });
+        setTimeout('otakuCount()', 10000);
+};
+function bnCount() {
+        $.getJSON("//xthebronynetwork7x.api.channel.livestream.com/2.0/livestatus.json?callback=?", function(bn) {
+                bnViewers = bn.channel.currentViewerCount;
+                $('#bn').html(bnViewers);
+        });
+        setTimeout('bnCount()', 10000);
+};
+function bsCount() {
+        $.getJSON("//api.ustream.tv/json/channel/BRST20131018/listAllChannels?callback=?", function(bs) {
+                bsViewers = bs[0].viewersNow;
+                $('#bs').html(bsViewers);
+        });
+        setTimeout('bsCount()', 10000);
+};
+function bn2Count() {
+        $.getJSON("//api.ustream.tv/json/channel/the-brony-network/listAllChannels?callback=?", function(bn2) {
+                bn2Viewers = bn2[0].viewersNow;
+                $('#bn2').html(bn2Viewers);
+        });
+        setTimeout('bn2Count()', 10000);
+};
+function cinemaCount() {
+        $.getJSON("//api.ustream.tv/json/channel/CQStream3/listAllChannels?callback=?", function(cinema) {
+                cinemaViewers = cinema[0].viewersNow;
+                $('#cinema').html(cinemaViewers);
+        });
+        setTimeout('cinemaCount()', 10000);
+};
+</script>
+</html>

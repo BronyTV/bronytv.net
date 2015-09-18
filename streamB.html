@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>BronyTV | Stream</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href='/Pictures/BTVpurple.png' />
+	<link href="video-js.css" rel="stylesheet" type="text/css">
+	<script src="video.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel='stylesheet' id='btv-css' href='/style.css' type='text/css' media='all' />
+    <link href="http://cdn.jotfor.ms/static/formCss.css?3.1.513" rel="stylesheet" type="text/css" />
+    <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
+    <script type='text/javascript' src='/playlist.js?ver=1.0'></script>
+    <script type='text/javascript' src='/nowplaying.js?ver=1.3'></script>
+    <script type="text/javascript" src='/chathide.js'></script>
+	<script>videojs.options.flash.swf = "video-js.swf";</script>
+    <!--<script type="text/javascript" src='/stream.js'></script>-->
+    <script type="text/javascript">
+      $(function() {
+        $("#chatbox").width(parseInt($("#surround").width()) - 750);
+        // TODO: this ought to be able to use the same calc as below but
+        //       for some reason on page load the player div fills surround.
+      }) ;
+      $(window).resize(function() {
+        $("#chatbox").width(parseInt($("#surround").width()) - parseInt($("#player").width()) - 5);
+      }) ;
+    </script>
+  </head>
+  <body onLoad='javascript:$("#newstext").load("/static/news.html");$("#rariface").load(raripicture());'>
+    <div id="header" class="container"></div>
+    <div class="container">
+      <div class="floating">
+        <div id="surround" class="surround" style="max-width:1400px;margin-left:auto;margin-right:auto;">
+          <div id="player" class="video" style="text-align:center;">
+            <div id="vid">
+				<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" height=396 width=704 autoplay poster="http://bronytv.net/Pictures/logotext.png" data-setup="{}">
+					<source src="rtmp://dusky.horse:1935/live/bwu2as4hc738" type="rtmp/mp4">   
+					<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+				</video>		
+			</div>
+            <span>
+              <span style="margin-right:50px;">
+               				                <!--<button id="jtv">Reload JustinTV!</button>
+                <button id="efnw">Reload EFNW!</button>-->
+              </span>
+              <!-- <a href='#' onclick='return popitup("https://kiwiirc.com/client/irc.canternet.org/?nick=NewFoal?&amp;theme=cli#bronyTV")'>Open chat in a new window</a> -->
+              <a href='#' onclick='return popitup("http://widget.mibbit.com/?settings=d2d6e7c12d525cd95acc5ca9a9e50df6&server=irc.canternet.org&channel=%23bronytv&amp;nick=NewFoal%3F%3F%3F")'>Open chat in a new window</a>
+              <span style="margin-left:50px;">
+                <button id="button1">Remove the chat box?</button>
+                <button type="button" id="button2" style="display:none">BRING IT BACK!</button>
+              </span>
+            </span>
+            <div id="playlist" class="text" style="display:none;">
+              <h5>Now Playing</h5>
+              <ol></ol>
+            </div>
+          </div>
+          <script type="text/javascript">
+// TODO: extract and tidy
+$('#ustream').on('click', function () {
+    var vid = $('#vid');
+    var html = vid.html();
+    vid.empty();
+    vid.html(html);
+});
+          </script>
+          <div id="chatbox" class="chatbox">
+            <iframe style="border:0;width:100%;height:420px;" scrolling="no" src="http://widget.mibbit.com/?settings=d2d6e7c12d525cd95acc5ca9a9e50df6&server=irc.canternet.org&channel=%23bronytv&amp;nick=NewFoal%3F%3F%3F"></iframe>
+            <!--
+            <iframe src="https://kiwiirc.com/client/irc.canternet.org/?nick=NewFoal?&theme=cli#bronyTV" style="border:0;width:100%;height:425px;"></iframe>
+            -->
+          </div>
+          <div class="text">
+            <h5 id="chatnote" style="text-align:center;">If you don't see the chat after a few seconds, try resizing your window or reloading.</h5>
+            <h5 style="text-align:center;">If you don't see the video after the stream switches, try clicking the Reload button under the stream.</h5>
+            <div style="margin-left:auto;margin-right:auto;display:table;">
+              <div style="display:inline-block;vertical-align:top;padding-right:30px;">
+                <h5>To join a channel (Other then Bronytv) Type "/join *channel name*" </h5>
+                <ul style="list-style:none">
+                  <li>#btvcloudsdale --- For SFW RP&apos;ing purposes!</li>
+                  <li>#btvbadlands --- For the NSFW purposes!</li>
+                  <li>#SpoilerCloudBTV --- For the juicy spoilers!</li>
+                </ul>
+              </div>
+<!--              <div style="display:inline-block;vertical-align:top;padding-left:30px;">
+                <h5>Alternatively, visit our Affiliates IRC chat rooms!</h5>
+                <ul style="list-style:none">
+                  <li>#PonyvilleLIVE ~ #FillyRadio ~ #LunaRadio</li>
+                  <li>#PonyvilleFM ~ #AlicornRadio ~ #BronyRadio</li>
+                  <li>#SonicRadioBoom ~ #TrueEquestriaRadio</li>
+                </ul>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img id="rariface" alt='ponypic' src="/Pictures/raribox/default.png" width="180" height="170" style="float:right;position:fixed;right:-1%;bottom:-1%;cursor:pointer" onClick="$('#rariface').fadeOut('slow');$('#raribox').fadeOut('slow');$('#newstext').fadeOut('slow');$('#runCat').fadeOut('slow');$('#newsbutton').fadeIn('slow');" />
+    <img id="raribox" alt='news' src="/Pictures/rariBoxText2.png" width="200" height="200" style="float:right;position:fixed;right:140px;bottom:17px;"/>
+    <div id="newstext" style="float:right;position:fixed;right:155px;bottom:5px;overflow:hidden;word-wrap:break-word;width:150px;height:95px;color:white;"></div>
+    <img id="newsbutton" alt='news' src="/Pictures/newsbut.png" style="float:right;position:fixed;right:0%;bottom:0%;overflow:hidden;width:120px;height:40px;display:none;cursor:pointer" onClick="$('#rariface').show('slow');$('#raribox').show('slow');$('#runCat').show('slow');$('#newstext').show('slow');$('#newsbutton').fadeOut('slow');" />
+    <script type="text/javascript" src="/common.js"></script>
+<!--    <script type="text/javascript" src="http://www.ponyvillelive.com/static/header/script.js"></script>-->
+    <script type="text/javascript">
+<!--
+function popitup(url) {
+	newwindow=window.open(url,'name','height=400,width=600');
+	if (window.focus) {newwindow.focus()}
+	return false;
+}
+
+// -->
+</script>
+  </body>
+</html>

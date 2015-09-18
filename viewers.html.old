@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+ <head>
+  <title>Viewer Count Page</title>
+  <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
+ </head>
+<body>
+<table style='text-align:right'>
+<tr><td>Total:</td><td id="ttl">0</td></tr>
+</table>
+<script type="text/javascript">
+$(function() {
+	viewerCount();
+});
+function viewerCount() {
+	$.getJSON("//bronytv.net/viewers.php", function(viewers) {
+		viewers = viewers[0].Total_Viewers;
+		$('#ttl').html(viewers);
+	});
+	setTimeout('viewerCount()', 1000);
+};
+//function jtvCount() {
+//	$.getJSON("//api.justin.tv/stream/list.json?channel=btvstream&jsonp=?", function(jtv) {
+//		jtvViewers = jtv[0].channel_count;
+//		$('#jtv').html(jtvViewers);
+//	});
+//	setTimeout('jtvCount()', 5000);
+//};
+//function viewerCount() {
+//	totalViewers=parseInt($('#ust').html())+parseInt($('#jtv').html());
+//	$('#ttl').html(totalViewers);
+//	setTimeout('viewerCount()', 5000);
+//};
+</script>
+</html>

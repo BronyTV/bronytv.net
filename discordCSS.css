@@ -1,0 +1,15 @@
+/* minimal CSS */
+ #popout {
+    position:absolute;
+    top:15%;
+    right:0%;
+}
+#trigger {
+    position: absolute;
+    top: 15%;
+    right: 0%;
+    width:80px;
+    height:80px;
+    cursor: pointer;
+    background:#6A6A7C;
+}

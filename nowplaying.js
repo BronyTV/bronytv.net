@@ -63,7 +63,7 @@ function checkPlaylist()
   if ($('#playlist').length == 0 || !PlaylistManager) { return; }
 
   var nowplaying = $('#nowplaying').text();
-  var playlist = '/miral/nowplaying.json';
+  var playlist = '/~miralilty/nowplaying.json';
   //var isRandomPony = (nowplaying == 'Mirality - Random Pony');
   //var isSocial = (nowplaying == 'Mirality - Social Night');
   var isMirality = (nowplaying.slice(0, 10) == 'Mirality -');

@@ -19,7 +19,6 @@ body {
 	padding: 0 20px;
 	font-size: 14px;
 	line-height: 20px;
-	background: transparent;
 	color: #DDD;
 	font-family: 'Source Sans Pro', sans-serif;
 	background: #000000 url('/Pictures/rariSexy.png')  top center no-repeat;
@@ -38,9 +37,8 @@ hr {
 }
 img {	/* Responsive images (ensure images don't scale beyond their parents) */
 	max-width: 100%;	/* Part 1: Set a maxium relative to the parent */
-	width: auto\9;		/* IE7-8 need help adjusting responsive images */
+	width: auto;		/* IE7-8 need help adjusting responsive images */
 	height: auto;		/* Part 2: Scale the height according to the width, otherwise you get stretching */
-	vertical-align: middle;
 	border: 0;
 	display:block;
 }
@@ -99,6 +97,9 @@ h6 {
 	font-weight: bold;
 	line-height: 1;
 	color: #BAA2F1;
+}
+#rariface {
+    height: 200px;
 }
 ul,
 ol {

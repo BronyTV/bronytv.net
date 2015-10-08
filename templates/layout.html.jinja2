@@ -1,7 +1,67 @@
 <!DOCTYPE html>
-<head>
-	<title> BronyTV - {% block title %}{% endblock %}</title>
-</head>
-<body>
-	{% block content %}{% endblock %}
-</body>
+<html>
+    <head>
+        <title>BronyTV - {% block title %}{% endblock %}</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="/static/css/bootstrap.css" />
+        <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
+        <script type="text/javascript" src="/static/js/angular.js"></script>
+        <style>
+            body {
+                background-image: url(/static/img/new_background.png);
+                background-repeat: no-repeat;
+                background-size: 100%;
+                background-color: #000000;
+            }
+        
+            .nav-pills > li.active > a,
+            .nav-pills > li.active > a:hover,
+            .nav-pills > li.active > a:focus {
+                color: #ffffff;
+                background-color: #4f23a2;
+            }
+
+            #nav {
+                padding-top: 2.2em;
+                margin-bottom: 0.5em;
+            }
+        
+            #nav-links {
+                display: inline-block;
+                margin-left: 0.938em;
+                margin-top: 2.2em;
+                position: absolute;
+            }
+        
+            a {
+                color: #9E75E3;
+                text-decoration: none;
+            }
+        </style>
+        {% block scripts %}{% endblock %}
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-2">
+                    <div id="nav" role="navigation">
+                        <img src="/static/img/logoUnpadded.png" alt="BronyTV Logo" height="100"/>
+                        <ul class="nav nav-pills" id="nav-links">
+                            <li role="presentation" class="active"><a href="/">Home</a></li>
+                            <li role="presentation"><a href="/stream">Stream</a></li>
+                            <li role="presentation"><a href="/about">About</a></li>
+                            <li role="presentation"><a href="/rules">Rules</a></li>
+                            <li role="presentation"><a href="/contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

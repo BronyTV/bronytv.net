@@ -1,5 +1,130 @@
 {% extends "layout.html.jinja2" %}
 {% block title %}Index{% endblock %}
+
+{% block scripts %}
+<style>
+    .purple-box {
+        background: rgba(171, 137, 227, 0.25) none repeat scroll 0% 0%;
+        border-radius: 10px;
+        background-size:  100%;
+        padding: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .news-post > span {
+        color: #ffffff;
+    }
+
+    .title, .numbers {
+        display: inline-block;
+    }
+
+    .numbers {
+        font-size: 1.75em;
+        color: #ffffff;
+    }
+
+    .title {
+        font-size: 1.5em;
+    }
+
+    .countdown {
+        text-align: center;
+    }
+</style>
+<script src="/static/js/countdown.js"></script>
+<script>
+$(document).ready(function() {
+    countdown(year, month, day, hour, minute);
+    $(window).scroll(function() {
+        var scrollTop = $(window).scrollTop();
+        var offset = $("#scroll-anchor").offset().top;
+        var rb = $("#right-box");
+
+        if (scrollTop > offset) {
+            rb.css({position: "fixed", top: "10px"});
+        } else {
+            rb.css({position: "relative", top: ""});
+        }
+    });
+    $.ajax({
+        method: "get",
+        url: "/api/news"
+    }).done(function(data) {
+        if (data.posts) {
+            for (var i = 0; i < data.posts.length; i++) {
+                var post = data.posts[i];
+                var title;
+                var content;
+                switch (post.type) {
+                    case "quote":
+                        title = '<a href="' + post.short_url + '">' + post.text + '</a>';
+                        content = post.source;
+                        break;
+                    case "photo":
+                        title = '<a href="' + post.short_url + '">BronyTV</a>';
+                        content = '<img src="' + post.photos[0].original_size.url + '" /><br>' + post.caption;
+                        break;
+                    case "link":
+                        title = '<a href="' + post.url + '">' + (post.title || "Quote") + '</a>';
+                        content = post.description;
+                        break;
+                    case "video":
+                        title = '<a href="' + post.short_url + '">BronyTV</a>';
+                        content = post.player[2].embed_code + '<br>' + post.caption;
+                        break;
+                    default:
+                        title = '<a href="' + post.short_url + '">' + (post.title || "BronyTV") + '</a>';
+                        content = post.body;
+                        break;
+                }
+                var html = '<div class="news-post">\
+                                <h3>' + title + '</h3>\
+                                <span>' + content + '</span>\
+                            </div>\
+                            <hr>';
+
+                $("#news").append(html);
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
+
 {% block content %}
-This is the index!
+<div class="row">
+    <div class="col-md-5 col-md-offset-2">
+        <div class="purple-box" id="left-box">
+            <div id="news">
+                <noscript>You don't have JavaScript enabled. You can't view news without JavaScript.</noscript>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div id="scroll-anchor">
+            <div class="purple-box hidden-sm hidden-xs" id="right-box">
+                <div class="countdown">
+                    <h3 style="color: #9E75E3;">How long until Pony Time?</h3>
+                    <div class="numbers" id="count2" style="text-align: center;"></div>
+                    <div class="numbers" id="dday"></div>        
+                    <div class="title" id="days">Days</div>
+                    <div class="numbers" id="dhour"></div>
+                    <div class="title" id="hours">Hours</div>
+                    <div class="numbers" id="dmin"></div>
+                    <div class="title" id="minutes">Minutes</div>
+                    <div class="numbers" id="dsec"></div>
+                    <div class="title" id="seconds">Seconds</div>
+                    <h5>The next episode airs at 11:30 AM Eastern Time on Saturday</h5>
+                </div>
+                <hr>
+                <p><a href="https://www.facebook.com/TVBrony" target="_blank">Our Facebook Page!</a></p>
+                <p><a href="https://twitter.com/TVBrony" target="_blank">Follow us on Twitter!</a></p>
+                <p><a href="http://www.youtube.com/user/TheBronyTV" target="_blank">See past recordings on YouTube!</a></p>
+                <p><a href="http://btv-news.tumblr.com/" target="_blank">See more news on Tumblr!</a></p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

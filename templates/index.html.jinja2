@@ -33,10 +33,13 @@
         text-align: center;
     }
 </style>
-<script src="/static/js/countdown.js"></script>
+<script type="text/javascript" src="/static/js/moment.js"></script>
+<script type="text/javascript" src="/static/js/moment-timezone-with-data-2010-2020.js"></script>
+<script type="text/javascript" src="/static/js/humanize-duration.js"></script>
+<script type="text/javascript" src="/static/js/angular-timer.js"></script>
+<script type="text/javascript" src="/static/js/angular/index.js"></script>
 <script>
 $(document).ready(function() {
-    countdown(year, month, day, hour, minute);
     $(window).scroll(function() {
         var scrollTop = $(window).scrollTop();
         var offset = $("#scroll-anchor").offset().top;
@@ -48,75 +51,71 @@ $(document).ready(function() {
             rb.css({position: "relative", top: ""});
         }
     });
-    $.ajax({
-        method: "get",
-        url: "/api/news"
-    }).done(function(data) {
-        if (data.posts) {
-            for (var i = 0; i < data.posts.length; i++) {
-                var post = data.posts[i];
-                var title;
-                var content;
-                switch (post.type) {
-                    case "quote":
-                        title = '<a href="' + post.short_url + '">' + post.text + '</a>';
-                        content = post.source;
-                        break;
-                    case "photo":
-                        title = '<a href="' + post.short_url + '">BronyTV</a>';
-                        content = '<img src="' + post.photos[0].original_size.url + '" /><br>' + post.caption;
-                        break;
-                    case "link":
-                        title = '<a href="' + post.url + '">' + (post.title || "Quote") + '</a>';
-                        content = post.description;
-                        break;
-                    case "video":
-                        title = '<a href="' + post.short_url + '">BronyTV</a>';
-                        content = post.player[2].embed_code + '<br>' + post.caption;
-                        break;
-                    default:
-                        title = '<a href="' + post.short_url + '">' + (post.title || "BronyTV") + '</a>';
-                        content = post.body;
-                        break;
-                }
-                var html = '<div class="news-post">\
-                                <h3>' + title + '</h3>\
-                                <span>' + content + '</span>\
-                            </div>\
-                            <hr>';
-
-                $("#news").append(html);
-            }
-        }
-    });
 });
 </script>
 {% endblock %}
 
 {% block content %}
-<div class="row">
+<div class="row" ng-app="btvIndexApp">
     <div class="col-md-5 col-md-offset-2">
         <div class="purple-box" id="left-box">
-            <div id="news">
-                <noscript>You don't have JavaScript enabled. You can't view news without JavaScript.</noscript>
+            <div id="news" ng-controller="NewsCtrl as news">
+                <div ng-show="news.fetching">
+                    Fetching news...
+                </div>
+                <div ng-show="news.error">
+                    An error occurred fetching the news!
+                </div>
+                <div ng-repeat="item in news.posts" ng-switch="item.type">
+                    <div ng-switch-when="quote">
+                        <h3><a href="{[ item.short_url ]}">{[ item.text ]}</a></h3>
+                        <span ng-bind-html="item.source | unsafe"></span>
+                    </div>
+                    <div ng-switch-when="photo">
+                        <h3><a href="{[ item.short_url ]}">BronyTV</a></h3>
+                        <span>
+                            <img ng-src="{[ item.photos[0].original_size.url ]}" /><br>
+                            <span ng-bind-html="item.caption | unsafe"></span>
+                        </span>
+                    </div>
+                    <div ng-switch-when="link">
+                        <h3><a href="{[ item.url ]}">{[ item.title || "Quote" ]}</a></h3>
+                        <span ng-bind-html="item.description | unsafe"></span>
+                    </div>
+                    <div ng-switch-when="video">
+                        <h3><a href="{[ item.short_url ]}">BronyTV</a></h3>
+                        <span>
+                            <span ng-bind-html="item.player[2].embed_code | unsafe"></span>
+                            <br>
+                            <span ng-bind-html="item.caption | unsafe"></span>
+                        </span>
+                    </div>
+                    <div ng-switch-default>
+                        <h3><a href="{[ item.short_url ]}">{[ item.title || BronyTV ]}</a></h3>
+                        <span ng-bind-html="item.body | unsafe">
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div id="scroll-anchor">
             <div class="purple-box hidden-sm hidden-xs" id="right-box">
-                <div class="countdown">
-                    <h3 style="color: #9E75E3;">How long until Pony Time?</h3>
-                    <div class="numbers" id="count2" style="text-align: center;"></div>
-                    <div class="numbers" id="dday"></div>        
-                    <div class="title" id="days">Days</div>
-                    <div class="numbers" id="dhour"></div>
-                    <div class="title" id="hours">Hours</div>
-                    <div class="numbers" id="dmin"></div>
-                    <div class="title" id="minutes">Minutes</div>
-                    <div class="numbers" id="dsec"></div>
-                    <div class="title" id="seconds">Seconds</div>
-                    <h5>The next episode airs at 11:30 AM Eastern Time on Saturday</h5>
+                <div class="countdown" ng-controller="CountdownCtrl as countdown">
+                    <timer interval="1000" end-time="time">
+                        <h3 style="color: #9E75E3;">How long until Pony Time?</h3>
+                        <div class="numbers" id="count2" style="text-align: center;"></div>
+                        <div class="numbers" id="dday">{[ days ]}</div>
+                        <div class="title" id="days">Day{[ daysS ]}</div>
+                        <div class="numbers" id="dhour">{[ hours ]}</div>
+                        <div class="title" id="hours">Hour{[ hoursS ]}</div>
+                        <div class="numbers" id="dmin">{[ minutes ]}</div>
+                        <div class="title" id="minutes">Minute{[ minutesS ]}</div>
+                        <div class="numbers" id="dsec">{[ seconds ]}</div>
+                        <div class="title" id="seconds">Second{[ secondsS ]}</div>
+                        <h5>The next episode airs at 11:30 AM EST on Saturday</h5>
+                    </timer>
                 </div>
                 <hr>
                 <p><a href="https://www.facebook.com/TVBrony" target="_blank">Our Facebook Page!</a></p>

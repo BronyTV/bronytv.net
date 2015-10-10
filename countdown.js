@@ -12,7 +12,7 @@ time zone offset.
 var current="It's Pony Time!";    //-->enter what you want the script to display when the target date and time are reached, limit to 20 characters
 var year=2015;    //-->Enter the count down target date YEAR
 var month=10;     //-->Enter the count down target date MONTH
-var day=10;       //-->Enter the count down target date DAY
+var day=17;       //-->Enter the count down target date DAY
 var hour=11;      //-->Enter the count down target date HOUR (24 hour clock)
 var minute=30;    //-->Enter the count down target date MINUTE
 var tz=-4;        //-->Offset for your timezone in hours from UTC (see http://wwp.greenwichmeantime.com/index.htm to find the timezone offset for your location)

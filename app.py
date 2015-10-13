@@ -18,6 +18,10 @@ def stream():
 def about():
     return render_template("about.html.jinja2")
 
+@app.route("/rules")
+def rules():
+    return render_template("rules.html.jinja2")
+
 @app.route("/api/news")
 def api_news():
     base_url = "https://api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&limit=5"

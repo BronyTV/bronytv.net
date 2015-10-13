@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="/static/css/bootstrap.css" />
         <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
         <script type="text/javascript" src="/static/js/angular.js"></script>
+        <script type="text/javascript" src="/static/js/header.js"></script>
         <style>
             body {
                 background-image: url(/static/img/new_background.png);
@@ -41,6 +42,20 @@
                 color: #9E75E3;
                 text-decoration: none;
             }
+
+            .purple-box {
+                background: rgba(171, 137, 227, 0.25) none repeat scroll 0% 0%;
+                border-radius: 10px;
+                background-size:  100%;
+                padding: 3px;
+                padding-left: 10px;
+                padding-right: 10px;
+                color: white;
+            }
+
+            .light-purple {
+                color: #9E75E3;
+            }
         </style>
         {% block scripts %}{% endblock %}
     </head>
@@ -51,11 +66,11 @@
                     <div id="nav" role="navigation">
                         <img src="/static/img/logoUnpadded.png" alt="BronyTV Logo" height="100" />
                         <ul class="nav nav-pills" id="nav-links">
-                            <li role="presentation" class="active"><a href="/">Home</a></li>
-                            <li role="presentation"><a href="/stream">Stream</a></li>
-                            <li role="presentation"><a href="/about">About</a></li>
-                            <li role="presentation"><a href="/rules">Rules</a></li>
-                            <li role="presentation"><a href="/contact">Contact</a></li>
+                            <li role="presentation" id="nav-home"><a href="/">Home</a></li>
+                            <li role="presentation" id="nav-stream"><a href="/stream">Stream</a></li>
+                            <li role="presentation" id="nav-about"><a href="/about">About</a></li>
+                            <li role="presentation" id="nav-rules"><a href="/rules">Rules</a></li>
+                            <li role="presentation" id="nav-contact"><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>

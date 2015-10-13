@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="purple-box">
-                <div ng-app="btvAboutApp" ng-controller="AboutCtrl as about">
+                <div ng-app="btvAboutApp" ng-controller="AboutCtrl as about" ng-init="init()">
                     <div ng-repeat="category in staff">
                         <h3 class="light-purple">{[ category.title ]}</h3>
                         <table style="background: transparent">

@@ -1,0 +1,54 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Contact{% endblock %}
+{% block scripts %}
+    <style>
+        table a:not(.btn) {
+            color: #9E75E3;
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 purple-box">
+            <h3 class="light-purple">Questions, comments, suggestions?</h3>
+            <p>If you have anything you'd like to ask or tell us about, the easiest way is to talk to a mod in chat. There's usually always someone online, and we are more than willing to listen to your comments and suggestions.</p>
+            <p>If nopony is available to chat, feel free to <a href="mailto:btv@bronytv.net">shoot us an e-mail</a>.</p>
+            <p class="light-purple">You can also e-mail individual admins using the e-mail addresses below:</p>
+            <table style="background: transparent;"> <!-- TODO: Generate this from the staff list. -->
+                <tr>
+                    <th style="width: 50px;"></th>
+                    <th style="width: 140px"></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Ash</td>
+                    <td>Owner</td>
+                    <td><a href="http://scr.im/btvashfire">Email</a></td>
+                </tr>
+                <tr>
+                    <td>ama</td>
+                    <td>Head of Tech</td>
+                    <td><a href="http://scr.im/btvama">Email</a></td>
+                </tr>
+                <tr>
+                    <td>Oatz</td>
+                    <td>Head of Streaming</td>
+                    <td><a href="http://scr.im/btvoatz">Email</a></td>
+                </tr>
+                <tr>
+                    <td>Dusk</td>
+                    <td>Head of Moderation</td>
+                    <td><a href="http://scr.im/dusk">Email</a></td>
+                </tr>
+            </table>
+            <h3 class="light-purple">Apply to join our team!</h3>
+            <p>From time to time we look to expand our roster of committed and dedicated staff. Primarily we look for people who can stream, as this is most of what we do. If you're interested, please apply and let us know what you can do for us. Also, if you're interested in streaming, please visit SpeedTest.net, click "Begin Test", click "Share Result", and copy the url. This will tell us how good your internet connection is.</p>
+            <p>To apply, please <a href="https://docs.google.com/forms/d/1LPVo0Hg5Fa8E4I8mDm12yTos2J5SLXX8CnKyePiAbIE/viewform">fill out our form</a>, and we will get back to you.</p>
+
+            <h3 class="light-purple">BronyTV elsewhere on the Internet</h3>
+            <p>There are several ways to follow or contact us through the internet. We have a Twitter, Ponysquare, and many others!</p>
+            <p><a href="http://www.facebook.com/TVBrony">Facebook</a> ~ <a href="https://twitter.com/TVBrony">Twitter</a> ~ <a href="http://www.youtube.com/user/TheBronyTV">Youtube</a></p>
+        </div>
+    </div>
+{% endblock %}

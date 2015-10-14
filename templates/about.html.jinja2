@@ -1,0 +1,37 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Stream{% endblock %}
+{% block scripts %}
+    <style>
+        .staff {
+
+        }
+    </style>
+    <script type="text/javascript" src="/static/js/angular/about.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="purple-box">
+                <div ng-app="btvAboutApp" ng-controller="AboutCtrl as about" ng-init="init()">
+                    <div ng-repeat="category in staff">
+                        <h3 class="light-purple">{[ category.title ]}</h3>
+                        <table style="background: transparent">
+                            <tr class="staff" ng-repeat="member in category.staff">
+                                <td>
+                                    <img ng-src="/static/img/staff/{[ imgName(member.name) ]}" />
+                                </td>
+                                <td style="min-width: 12em; padding-left: 1em;">
+                                    <p>{[ member.name ]}</p>
+                                    <p ng-if="member.title != ''">{[ member.title ]}</p>
+                                </td>
+                                <td ng-bind-html="member.description | unsafe">
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

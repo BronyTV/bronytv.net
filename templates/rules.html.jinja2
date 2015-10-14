@@ -1,0 +1,34 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Rules{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="/static/js/angular/rules.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="purple-box">
+                <div ng-app="btvRulesApp" ng-controller="RulesCtrl">
+                    <div ng-repeat="rule in rules">
+                        <h4 class="light-purple">{[ rule.rule ]}</h4>
+                        <p>{[ rule.description ]}</p>
+                    </div>
+                </div>
+                <hr>
+                <h5>Canternet (the IRC network we use) also has a few rules you must follow:</h5>
+                <ol>
+                    <li>No spamming/flooding</li>
+                    <li>No abusive bots, i.e. a bot that attempts to take over channels, mass message users outside of their channel, or attempt to disrupt the network. (In #BronyTV you shouldn't even have a bot unless an <b>admin</b> gives you permission)</li>
+                    <li>Do not send malware or send malicious links to other users</li>
+                    <li>You may not use the network to attempt to gain access to another user's system</li>
+                    <li>No anti-pony hate spam</li>
+                    <li>No ban evading. This also applies to channel bans</li>
+                    <li>No impersonating network staff or members of pony related sites (This means anyone that has +v or higher channel mode, shown in our chat as one of the following prefixes, +, %, @, &, and ~)</li>
+                </ol>
+
+                <p><strong>Failure to follow these rules will result in a network wide ban, not allowing you access to any pony IRC channels on Canternet such as EverFree Radio, Equestria Daily, Luna Radio, Filly Radio, and many more wonderful channels.</strong></p>
+                <p>Failure to follow any of the rules on this page may result in actions being taken by our moderation team, up to and including a permanent ban from all BronyTV channels. As per Canternet rules, trying to evade this ban can and will result in a network-wide ban.</p>
+                <p>Thank you for choosing BronyTV for your #1 Brony Stream site!</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

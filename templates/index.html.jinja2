@@ -1,0 +1,120 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Index{% endblock %}
+
+{% block scripts %}
+<style>
+    .news-post > span {
+        color: #ffffff;
+    }
+
+    .title, .numbers {
+        display: inline-block;
+    }
+
+    .numbers {
+        font-size: 1.75em;
+        color: #ffffff;
+    }
+
+    .title {
+        font-size: 1.5em;
+    }
+
+    .countdown {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript" src="/static/js/moment.js"></script>
+<script type="text/javascript" src="/static/js/moment-timezone-with-data-2010-2020.js"></script>
+<script type="text/javascript" src="/static/js/humanize-duration.js"></script>
+<script type="text/javascript" src="/static/js/angular-timer.js"></script>
+<script type="text/javascript" src="/static/js/angular/index.js"></script>
+<script>
+$(document).ready(function() {
+    $(window).scroll(function() {
+        var scrollTop = $(window).scrollTop();
+        var offset = $("#scroll-anchor").offset().top;
+        var rb = $("#right-box");
+
+        if (scrollTop > offset) {
+            rb.css({position: "fixed", top: "10px"});
+        } else {
+            rb.css({position: "relative", top: ""});
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="row" ng-app="btvIndexApp">
+    <div class="col-md-5 col-md-offset-2">
+        <div class="purple-box" id="left-box">
+            <div id="news" ng-controller="NewsCtrl as news">
+                <div ng-show="news.fetching">
+                    Fetching news...
+                </div>
+                <div ng-show="news.error">
+                    An error occurred fetching the news!
+                </div>
+                <div ng-repeat="item in news.posts" ng-switch="item.type">
+                    <div ng-switch-when="quote">
+                        <h3><a href="{[ item.short_url ]}">{[ item.text ]}</a></h3>
+                        <span ng-bind-html="item.source | unsafe"></span>
+                    </div>
+                    <div ng-switch-when="photo">
+                        <h3><a href="{[ item.short_url ]}">BronyTV</a></h3>
+                        <span>
+                            <img ng-src="{[ item.photos[0].original_size.url ]}" /><br>
+                            <span ng-bind-html="item.caption | unsafe"></span>
+                        </span>
+                    </div>
+                    <div ng-switch-when="link">
+                        <h3><a href="{[ item.url ]}">{[ item.title || "Quote" ]}</a></h3>
+                        <span ng-bind-html="item.description | unsafe"></span>
+                    </div>
+                    <div ng-switch-when="video">
+                        <h3><a href="{[ item.short_url ]}">BronyTV</a></h3>
+                        <span>
+                            <span ng-bind-html="item.player[2].embed_code | unsafe"></span>
+                            <br>
+                            <span ng-bind-html="item.caption | unsafe"></span>
+                        </span>
+                    </div>
+                    <div ng-switch-default>
+                        <h3><a href="{[ item.short_url ]}">{[ item.title || BronyTV ]}</a></h3>
+                        <span ng-bind-html="item.body | unsafe">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div id="scroll-anchor">
+            <div class="purple-box hidden-sm hidden-xs" id="right-box">
+                <div class="countdown" ng-controller="CountdownCtrl as countdown">
+                    <timer interval="1000" end-time="time">
+                        <h3 style="color: #9E75E3;">How long until Pony Time?</h3>
+                        <div class="numbers" id="count2" style="text-align: center;"></div>
+                        <div class="numbers" id="dday">{[ days ]}</div>
+                        <div class="title" id="days">Day{[ daysS ]}</div>
+                        <div class="numbers" id="dhour">{[ hours ]}</div>
+                        <div class="title" id="hours">Hour{[ hoursS ]}</div>
+                        <div class="numbers" id="dmin">{[ minutes ]}</div>
+                        <div class="title" id="minutes">Minute{[ minutesS ]}</div>
+                        <div class="numbers" id="dsec">{[ seconds ]}</div>
+                        <div class="title" id="seconds">Second{[ secondsS ]}</div>
+                        <h5>The next episode airs at 11:30 AM EST on Saturday</h5>
+                    </timer>
+                </div>
+                <hr>
+                <p><a href="https://www.facebook.com/TVBrony" target="_blank">Our Facebook Page!</a></p>
+                <p><a href="https://twitter.com/TVBrony" target="_blank">Follow us on Twitter!</a></p>
+                <p><a href="http://www.youtube.com/user/TheBronyTV" target="_blank">See past recordings on YouTube!</a></p>
+                <p><a href="http://btv-news.tumblr.com/" target="_blank">See more news on Tumblr!</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

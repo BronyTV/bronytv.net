@@ -32,7 +32,7 @@ def contact():
 @app.route("/github-update", methods=["POST"])
 def github_update():
     h = hmac.new(GITHUB_WEBOOK_SECRET, request.get_data())
-    if h.hexdigest() != request.headers.get("X-Hub-Signature", ""):  # A timing attack here is nearly impossible.
+    if h.hexdigest() != request.headers.get("X-Hub-Signature", "")[5:]:  # A timing attack here is nearly impossible.
         return "FAIL"
 
     try:

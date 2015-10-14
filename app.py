@@ -45,7 +45,7 @@ def github_update():
         return "FAIL"
 
     try:
-        subprocess.Popen("git pull", shell=True).wait(10)
+        subprocess.Popen("git pull", shell=True).wait()
     except Exception:
         return "ERROR"
 

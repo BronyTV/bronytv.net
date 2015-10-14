@@ -10,25 +10,31 @@ from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def index():
     return render_template("index.html.jinja2")
+
 
 @app.route("/stream")
 def stream():
     return render_template("stream.html.jinja2")
 
+
 @app.route("/about")
 def about():
     return render_template("about.html.jinja2")
+
 
 @app.route("/rules")
 def rules():
     return render_template("rules.html.jinja2")
 
+
 @app.route("/contact")
 def contact():
     return render_template("contact.html.jinja2")
+
 
 @app.route("/github-update", methods=["POST"])
 def github_update():
@@ -42,6 +48,7 @@ def github_update():
         return "ERROR"
 
     return "OK"
+
 
 @app.route("/api/news")
 def api_news():

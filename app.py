@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
+import os
 import hmac
 import json
 import hashlib
@@ -8,6 +9,7 @@ import subprocess
 from config import *
 from flask import Flask, render_template, jsonify, request
 
+os.chdir(APP_BASE)
 app = Flask(__name__)
 
 

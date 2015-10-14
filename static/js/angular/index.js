@@ -61,5 +61,5 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
 });
 
 btvIndexApp.controller("CountdownCtrl", function($scope) {
-    $scope.time = moment('10-10-2015 11:30:00', "MM-DD-YYYY hh:mm:ss").tz('America/New_York');
+    $scope.time = moment('10-17-2015 11:30:00', "MM-DD-YYYY hh:mm:ss").tz('America/New_York');
 });

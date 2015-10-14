@@ -39,7 +39,7 @@
 
 {% block content %}
     <div class="row" ng-app="btvStreamApp" ng-controller="StreamCtrl as stream">
-        <div ng-class="{ 'col-md-offset-2': true, 'col-md-4': chatShown, 'col-md-8': !chatShown }">
+        <div ng-class="{ 'col-md-offset-1': true, 'col-md-5': chatShown, 'col-md-10': !chatShown }">
             <h3 ng-show="chatShown">Stream</h3>
             <div align="center">
                 <div ng-if="!altStream" class="aspect-ratio">
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div ng-class="{ 'col-md-4': chatShown }">
+        <div ng-class="{ 'col-md-5': chatShown }">
             <div id="chat" ng-show="chatShown">
                 <h3>Chat</h3>
                 <div class="aspect-ratio">
@@ -76,7 +76,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-offset-2 col-md-8">
+        <div class="col-md-offset-1 col-md-10">
             <div align="center" class="purple-box light-purple" style="margin-top: 1em;">
                 <p>If you don't see the video or the video stops for some reason, try clicking the "Reload Stream" button beneath the player.</p>
                 <p>If the video is blocked in your country, try the "Broken Stream" button.</p>

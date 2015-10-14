@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 {% block content %}
 <div class="row" ng-app="btvIndexApp">
-    <div class="col-md-5 col-md-offset-2">
+    <div class="col-md-6 col-md-offset-1">
         <div class="purple-box" id="left-box">
             <div id="news" ng-controller="NewsCtrl as news">
                 <div ng-show="news.fetching">
@@ -90,7 +90,7 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div id="scroll-anchor">
             <div class="purple-box hidden-sm hidden-xs" id="right-box">
                 <div class="countdown" ng-controller="CountdownCtrl as countdown">

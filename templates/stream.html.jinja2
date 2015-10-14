@@ -39,7 +39,7 @@
 
 {% block content %}
     <div class="row" ng-app="btvStreamApp" ng-controller="StreamCtrl as stream">
-        <div ng-class="{ 'col-md-offset-1': true, 'col-md-5': chatShown, 'col-md-10': !chatShown }">
+        <div ng-class="{ 'col-md-offset-1': true, 'col-md-6': chatShown, 'col-md-10': !chatShown }">
             <h3 ng-show="chatShown">Stream</h3>
             <div align="center">
                 <div ng-if="!altStream" class="aspect-ratio">
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div ng-class="{ 'col-md-5': chatShown }">
+        <div ng-class="{ 'col-md-4': chatShown }">
             <div id="chat" ng-show="chatShown">
                 <h3>Chat</h3>
                 <div class="aspect-ratio">

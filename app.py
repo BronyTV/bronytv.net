@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+import hmac
 import json
 import requests
+import subprocess
 
 from config import *
-from flask import Flask, render_template, jsonify, Response
+from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
@@ -26,6 +28,19 @@ def rules():
 @app.route("/contact")
 def contact():
     return render_template("contact.html.jinja2")
+
+@app.route("/github-update", methods=["POST"])
+def github_update():
+    h = hmac.new(GITHUB_WEBOOK_SECRET, request.get_data())
+    if not hmac.compare_digest(h.hexdigest(), request.headers.get("X-Hub-Signature", "")):
+        return "FAIL"
+
+    try:
+        subprocess.Popen("git pull").wait(10)
+    except Exception:
+        return "ERROR"
+
+    return "OK"
 
 @app.route("/api/news")
 def api_news():

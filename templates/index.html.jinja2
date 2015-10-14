@@ -23,6 +23,10 @@
     .countdown {
         text-align: center;
     }
+
+    #right-box {
+        max-width: 55em;
+    }
 </style>
 <script type="text/javascript" src="/static/js/moment.js"></script>
 <script type="text/javascript" src="/static/js/moment-timezone-with-data-2010-2020.js"></script>
@@ -33,13 +37,16 @@
 $(document).ready(function() {
     $(window).scroll(function() {
         var scrollTop = $(window).scrollTop();
-        var offset = $("#scroll-anchor").offset().top;
+        var sa = $("#scroll-anchor");
+        var offset = sa.offset().top;
         var rb = $("#right-box");
 
         if (scrollTop > offset) {
-            rb.css({position: "fixed", top: "10px"});
+            rb.css({position: "fixed", top: "10px", width: "inherit"});
+            sa.css({width: "inherit"});
         } else {
-            rb.css({position: "relative", top: ""});
+            rb.css({position: "relative", top: "", width: ""});
+            sa.css({width: ""});
         }
     });
 });

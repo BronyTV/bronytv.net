@@ -2,6 +2,7 @@
 import json
 import requests
 
+from config import *
 from flask import Flask, render_template, jsonify, Response
 
 app = Flask(__name__)
@@ -28,7 +29,7 @@ def contact():
 
 @app.route("/api/news")
 def api_news():
-    base_url = "https://api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&limit=5"
+    base_url = "https://api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=%s&limit=5" % TUMBLR_API_KEY
     posts = []
     try:
         res = requests.get(base_url)

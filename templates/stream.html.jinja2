@@ -8,7 +8,12 @@
             background-color: #4F23A2
         }
     </style>
+    <link rel="stylesheet" href="/static/css/video-js.min.css" />
+    <script type="text/javascript" src="/static/js/video.min.js"></script>
     <script type="text/javascript" src="/static/js/angular/stream.js"></script>
+    <script>
+        videojs.options.flash.swf = "/static/swf/video-js.swf";
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -16,14 +21,26 @@
         <div ng-class="{ 'col-md-offset-2': true, 'col-md-4': chatShown, 'col-md-8': !chatShown }">
             <h3 ng-show="chatShown">Stream</h3>
             <div align="center">
-                <iframe id="stream-frame" src="http://www.ustream.tv/embed/20768037?wmode=direct"
+                <div ng-if="!altStream">
+                    <iframe id="stream-frame" src="http://www.ustream.tv/embed/20768037?wmode=direct"
                         style="border: 0 none transparent; overflow: hidden;" webkitallowfullscreen allowfullscreen
                         frameborder="no" width="800" height="600" scrolling="no"></iframe>
+                </div>
+                <div ng-if="altStream">
+                    <div id="player" class="video" style="text-align:center;">
+                        <div id="vid">
+                            <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" height="600" width="800" autoplay poster="http://bronytv.net/Pictures/logotext.png" data-setup="{}">
+					            <source src="rtmp://dusky.horse:1935/live/bwu2as4hc738" type="rtmp/mp4">
+					            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                            </video>
+			            </div>
+                    </div>
+                </div>
                 <div id="stream-buttons">
                     <button class="btn btn-purple btn-xs" ng-click="reloadStream()">Reload Stream</button>
-                    <button class="btn btn-purple btn-xs">Pop Out Chat</button>
+                    <button class="btn btn-purple btn-xs" ng-click="popoutChat()">Pop Out Chat</button>
                     <button class="btn btn-purple btn-xs" ng-click="toggleChat()"><span ng-show="chatShown">Hide</span><span ng-hide="chatShown">Show</span> Chat</button>
-                    <button class="btn btn-purple btn-xs">Broken Stream?</button>
+                    <button class="btn btn-purple btn-xs" ng-click="swapStream()">Broken Stream?</button>
                 </div>
             </div>
         </div>
@@ -37,11 +54,16 @@
     </div>
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
-            <div align="center" class="purple-box" style="margin-top: 1em;">
-                <p>Text here and things and stuff</p>
-                <p>Do this if shit's broke</p>
-                <p>Go here for horse vagina</p>
-                <p>etc</p>
+            <div align="center" class="purple-box light-purple" style="margin-top: 1em;">
+                <p>If you don't see the video or the video stops for some reason, try clicking the "Reload Stream" button beneath the player.</p>
+                <p>If the video is blocked in your country, try the "Broken Stream" button.</p>
+                <p>To join a channel other than the main channel, type /join #ChannelNameHere.</p>
+                <p>Suggested Channels:</p>
+                <ul style="color: white;">
+                    <li>#btvcloudsdale - For SFW RPing purposes!</li>
+                    <li>#btvbadlands - For NSFW purposes!</li>
+                    <li>#SpoilerCloudBTV - For the juicy spoilers!</li>
+                </ul>
             </div>
         </div>
     </div>

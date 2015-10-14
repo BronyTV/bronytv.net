@@ -34,7 +34,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                 },
                 {
                     name: 'Dusk',
-                    title: 'Queen of Butts',
+                    title: 'Head Moderator',
                     description: ''
                 }
             ]

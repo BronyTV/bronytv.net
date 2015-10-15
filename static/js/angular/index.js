@@ -2,17 +2,20 @@ var btvIndexApp = btvApp("btvIndexApp", ['timer']);
 
 btvIndexApp.controller('NewsCtrl', function($scope, $http) {
     $scope.news = { fetching: true, error: false, posts: [] };
-    var resp = $http.get("/api/news");
 
-    resp.success(function(data, status, headers, config) {
-        $scope.news.fetching = false;
-        $scope.news.posts = data.posts;
-    });
+    $scope.init = function() {
+        var resp = $http.get("/api/news");
 
-    resp.error(function(data, status, headers, config) {
-        $scope.news.fetching = false;
-        $scope.news.error = true;
-    });
+        resp.success(function(data, status, headers, config) {
+            $scope.news.fetching = false;
+            $scope.news.posts = data.posts;
+        });
+
+        resp.error(function(data, status, headers, config) {
+            $scope.news.fetching = false;
+            $scope.news.error = true;
+        });
+    };
 
     $scope.parsePost = function(post) {
         var title;
@@ -49,6 +52,13 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
     };
 });
 
-btvIndexApp.controller("CountdownCtrl", function($scope) {
-    $scope.time = moment('10-17-2015 11:30:00', "MM-DD-YYYY hh:mm:ss").tz('America/New_York');
+btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
+    $scope.time = 0;
+
+    $scope.init = function() {
+        $http.get("/api/properties").success(function(data) {
+            var props = data["properties"];
+            $scope.time = moment(props["countdown_date"], "MM-DD-YYYY hh:mm:ss").tz('America/New_York');
+        });
+    };
 });

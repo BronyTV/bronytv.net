@@ -43,6 +43,10 @@
                         <label for="stream-url">Stream URL:</label>
                         <input id="stream-url" name="stream-url" ng-model="data.stream_url" type="text" class="form-control" />
                     </div>
+                    <div class="form-group">
+                        <label for="countdown-date">Countdown Date:</label>
+                        <input id="countdown-date" name="countdown-data" ng-model="data.countdown_date" type="text" class="form-control" placeholder="MM-DD-YYYY hh:mm:ss" />
+                    </div>
                     <button type="submit" class="btn btn-purple" ng-click="updateProperties()" ng-disabled="submitting">Update</button>
                 </form>
                 <div id="submit-success" class="alert alert-success" ng-show="success">

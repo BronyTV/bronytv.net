@@ -57,7 +57,7 @@ $(document).ready(function() {
 <div class="row" ng-app="btvIndexApp">
     <div class="col-md-6 col-md-offset-1">
         <div class="purple-box" id="left-box">
-            <div id="news" ng-controller="NewsCtrl as news">
+            <div id="news" ng-controller="NewsCtrl" ng-init="init()">
                 <div ng-show="news.fetching">
                     Fetching news...
                 </div>
@@ -100,7 +100,7 @@ $(document).ready(function() {
     <div class="col-md-4">
         <div id="scroll-anchor">
             <div class="purple-box hidden-sm hidden-xs" id="right-box">
-                <div class="countdown" ng-controller="CountdownCtrl as countdown">
+                <div class="countdown" ng-controller="CountdownCtrl" ng-init="init()">
                     <timer interval="1000" end-time="time">
                         <h3 style="color: #9E75E3;">How long until Pony Time?</h3>
                         <div class="numbers" id="count2" style="text-align: center;"></div>

@@ -6,6 +6,7 @@ import subprocess
 
 from config import *
 from flask import Flask, request
+from flask.ext.sqlalchemy import SQLAlchemy
 
 # Blueprints
 import blueprints.api
@@ -13,6 +14,8 @@ import blueprints.static_pages
 
 os.chdir(APP_BASE)
 app = Flask(__name__, static_folder="../static")  # We keep the static folder here to make IDEs happy with paths.
+app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
+db = SQLAlchemy(app)
 
 app.register_blueprint(blueprints.static_pages.static_pages, url_prefix="")
 app.register_blueprint(blueprints.api.api, url_prefix="/api")

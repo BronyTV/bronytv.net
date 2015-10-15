@@ -9,33 +9,13 @@ import subprocess
 from config import *
 from flask import Flask, render_template, jsonify, request
 
+# Blueprints
+import blueprints.static_pages
+
 os.chdir(APP_BASE)
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../static")  # We keep the static folder here to make IDEs happy with paths.
 
-
-@app.route("/")
-def index():
-    return render_template("index.html.jinja2")
-
-
-@app.route("/stream")
-def stream():
-    return render_template("stream.html.jinja2")
-
-
-@app.route("/about")
-def about():
-    return render_template("about.html.jinja2")
-
-
-@app.route("/rules")
-def rules():
-    return render_template("rules.html.jinja2")
-
-
-@app.route("/contact")
-def contact():
-    return render_template("contact.html.jinja2")
+app.register_blueprint(blueprints.static_pages.static_pages, url_prefix="/")
 
 
 @app.route("/github-update", methods=["POST"])

@@ -1,10 +1,7 @@
-import commands
-
+from btv_site.utils import site_revision
 from flask import Blueprint, render_template
 
 static_pages = Blueprint("static_pages", __name__, template_folder="../templates")
-
-site_revision = commands.getoutput("git rev-parse --short master")
 
 
 @static_pages.context_processor

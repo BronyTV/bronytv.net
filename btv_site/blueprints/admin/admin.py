@@ -2,10 +2,16 @@ import bcrypt
 
 from btv_site.database import db
 from btv_site.models.user import User
+from btv_site.utils import site_revision
 from btv_site.models.site_property import SiteProperty
 from flask import Blueprint, render_template, redirect, session, request, jsonify
 
 admin = Blueprint("admin", __name__, template_folder="../templates")
+
+
+@admin.context_processor
+def inject_revision():
+    return {"site_revision": site_revision}
 
 
 @admin.route("/")

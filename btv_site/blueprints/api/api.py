@@ -3,6 +3,7 @@ import requests
 
 from config import *
 from flask import Blueprint, jsonify
+from requests.exceptions import RequestException
 
 api = Blueprint("api", __name__, template_folder="templates")
 
@@ -15,7 +16,9 @@ def api_news():
         j = json.loads(res.text)
         if "response" in j and "posts" in j["response"]:
             posts = j["response"]["posts"]
-    except Exception:
+    except KeyError:  # Invalid response for some reason
+        pass
+    except RequestException:  # Request somehow failed
         pass
 
     return jsonify(posts=posts)

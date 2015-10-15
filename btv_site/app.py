@@ -27,7 +27,7 @@ def github_update():
 
     try:
         subprocess.Popen("git pull", shell=True).wait()
-    except Exception:
+    except OSError:
         return "ERROR"
 
     return "OK"

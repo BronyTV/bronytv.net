@@ -1,9 +1,4 @@
-var btvRulesApp = angular.module("btvRulesApp", []);
-
-btvRulesApp.config(['$interpolateProvider', function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{[');
-  $interpolateProvider.endSymbol(']}');
-}]);
+var btvRulesApp = btvApp("btvRulesApp");
 
 btvRulesApp.controller("RulesCtrl", function($scope) {
     $scope.rules = [

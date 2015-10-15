@@ -1,15 +1,4 @@
-var btvIndexApp = angular.module("btvIndexApp", ['timer']);
-
-btvIndexApp.config(['$interpolateProvider', function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{[');
-  $interpolateProvider.endSymbol(']}');
-}]);
-
-btvIndexApp.filter('unsafe', function($sce) {
-    return function(val) {
-        return $sce.trustAsHtml(val);
-    };
-});
+var btvIndexApp = btvApp("btvIndexApp", ['timer']);
 
 btvIndexApp.controller('NewsCtrl', function($scope, $http) {
     $scope.news = { fetching: true, error: false, posts: [] };

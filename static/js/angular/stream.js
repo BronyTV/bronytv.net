@@ -1,15 +1,4 @@
-var btvStreamApp = angular.module("btvStreamApp", []);
-
-btvStreamApp.filter('trustAsResourceUrl', ['$sce', function($sce) {
-    return function(val) {
-        return $sce.trustAsResourceUrl(val);
-    };
-}]);
-
-btvStreamApp.config(['$interpolateProvider', function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{[');
-  $interpolateProvider.endSymbol(']}');
-}]);
+var btvStreamApp = btvApp("btvStreamApp");
 
 btvStreamApp.controller("StreamCtrl", function($scope, $http) {
     $scope.properties = {stream_url: ''};

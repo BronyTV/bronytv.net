@@ -1,15 +1,4 @@
-var btvAboutApp = angular.module("btvAboutApp", []);
-
-btvAboutApp.config(['$interpolateProvider', function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{[');
-  $interpolateProvider.endSymbol(']}');
-}]);
-
-btvAboutApp.filter('unsafe', function($sce) {
-    return function(val) {
-        return $sce.trustAsHtml(val);
-    };
-});
+var btvAboutApp = btvApp("btvAboutApp");
 
 btvAboutApp.controller("AboutCtrl", function($scope, $http) {
     /* Please don't hate me. It'll grab from a database at some point, I promise. */

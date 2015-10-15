@@ -1,1 +1,1 @@
-from app import app as application
+from btv_site.app import app as application

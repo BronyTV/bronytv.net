@@ -1,23 +1,24 @@
 #!/usr/bin/env python2
 import os
 import hmac
-import json
 import hashlib
-import requests
 import subprocess
 
 from config import *
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, request
 
 # Blueprints
+import blueprints.api
 import blueprints.static_pages
 
 os.chdir(APP_BASE)
 app = Flask(__name__, static_folder="../static")  # We keep the static folder here to make IDEs happy with paths.
 
-app.register_blueprint(blueprints.static_pages.static_pages, url_prefix="/")
+app.register_blueprint(blueprints.static_pages.static_pages, url_prefix="")
+app.register_blueprint(blueprints.api.api, url_prefix="/api")
 
 
+# This is here because there's not really a good place to put it and it doesn't need its own blueprint.
 @app.route("/github-update", methods=["POST"])
 def github_update():
     h = hmac.new(GITHUB_WEBOOK_SECRET, request.get_data(), hashlib.sha1)
@@ -30,18 +31,3 @@ def github_update():
         return "ERROR"
 
     return "OK"
-
-
-@app.route("/api/news")
-def api_news():
-    base_url = "https://api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=%s&limit=5" % TUMBLR_API_KEY
-    posts = []
-    try:
-        res = requests.get(base_url)
-        j = json.loads(res.text)
-        if "response" in j and "posts" in j["response"]:
-            posts = j["response"]["posts"]
-    except Exception as e:
-        pass
-
-    return jsonify(posts=posts)

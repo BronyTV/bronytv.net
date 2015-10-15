@@ -2,10 +2,13 @@ import json
 import requests
 
 from config import *
+from btv_site.database import db
 from flask import Blueprint, jsonify
+from btv_site.models import SiteProperty
 from requests.exceptions import RequestException
 
 api = Blueprint("api", __name__, template_folder="templates")
+
 
 @api.route("/news")
 def api_news():
@@ -22,3 +25,9 @@ def api_news():
         pass
 
     return jsonify(posts=posts)
+
+
+@api.route("/properties")
+def api_properties():
+    properties = db.session.query(SiteProperty).all()
+    return jsonify({"properties": {p.name: p.value for p in properties}})

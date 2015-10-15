@@ -45,12 +45,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row" ng-app="btvStreamApp" ng-controller="StreamCtrl as stream">
+    <div class="row" ng-app="btvStreamApp" ng-controller="StreamCtrl" ng-init="init()">
         <div ng-class="{ 'col-md-offset-1': true, 'col-md-6': chatShown, 'col-md-10': !chatShown }">
             <h3 ng-show="chatShown">Stream</h3>
             <div align="center">
                 <div ng-if="!altStream" class="aspect-ratio">
-                    <iframe id="stream-frame" src="https://www.ustream.tv/embed/20768037?wmode=direct"
+                    <iframe id="stream-frame" ng-src="{[ properties.stream_url | trustAsResourceUrl ]}"
                         style="border: 0 none transparent; overflow: hidden;" webkitallowfullscreen allowfullscreen
                         frameborder="no" scrolling="no"></iframe>
                 </div>

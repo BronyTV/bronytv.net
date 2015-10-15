@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 from btv_site.app import app
 
 if __name__ == "__main__":

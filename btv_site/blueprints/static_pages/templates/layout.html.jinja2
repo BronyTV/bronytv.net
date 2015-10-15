@@ -43,6 +43,10 @@
                 text-decoration: none;
             }
 
+            a:hover {
+                text-decoration: underline;
+            }
+
             .purple-box {
                 background: rgba(171, 137, 227, 0.25) none repeat scroll 0% 0%;
                 border-radius: 10px;
@@ -62,6 +66,10 @@
                 height: 1px;
                 color: #9E75E3;
                 background-color: #9E75E3;
+            }
+
+            #footer {
+                padding-top: 10px;
             }
         </style>
         {% block scripts %}{% endblock %}
@@ -85,9 +93,9 @@
             </div>
             {% block content %}{% endblock %}
             <div class="row">
-                <div class="col-md-10 col-md-offset-1" align="center">
+                <div class="col-md-10 col-md-offset-1" align="center" id="footer">
+                    <p><a href="/">BronyTV</a> revision <a href="https://github.com/BronyTV/bronytv.net">{{ site_revision }}</a>. Site content &copy; 2011-2015 BronyTV. All rights reserved.</p>
                     <p>My Little Pony: Friendship is Magic is &copy; Hasbro. All creations are &copy; to their respective artists. All songs and videos are property of their respective artists.</p>
-                    <p>Site content &copy; 2011-2015 BronyTV. All rights reserved.</p>
                 </div>
             </div>
         </div>

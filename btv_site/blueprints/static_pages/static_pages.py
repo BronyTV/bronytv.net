@@ -1,6 +1,15 @@
+import commands
+
 from flask import Blueprint, render_template
 
 static_pages = Blueprint("static_pages", __name__, template_folder="templates")
+
+site_revision = commands.getoutput("git rev-parse --short master")
+
+
+@static_pages.context_processor
+def inject_revision():
+    return {"site_revision": site_revision}
 
 
 @static_pages.route("/")

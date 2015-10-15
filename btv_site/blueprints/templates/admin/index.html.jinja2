@@ -1,0 +1,70 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Admin{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="/static/js/angular/admin/index.js"></script>
+    <style type="text/css">
+        #container {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .purple-box-hack {
+            background: rgba(171, 137, 227, 0.25) none repeat scroll 0 0;
+            background-size:  100%;
+            padding: 3px;
+            padding-left: 10px;
+            padding-right: 10px;
+            color: white;
+            min-height: 25em;
+        }
+
+        #left-box {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        #right-box {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        #submit-success {
+            margin-top: 10px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row" id="container" ng-app="btvAdminApp" ng-controller="FormsCtrl" ng-init="init()">
+        <div class="col-md-5 col-md-offset-1 purple-box-hack" id="left-box">
+            <h3>Stream Stuff</h3>
+            <div style="max-width: 50em">
+                <form id="stream-form" novalidate>
+                    <div class="form-group">
+                        <label for="stream-url">Stream URL:</label>
+                        <input id="stream-url" name="stream-url" ng-model="data.stream_url" type="text" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn btn-purple" ng-click="updateProperties()" ng-disabled="submitting">Update</button>
+                </form>
+                <div id="submit-success" class="alert alert-success" ng-show="success">
+                    Successfully updated!<button type="button" class="close" ng-click="success = false;">&times;</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 purple-box-hack" id="right-box">
+            <h3>Dumb Stuff</h3>
+            <div style="max-width: 50em">
+                <form id="dumb-form" novalidate>
+                    <div class="form-group">
+                        <label for="raribox-image-url">Raribox Image URL:</label>
+                        <input id="raribox-image-url" name="raribox-image-url" ng-model="data.raribox_image_url" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="raribox-text">Raribox Text:</label>
+                        <textarea id="raribox-text" name="raribox-text" ng-model="data.raribox_text" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-purple" ng-click="updateProperties()" ng-disabled="submitting">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

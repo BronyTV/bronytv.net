@@ -1,0 +1,42 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Admin{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="/static/js/angular/admin/index.js"></script>
+    <style type="text/css">
+        #container {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        #inner {
+            max-width: 30em;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 purple-box" ng-app="btvAdminApp" ng-controller="FormsCtrl">
+            <div align="center" id="container">
+                <div id="inner">
+                    <h3 style="text-align: left;" class="light-purple">Admin Login</h3>
+                    {% if error %}
+                        <div class="alert alert-danger">Error: {{ error }}</div>
+                    {% endif %}
+                    <form action="" method="POST" style="text-align: left;">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-purple">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

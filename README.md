@@ -8,5 +8,7 @@ It runs on Python 2, and depends on the following `pip` packages:
 * flask
 * requests
 * flask-sqlalchemy
+* psycopg2
+* bcrypt
 
 The frontend of the app is powered by AngularJS, the source files of which are included in this repository.

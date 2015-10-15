@@ -6,12 +6,12 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
     $scope.init = function() {
         var resp = $http.get("/api/news");
 
-        resp.success(function(data, status, headers, config) {
+        resp.success(function(data) {
             $scope.news.fetching = false;
             $scope.news.posts = data.posts;
         });
 
-        resp.error(function(data, status, headers, config) {
+        resp.error(function(data) {
             $scope.news.fetching = false;
             $scope.news.error = true;
         });

@@ -70,6 +70,15 @@
                     <button class="btn btn-purple btn-xs" ng-click="toggleChat()"><span ng-show="chatShown">Hide</span><span ng-hide="chatShown">Show</span> Chat</button>
                     <button class="btn btn-purple btn-xs" ng-click="swapStream()">Broken Stream?</button>
                 </div>
+                <div ng-if="showPlaylist" style="max-width: 75%; margin-top: 5px;">
+                    <table class="table table-bordered table-condensed">
+                        <tbody>
+                            <tr ng-repeat="item in playlist">
+                                <td>{[ item.name ]}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div ng-class="{ 'col-md-4': chatShown }">

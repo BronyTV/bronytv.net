@@ -31,3 +31,12 @@ def api_news():
 def api_properties():
     properties = db.session.query(SiteProperty).all()
     return jsonify({"properties": {p.name: p.value for p in properties}})
+
+
+@api.route("/playlist", methods=["GET", "POST"])
+def api_playlist():
+    return jsonify({"playlist": [
+        {"name": "Test", "link": "http://test.com/"},
+        {"name": "Other Test", "link": None},
+        {"name": "Moar Stuff", "link": "http://test.com/"}
+    ]})

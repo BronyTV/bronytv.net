@@ -74,7 +74,10 @@
                     <table class="table table-bordered table-condensed">
                         <tbody>
                             <tr ng-repeat="item in playlist">
-                                <td>{[ item.name ]}</td>
+                                <td>
+                                    <a ng-if="item.link" ng-href="{[ item.link ]}">{[ item.name ]}</a>
+                                    <span ng-if="!item.link">{[ item.name ]}</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

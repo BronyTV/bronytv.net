@@ -37,6 +37,7 @@
         }
     </style>
     <link rel="stylesheet" href="/static/css/video-js.min.css" />
+    <script type="text/javascript" src="/static/js/angular-animate.js"></script>
     <script type="text/javascript" src="/static/js/video.min.js"></script>
     <script type="text/javascript" src="/static/js/angular/stream.js"></script>
     <script>
@@ -74,7 +75,7 @@
                     <table class="table table-bordered table-condensed">
                         <tbody>
                             <tr ng-repeat="item in playlist">
-                                <td>
+                                <td class="playlist-item">
                                     <a ng-if="item.link" ng-href="{[ item.link ]}">{[ item.name ]}</a>
                                     <span ng-if="!item.link">{[ item.name ]}</span>
                                 </td>

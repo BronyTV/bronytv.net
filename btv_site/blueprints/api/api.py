@@ -38,5 +38,6 @@ def api_playlist():
     return jsonify({"playlist": [
         {"name": "Test", "link": "http://test.com/"},
         {"name": "Other Test", "link": None},
-        {"name": "Moar Stuff", "link": "http://test.com/"}
+        {"name": "Moar Stuff", "link": "http://test.com/"},
+        {"name": "Butts", "link": "http://test.com/"}
     ]})

@@ -19,7 +19,7 @@ def index():
     if "user_id" not in session:
         return redirect("/admin/login")
 
-    user = db.session.query(User).filter(User.id == session["user_id"])
+    user = db.session.query(User).filter(User.id == session["user_id"]).first()
 
     return render_template("admin/index.html.jinja2", user=user)
 

@@ -1,4 +1,4 @@
-var btvStreamApp = btvApp("btvStreamApp");
+var btvStreamApp = btvApp("btvStreamApp", ["ngAnimate"]);
 
 btvStreamApp.animation('.playlist-item', function() {
   return {

@@ -35,6 +35,67 @@
         #stream-buttons {
             padding-top: 0.75em;
         }
+
+        /*
+  We're using CSS transitions for when
+  the enter and move events are triggered
+  for the element that has the .repeated-item
+  class
+*/
+.repeated-item.ng-enter, .repeated-item.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.repeated-item.ng-enter.ng-enter-active,
+.repeated-item.ng-move.ng-move-active {
+  opacity:1;
+}
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated-item class
+*/
+.repeated-item.ng-leave {
+  -webkit-animation:0.5s my_animation;
+  -moz-animation:0.5s my_animation;
+  -o-animation:0.5s my_animation;
+  animation:0.5s my_animation;
+}
+
+@keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+/*
+  Unfortunately each browser vendor requires
+  its own definition of keyframe animation code...
+*/
+@-webkit-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-moz-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-o-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
     </style>
     <link rel="stylesheet" href="/static/css/video-js.min.css" />
     <script type="text/javascript" src="/static/js/angular-animate.js"></script>
@@ -74,8 +135,8 @@
                 <div ng-if="showPlaylist" style="max-width: 75%; margin-top: 5px;">
                     <table class="table table-bordered table-condensed">
                         <tbody>
-                            <tr ng-repeat="item in playlist">
-                                <td class="playlist-item">
+                            <tr ng-repeat="item in playlist track by item.id" class="playlist-item">
+                                <td>
                                     <a ng-if="item.link" ng-href="{[ item.link ]}">{[ item.name ]}</a>
                                     <span ng-if="!item.link">{[ item.name ]}</span>
                                 </td>

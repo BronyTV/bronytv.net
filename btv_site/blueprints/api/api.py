@@ -36,8 +36,8 @@ def api_properties():
 @api.route("/playlist", methods=["GET", "POST"])
 def api_playlist():
     return jsonify({"playlist": [
-        {"name": "Test", "link": "http://test.com/"},
-        {"name": "Other Test", "link": None},
-        {"name": "Moar Stuff", "link": "http://test.com/"},
-        {"name": "Butts", "link": "http://test.com/"}
+        {"id": 1, "name": "Test", "link": "http://test.com/"},
+        {"id": 2, "name": "Other Test", "link": None},
+        {"id": 3, "name": "Moar Stuff", "link": "http://test.com/"},
+        {"id": 4, "name": "Butts", "link": "http://test.com/"}
     ]})

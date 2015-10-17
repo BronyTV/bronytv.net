@@ -19,10 +19,6 @@ app.secret_key = SECRET_KEY
 
 db.init_app(app)
 
-with app.app_context():
-    db.create_all()
-    db.session.commit()
-
 app.register_blueprint(blueprints.static_pages.static_pages, url_prefix="")
 app.register_blueprint(blueprints.admin.admin, url_prefix="/admin")
 app.register_blueprint(blueprints.api.api, url_prefix="/api")

@@ -15,7 +15,7 @@
             padding-left: 10px;
             padding-right: 10px;
             color: white;
-            min-height: 25em;
+            min-height: 30em;
         }
 
         #left-box {
@@ -31,13 +31,17 @@
         #submit-success {
             margin-top: 10px;
         }
+
+        .form-limit-width {
+            max-width: 50em;
+        }
     </style>
 {% endblock %}
 {% block content %}
     <div class="row" id="container" ng-app="btvAdminApp" ng-controller="FormsCtrl" ng-init="init()">
         <div class="col-md-5 col-md-offset-1 purple-box-hack" id="left-box">
             <h3>Stream Stuff</h3>
-            <div style="max-width: 50em">
+            <div class="form-limit-width">
                 <form id="stream-form" novalidate>
                     <div class="form-group">
                         <label for="stream-url">Stream URL:</label>
@@ -54,11 +58,16 @@
                 </div>
             </div>
             <h3>API</h3>
-            <input type="text" value="{{ user.get_api_key() }}" />
+            <form class="form-limit-width">
+                <div class="form-group">
+                    <label for="api_key">Your API Key:</label>
+                    <input class="form-control" type="text" value="{{ user.get_api_key() }}" id="api_key" readonly="readonly" />
+                </div>
+            </form>
         </div>
         <div class="col-md-5 purple-box-hack" id="right-box">
             <h3>Dumb Stuff</h3>
-            <div style="max-width: 50em">
+            <div class="form-limit-width">
                 <form id="dumb-form" novalidate>
                     <div class="form-group">
                         <label for="raribox-image-url">Raribox Image URL:</label>

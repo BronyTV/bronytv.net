@@ -14,5 +14,6 @@ class User(db.Model):
     def get_api_key(self):
         if not self.api_key:
             self.api_key = "".join(random.choice(string.ascii_letters) for _ in range(0, 32))
+            db.session.commit()  # Should be safe...
 
         return self.api_key

@@ -3,9 +3,12 @@ import requests
 
 from config import *
 from btv_site.database import db
-from flask import Blueprint, jsonify
+from btv_site.models import User
+from btv_site.models import PlaylistItem
 from btv_site.models import SiteProperty
 from requests.exceptions import RequestException
+from flask import Blueprint, jsonify, request, Response
+
 
 api = Blueprint("api", __name__, template_folder="templates")
 
@@ -35,9 +38,21 @@ def api_properties():
 
 @api.route("/playlist", methods=["GET", "POST"])
 def api_playlist():
-    return jsonify({"playlist": [
-        {"id": 1, "name": "Test", "link": "http://test.com/"},
-        {"id": 2, "name": "Other Test", "link": None},
-        {"id": 3, "name": "Moar Stuff", "link": "http://test.com/"},
-        {"id": 4, "name": "Butts", "link": "http://test.com/"}
-    ]})
+    if request.method == "POST":
+        api_key = request.args.get("api_key", "")
+        user = db.session.query(User).filter(User.api_key == api_key).first()
+        if not user:
+            return Response(json.dumps({"error": True, "message": "Invalid API key supplied"}), 403, None,
+                            "application/json", "application/json")
+
+        playlist_items = request.json["playlist"]
+        db.session.query(PlaylistItem).delete()
+        for item in playlist_items:
+            if "id" in item:
+                del item["id"]
+
+            db.session.add(PlaylistItem(**item))
+
+        db.session.commit()
+
+    return jsonify({"playlist": [pl.json() for pl in db.session.query(PlaylistItem).all()]})

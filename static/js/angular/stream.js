@@ -59,7 +59,7 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.chat_url = "https://kiwiirc.com/client?settings=3eda7e82f0210b259be287b5bfa1a89d";
     $scope.chatShown = true;
     $scope.altStream = false;
-    $scope.showPlaylist = true;
+    $scope.showPlaylist = false;
 
     $scope.init = function() {
         $http.get("/api/properties").success(function(data) {

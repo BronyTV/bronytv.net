@@ -100,8 +100,10 @@ $(document).ready(function() {
     <div class="col-md-4">
         <div id="scroll-anchor">
             <div class="purple-box hidden-sm hidden-xs" id="right-box" ng-controller="CountdownCtrl" ng-init="init()">
-                <h3 class="centered">Now Streaming: <span ng-bind-html="props.now_streaming | unsafe"></span></h3>
-                <hr>
+                <div ng-if="streaming">
+                    <h3 class="centered" ng-show="streaming">Now Streaming: <span ng-bind-html="props.now_streaming | unsafe"></span></h3>
+                    <hr>
+                </div>
                 <div class="countdown centered">
                     <timer interval="1000" end-time="time">
                         <h3 style="color: #9E75E3;">How long until Pony Time?</h3>

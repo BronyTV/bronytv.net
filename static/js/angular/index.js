@@ -24,6 +24,7 @@ btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
     $scope.init = function() {
         $http.get("/api/properties").success(function(data) {
             $scope.props = data["properties"];
+            $scope.streaming = typeof($scope.props.now_streaming) != "undefined" && $scope.props.now_streaming != null && $scope.props.now_streaming != "";
             $scope.time = moment.tz($scope.props["countdown_date"], "MM-DD-YYYY hh:mm:ss", "America/New_York").local();
         });
     };

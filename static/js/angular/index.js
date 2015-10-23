@@ -23,8 +23,8 @@ btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
 
     $scope.init = function() {
         $http.get("/api/properties").success(function(data) {
-            var props = data["properties"];
-            $scope.time = moment.tz(props["countdown_date"], "MM-DD-YYYY hh:mm:ss", "America/New_York").local();
+            $scope.props = data["properties"];
+            $scope.time = moment.tz($scope.props["countdown_date"], "MM-DD-YYYY hh:mm:ss", "America/New_York").local();
         });
     };
 });

@@ -20,7 +20,7 @@
         font-size: 1.5em;
     }
 
-    .countdown {
+    #right-box > .centered {
         text-align: center;
     }
 
@@ -99,8 +99,10 @@ $(document).ready(function() {
     </div>
     <div class="col-md-4">
         <div id="scroll-anchor">
-            <div class="purple-box hidden-sm hidden-xs" id="right-box">
-                <div class="countdown" ng-controller="CountdownCtrl" ng-init="init()">
+            <div class="purple-box hidden-sm hidden-xs" id="right-box" ng-controller="CountdownCtrl" ng-init="init()">
+                <h3 class="centered">Now Streaming: <span ng-bind-html="props.now_streaming | unsafe"></span></h3>
+                <hr>
+                <div class="countdown centered">
                     <timer interval="1000" end-time="time">
                         <h3 style="color: #9E75E3;">How long until Pony Time?</h3>
                         <div class="numbers" id="count2" style="text-align: center;"></div>

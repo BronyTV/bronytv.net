@@ -54,5 +54,6 @@ def api_playlist():
             db.session.add(PlaylistItem(**item))
 
         db.session.commit()
+        return jsonify({"error": False})
 
     return jsonify({"playlist": [pl.json() for pl in db.session.query(PlaylistItem).all()]})

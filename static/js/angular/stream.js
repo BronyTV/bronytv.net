@@ -61,20 +61,26 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.altStream = false;
     $scope.showPlaylist = false;
 
-    $scope.init = function() {
+    $scope.updateValues = function() {
         $http.get("/api/properties").success(function(data) {
             $scope.properties = data["properties"];
+            console.log("Now playing: " + $scope.properties.now_streaming);
         });
 
-
-        $interval(function() {
-            if (!$scope.showPlaylist) {
-                return true;
-            }
-
-            $http.get("/api/playlist").success(function(data) {
+        if ($scope.showPlaylist) {
+            $http.get("/api/playlist").success(function (data) {
                 $scope.playlist = data["playlist"];
             });
+        } else {
+            $scope.playlist = [];
+        }
+    };
+
+    $scope.init = function() {
+        $scope.updateValues();
+
+        $interval(function () {
+            $scope.updateValues();
         }, 5000);
     };
 

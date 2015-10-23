@@ -52,3 +52,20 @@ def api_playlist():
         return jsonify({"error": False})
 
     return jsonify({"playlist": [pl.json() for pl in db.session.query(PlaylistItem).all()]})
+
+
+@api.route("/now_streaming", methods=["GET", "POST"])
+@api_key_required
+def api_now_streaming():
+    if request.method == "POST":
+        now_streaming = request.json["now_streaming"]
+        q = db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming")
+        if q.count() == 0:
+            db.session.add(SiteProperty(name="now_streaming", value=now_streaming))
+        else:
+            q.first().value = now_streaming
+
+        db.session.commit()
+        return jsonify({"error": False})
+
+    return jsonify({"now_streaming": db.session.query(SiteProperty).filter(name="now_streaming").first().value})

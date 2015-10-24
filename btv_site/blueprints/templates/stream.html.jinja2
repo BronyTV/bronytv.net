@@ -109,7 +109,11 @@
 {% block content %}
     <div class="row" ng-app="btvStreamApp" ng-controller="StreamCtrl" ng-init="init()">
         <div ng-class="{ 'col-md-offset-1': true, 'col-md-6': chatShown, 'col-md-10': !chatShown }">
-            <h3 ng-show="chatShown">Stream</h3>
+            <h3>
+                Stream
+                <span ng-if="streaming">(<span ng-bind-html="properties.now_streaming | unsafe"></span>)</span>
+                <span ng-if="!streaming">(Offline)</span>
+            </h3>
             <div align="center">
                 <div ng-if="!altStream" class="aspect-ratio">
                     <iframe id="stream-frame" ng-src="{[ properties.stream_url | trustAsResourceUrl ]}"

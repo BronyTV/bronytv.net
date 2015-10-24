@@ -100,8 +100,11 @@ $(document).ready(function() {
     <div class="col-md-4">
         <div id="scroll-anchor">
             <div class="purple-box hidden-sm hidden-xs" id="right-box" ng-controller="CountdownCtrl" ng-init="init()">
-                <div ng-if="streaming">
-                    <h3 class="centered" ng-show="streaming">Now Streaming: <span ng-bind-html="props.now_streaming | unsafe"></span></h3>
+                <div class="centered">
+                    <h3>
+                        <span ng-if="streaming">Now Streaming: <span ng-bind-html="props.now_streaming | unsafe"></span></span>
+                        <span ng-if="!streaming">Stream Offline</span>
+                    </h3>
                     <hr>
                 </div>
                 <div class="countdown centered">

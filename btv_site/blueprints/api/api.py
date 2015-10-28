@@ -36,22 +36,22 @@ def api_properties():
     return jsonify({"properties": {p.name: p.value for p in properties}})
 
 
-@api.route("/playlist", methods=["GET", "POST"])
+@api.route("/playlist", methods=["GET"])
+def api_playlist_get():
+    return jsonify({"playlist": json.loads(db.session.query(SiteProperty).filter(SiteProperty.name == "playlist").first().value)})
+    
+@api.route("/playlist", methods=["POST"])
 @api_key_required
-def api_playlist():
-    if request.method == "POST":
-        playlist_items = request.json["playlist"]
-        db.session.query(PlaylistItem).delete()
-        for item in playlist_items:
-            if "id" in item:
-                del item["id"]
+def api_playlist_post():
+    playlist = request.json["playlist"]
+    q = db.session.query(SiteProperty).filter(SiteProperty.name == "playlist")
+    if q.count() == 0:
+        db.session.add(SiteProperty(name="playlist", value=json.dumps(playlist)))
+    else:
+        q.first().value = json.dumps(playlist)
 
-            db.session.add(PlaylistItem(**item))
-
-        db.session.commit()
-        return jsonify({"error": False})
-
-    return jsonify({"playlist": [pl.json() for pl in db.session.query(PlaylistItem).all()]})
+    db.session.commit()
+    return jsonify({"error": False})
 
 
 @api.route("/now_streaming", methods=["GET", "POST"])

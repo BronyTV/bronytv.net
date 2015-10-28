@@ -68,4 +68,4 @@ def api_now_streaming():
         db.session.commit()
         return jsonify({"error": False})
 
-    return jsonify({"now_streaming": db.session.query(SiteProperty).filter(name="now_streaming").first().value})
+    return jsonify({"now_streaming": db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming").first().value})

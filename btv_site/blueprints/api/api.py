@@ -38,7 +38,8 @@ def api_properties():
 
 @api.route("/playlist", methods=["GET"])
 def api_playlist_get():
-    return jsonify({"playlist": json.loads(db.session.query(SiteProperty).filter(SiteProperty.name == "playlist").first().value)})
+    prop = db.session.query(SiteProperty).filter(SiteProperty.name == "playlist").first()
+    return jsonify({"playlist": json.loads(prop.value) if prop else []})
     
 @api.route("/playlist", methods=["POST"])
 @api_key_required
@@ -56,7 +57,8 @@ def api_playlist_post():
 
 @api.route("/now_streaming", methods=["GET"])
 def api_now_streaming_get():
-    return jsonify({"now_streaming": db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming").first().value})
+    prop = db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming").first()
+    return jsonify({"now_streaming": prop.value if prop else "Offline"})
 
 @api.route("/now_streaming", methods=["POST"])
 @api_key_required

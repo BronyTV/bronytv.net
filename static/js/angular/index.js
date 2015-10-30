@@ -28,4 +28,8 @@ btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
             $scope.time = moment.tz($scope.props["countdown_date"], "MM-DD-YYYY hh:mm:ss", "America/New_York").local();
         });
     };
+
+    $scope.isPonyTime = function() {
+        return moment().isAfter($scope.time);
+    }
 });

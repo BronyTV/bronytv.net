@@ -108,8 +108,8 @@ $(document).ready(function() {
                     <hr>
                 </div>
                 <div class="countdown centered">
-                    <timer interval="1000" end-time="time">
-                        <h3 style="color: #9E75E3;">How long until Pony Time?</h3>
+                    <timer interval="1000" end-time="time" ng-if="!isPonyTime()">
+                        <h3 class="light-purple">How long until Pony Time?</h3>
                         <div class="numbers" id="count2" style="text-align: center;"></div>
                         <div class="numbers" id="dday">{[ days ]}</div>
                         <div class="title" id="days">Day{[ daysS ]}</div>
@@ -121,6 +121,8 @@ $(document).ready(function() {
                         <div class="title" id="seconds">Second{[ secondsS ]}</div>
                         <h5>The next episode airs at 11:30 AM EST on Saturday</h5>
                     </timer>
+
+                    <h3 class="light-purple" ng-if="isPonyTime()">It's Pony Time!</h3>
                 </div>
                 <hr>
                 <p><a href="https://www.facebook.com/TVBrony" target="_blank">Our Facebook Page!</a></p>

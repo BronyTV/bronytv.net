@@ -36,6 +36,10 @@
             padding-top: 0.75em;
         }
 
+        .playlist-item td {
+            text-align: center;
+        }
+
         /*
   We're using CSS transitions for when
   the enter and move events are triggered
@@ -143,6 +147,7 @@
                                 <td>
                                     <a ng-if="item.link" ng-href="{[ item.link ]}">{[ item.name ]}</a>
                                     <span ng-if="!item.link">{[ item.name ]}</span>
+                                    <span ng-if="item.artist"> - {[ item.artist ]}</span>
                                 </td>
                             </tr>
                         </tbody>

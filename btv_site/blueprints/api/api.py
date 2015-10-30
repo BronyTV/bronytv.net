@@ -36,36 +36,40 @@ def api_properties():
     return jsonify({"properties": {p.name: p.value for p in properties}})
 
 
-@api.route("/playlist", methods=["GET", "POST"])
+@api.route("/playlist", methods=["GET"])
+def api_playlist_get():
+    prop = db.session.query(SiteProperty).filter(SiteProperty.name == "playlist").first()
+    return jsonify({"playlist": json.loads(prop.value) if prop else []})
+    
+@api.route("/playlist", methods=["POST"])
 @api_key_required
-def api_playlist():
-    if request.method == "POST":
-        playlist_items = request.json["playlist"]
-        db.session.query(PlaylistItem).delete()
-        for item in playlist_items:
-            if "id" in item:
-                del item["id"]
+def api_playlist_post():
+    playlist = request.json["playlist"]
+    q = db.session.query(SiteProperty).filter(SiteProperty.name == "playlist")
+    if q.count() == 0:
+        db.session.add(SiteProperty(name="playlist", value=json.dumps(playlist)))
+    else:
+        q.first().value = json.dumps(playlist)
 
-            db.session.add(PlaylistItem(**item))
-
-        db.session.commit()
-        return jsonify({"error": False})
-
-    return jsonify({"playlist": [pl.json() for pl in db.session.query(PlaylistItem).all()]})
+    db.session.commit()
+    return jsonify({"error": False})
 
 
-@api.route("/now_streaming", methods=["GET", "POST"])
+@api.route("/now_streaming", methods=["GET"])
+def api_now_streaming_get():
+    prop = db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming").first()
+    return jsonify({"now_streaming": prop.value if prop else "Offline"})
+
+@api.route("/now_streaming", methods=["POST"])
 @api_key_required
-def api_now_streaming():
-    if request.method == "POST":
-        now_streaming = request.json["now_streaming"]
-        q = db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming")
-        if q.count() == 0:
-            db.session.add(SiteProperty(name="now_streaming", value=now_streaming))
-        else:
-            q.first().value = now_streaming
+def api_now_streaming_post():
+    now_streaming = request.json["now_streaming"]
+    q = db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming")
+    if q.count() == 0:
+        db.session.add(SiteProperty(name="now_streaming", value=now_streaming))
+    else:
+        q.first().value = now_streaming
 
-        db.session.commit()
-        return jsonify({"error": False})
+    db.session.commit()
+    return jsonify({"error": False})
 
-    return jsonify({"now_streaming": db.session.query(SiteProperty).filter(name="now_streaming").first().value})

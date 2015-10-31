@@ -36,70 +36,49 @@
             padding-top: 0.75em;
         }
 
-        .playlist-item td {
-            text-align: center;
+        .playlist {
+            margin-top: 5px;
         }
 
-        /*
-  We're using CSS transitions for when
-  the enter and move events are triggered
-  for the element that has the .repeated-item
-  class
-*/
-.repeated-item.ng-enter, .repeated-item.ng-move {
-  -webkit-transition:0.5s linear all;
-  -moz-transition:0.5s linear all;
-  -o-transition:0.5s linear all;
-  transition:0.5s linear all;
-  opacity:0;
-}
+        .playlist-root {
+            list-style-type: none;
+            margin: 0px;
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-/*
- The ng-enter-active and ng-move-active
- are where the transition destination properties
- are set so that the animation knows what to
- animate.
-*/
-.repeated-item.ng-enter.ng-enter-active,
-.repeated-item.ng-move.ng-move-active {
-  opacity:1;
-}
+        .playlist-item {
+            text-align: center;
+            margin: 2px;
+            border-radius: 4px;
+        }
 
-/*
-  We're using CSS keyframe animations for when
-  the leave event is triggered for the element
-  that has the .repeated-item class
-*/
-.repeated-item.ng-leave {
-  -webkit-animation:0.5s my_animation;
-  -moz-animation:0.5s my_animation;
-  -o-animation:0.5s my_animation;
-  animation:0.5s my_animation;
-}
+        .playlist.ng-enter, .playlist.ng-leave,
+        .playlist-item.ng-enter, .playlist-item.ng-leave {
+            -webkit-transition: all 0.5s linear;
+            -moz-transition: all 0.5s linear;
+            -o-transition: all 0.5s linear;
+            transition: all 0.5s linear;
+            overflow-y: hidden;
+        }
 
-@keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
+        .playlist-item.ng-leave {
+            transition-delay: 0.5s;
+        }
 
-/*
-  Unfortunately each browser vendor requires
-  its own definition of keyframe animation code...
-*/
-@-webkit-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
+        .playlist.ng-enter, .playlist.ng-leave.ng-leave-active,
+        .playlist-item.ng-enter, .playlist-item.ng-leave.ng-leave-active {
+            max-height: 0;
+        }
 
-@-moz-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
+        .playlist.ng-enter.ng-enter-active, .playlist.ng-leave.ng-leave-active {
+            max-height: 100px;
+        }
 
-@-o-keyframes my_animation {
-  from { opacity:1; }
-  to { opacity:0; }
-}
+        .playlist-item.ng-enter.ng-enter-active, .playlist-item.ng-leave {
+            max-height: 20px;
+        }
     </style>
     <link rel="stylesheet" href="/static/css/video-js.min.css" />
     <script type="text/javascript" src="/static/js/angular-animate.js"></script>
@@ -140,19 +119,6 @@
                     <button class="btn btn-purple btn-xs" ng-click="toggleChat()"><span ng-show="chatShown">Hide</span><span ng-hide="chatShown">Show</span> Chat</button>
                     <button class="btn btn-purple btn-xs" ng-click="swapStream()">Broken Stream?</button>
                 </div>
-                <div ng-if="showPlaylist" style="max-width: 75%; margin-top: 5px;">
-                    <table class="table table-bordered table-condensed">
-                        <tbody>
-                            <tr ng-repeat="item in playlist track by item.id" class="playlist-item">
-                                <td>
-                                    <a ng-if="item.link" ng-href="{[ item.link ]}">{[ item.name ]}</a>
-                                    <span ng-if="!item.link">{[ item.name ]}</span>
-                                    <span ng-if="item.artist"> - {[ item.artist ]}</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
         <div ng-class="{ 'col-md-4': chatShown }">
@@ -163,6 +129,15 @@
                         src="https://kiwiirc.com/client?settings=3eda7e82f0210b259be287b5bfa1a89d"></iframe>
                 </div>
             </div>
+        </div>
+        <div ng-if="showPlaylist" class="col-md-12 playlist">
+            <ul class="playlist-root">
+                <li ng-repeat="item in playlist track by item.id" class="purple-box light-purple playlist-item">
+                    <a ng-if="item.link" ng-href="{[ item.link ]}">{[ item.name ]}</a>
+                    <span ng-if="!item.link">{[ item.name ]}</span>
+                    <span ng-if="item.artist"> - {[ item.artist ]}</span>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="row">

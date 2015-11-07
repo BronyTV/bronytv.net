@@ -12,12 +12,8 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
         $http.get("/api/properties").success(function(data) {
             $scope.properties = data["properties"];
             $scope.streaming = typeof($scope.properties.now_streaming) != "undefined" && $scope.properties.now_streaming != null && $scope.properties.now_streaming != "";
-
-            var miralityIsStreaming = $scope.properties.now_streaming ? ($scope.properties.now_streaming.slice(0, 10) == 'Mirality -') : false;
-            // TODO: who else wants a playlist?
-
-            $scope.showPlaylist = miralityIsStreaming;
-            $scope.playlist = ($scope.showPlaylist ? angular.fromJson($scope.properties.playlist) : null) || [];
+            $scope.playlist = angular.fromJson($scope.properties.playlist) || [];
+            $scope.showPlaylist = !!$scope.playlist;
         });
     };
 

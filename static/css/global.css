@@ -1,0 +1,74 @@
+body {
+    background-size: 100%;
+    background: #000000 url(/static/img/new_background.png) no-repeat fixed;
+}
+
+/* Makes the navbar buttons the right color */
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    color: #ffffff;
+    background-color: #4f23a2;
+}
+
+/* Makes the navbar buttons look less ugly when hovered over */
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus {
+    background-color: #9E75E3;
+    color: #FFFFFF;
+}
+
+#nav {
+    padding-top: 2.2em;
+    margin-bottom: 0.5em;
+}
+
+#nav-links {
+    display: inline-block;
+    margin-left: 0.938em;
+    margin-top: 2.2em;
+    position: absolute;
+}
+
+/* Makes the links purple */
+a, a:hover, a:focus {
+    color: #9E75E3;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* .purple-box are for the main boxes that hold the site content */
+.purple-box {
+    background: rgba(171, 137, 227, 0.25) none repeat scroll 0% 0%;
+    border-radius: 10px;
+    background-size:  100%;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+}
+
+.light-purple {
+    color: #9E75E3;
+}
+
+/* Makes <hr> elements purple and a bit thicker than normal */
+hr {
+    border: none;
+    height: 1px;
+    color: #9E75E3;
+    background-color: #9E75E3;
+}
+
+#footer {
+    padding-top: 10px;
+}
+
+/* Add to any .btn to make it fit in with the site's theme. */
+.btn-purple {
+    color: #FFF;
+    background-color: #4F23A2
+}

@@ -1,0 +1,10 @@
+#container {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#inner {
+    max-width: 30em;
+    margin: 0 auto;
+}

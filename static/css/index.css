@@ -1,0 +1,24 @@
+.news-post > span {
+    color: #ffffff;
+}
+
+.title, .numbers {
+    display: inline-block;
+}
+
+.numbers {
+    font-size: 1.75em;
+    color: #ffffff;
+}
+
+.title {
+    font-size: 1.5em;
+}
+
+#right-box > .centered {
+    text-align: center;
+}
+
+#right-box {
+    max-width: 55em;
+}

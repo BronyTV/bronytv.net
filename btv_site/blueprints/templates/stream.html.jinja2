@@ -2,91 +2,14 @@
 {% block title %}Stream{% endblock %}
 
 {% block scripts %}
-    <style>
-        ul {
-            list-style-position: inside;
-        }
-
-        #stream-frame {
-            min-height: 100%;
-        }
-
-        .aspect-ratio {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
-        }
-
-        .chat-aspect-ratio {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 86%;
-        }
-
-        .aspect-ratio iframe, .chat-aspect-ratio iframe {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0; top: 0;
-        }
-
-        #stream-buttons {
-            padding-top: 0.75em;
-        }
-
-        .playlist {
-            margin-top: 5px;
-        }
-
-        .playlist-root {
-            list-style-type: none;
-            margin: 0px;
-            width: 75%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .playlist-item {
-            text-align: center;
-            margin: 2px;
-            border-radius: 4px;
-        }
-
-        .playlist.ng-enter, .playlist.ng-leave,
-        .playlist-item.ng-enter, .playlist-item.ng-leave {
-            -webkit-transition: all 0.5s linear;
-            -moz-transition: all 0.5s linear;
-            -o-transition: all 0.5s linear;
-            transition: all 0.5s linear;
-            overflow-y: hidden;
-        }
-
-        .playlist-item.ng-leave {
-            transition-delay: 0.5s;
-        }
-
-        .playlist.ng-enter, .playlist.ng-leave.ng-leave-active,
-        .playlist-item.ng-enter, .playlist-item.ng-leave.ng-leave-active {
-            max-height: 0;
-        }
-
-        .playlist.ng-enter.ng-enter-active, .playlist.ng-leave.ng-leave-active {
-            max-height: 100px;
-        }
-
-        .playlist-item.ng-enter.ng-enter-active, .playlist-item.ng-leave {
-            max-height: 20px;
-        }
-    </style>
-    <link rel="stylesheet" href="/static/css/video-js.min.css" />
     <script type="text/javascript" src="/static/js/angular-animate.js"></script>
     <script type="text/javascript" src="/static/js/video.min.js"></script>
     <script type="text/javascript" src="/static/js/angular/stream.js"></script>
-    <script>
+    <script type="text/javascript">
         videojs.options.flash.swf = "/static/swf/video-js.swf";
     </script>
+    <link rel="stylesheet" href="/static/css/video-js.min.css" />
+    <link rel="stylesheet" href="/static/css/stream.css" />
 {% endblock %}
 
 {% block content %}

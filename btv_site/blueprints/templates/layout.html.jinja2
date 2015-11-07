@@ -2,7 +2,9 @@
 <html>
     <head>
         <title>BronyTV - {% block title %}{% endblock %}</title>
+
         <link rel="shortcut icon" href="/static/img/favicon.png" />
+
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="keywords" content="Brony Stream, Pony Stream, MLP Stream, Brony TV, BronyTV, Pony Episodes" />
@@ -10,84 +12,13 @@
         <!--[if lt IE 9]>
             <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-        <link rel="stylesheet" href="/static/css/bootstrap.css" />
+
         <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
         <script type="text/javascript" src="/static/js/angular.js"></script>
         <script type="text/javascript" src="/static/js/angular/common.js"></script>
         <script type="text/javascript" src="/static/js/header.js"></script>
-        <style>
-            body {
-                background-image: url(/static/img/new_background.png);
-                background-repeat: no-repeat;
-                background-size: 100%;
-                background-color: #000000;
-                background-attachment: fixed;
-            }
-        
-            .nav-pills > li.active > a,
-            .nav-pills > li.active > a:hover,
-            .nav-pills > li.active > a:focus {
-                color: #ffffff;
-                background-color: #4f23a2;
-            }
-
-            .nav-pills > li > a:hover,
-            .nav-pills > li > a:focus {
-                background-color: #9E75E3;
-                color: #FFFFFF;
-            }
-
-            #nav {
-                padding-top: 2.2em;
-                margin-bottom: 0.5em;
-            }
-        
-            #nav-links {
-                display: inline-block;
-                margin-left: 0.938em;
-                margin-top: 2.2em;
-                position: absolute;
-            }
-        
-            a, a:hover, a:focus {
-                color: #9E75E3;
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-            .purple-box {
-                background: rgba(171, 137, 227, 0.25) none repeat scroll 0% 0%;
-                border-radius: 10px;
-                background-size:  100%;
-                padding: 3px;
-                padding-left: 10px;
-                padding-right: 10px;
-                color: white;
-            }
-
-            .light-purple {
-                color: #9E75E3;
-            }
-
-            hr {
-                border: none;
-                height: 1px;
-                color: #9E75E3;
-                background-color: #9E75E3;
-            }
-
-            #footer {
-                padding-top: 10px;
-            }
-
-            .btn-purple {
-                color: #FFF;
-                background-color: #4F23A2
-            }
-        </style>
+        <link rel="stylesheet" href="/static/css/bootstrap.css" />
+        <link rel="stylesheet" href="/static/css/global.css" />
         {% block scripts %}{% endblock %}
     </head>
     <body>

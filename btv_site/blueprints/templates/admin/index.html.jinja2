@@ -2,40 +2,7 @@
 {% block title %}Admin{% endblock %}
 {% block scripts %}
     <script type="text/javascript" src="/static/js/angular/admin/index.js"></script>
-    <style type="text/css">
-        #container {
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
-        .purple-box-hack {
-            background: rgba(171, 137, 227, 0.25) none repeat scroll 0 0;
-            background-size:  100%;
-            padding: 3px;
-            padding-left: 10px;
-            padding-right: 10px;
-            color: white;
-            min-height: 30em;
-        }
-
-        #left-box {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-        }
-
-        #right-box {
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-
-        #submit-success {
-            margin-top: 10px;
-        }
-
-        .form-limit-width {
-            max-width: 50em;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/admin/index.css" />
 {% endblock %}
 {% block content %}
     <div class="row" id="container" ng-app="btvAdminApp" ng-controller="FormsCtrl" ng-init="init()">

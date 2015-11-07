@@ -1,6 +1,9 @@
 body {
+    background-image: url(/static/img/new_background.png);
+    background-repeat: no-repeat;
     background-size: 100%;
-    background: #000000 url(/static/img/new_background.png) no-repeat fixed;
+    background-color: #000000;
+    background-attachment: fixed;
 }
 
 /* Makes the navbar buttons the right color */

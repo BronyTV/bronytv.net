@@ -79,10 +79,10 @@ register_all([
     ("js", "rules_js", "js/angular/rules.js"),
 
     ("css", "contact_css", []),
-    ("css", "contact_js", []),
+    ("js", "contact_js", []),
 
     ("css", "admin_index_css", "css/admin/index.css"),
-    ("css", "admin_index_js", "js/angular/admin/index.js"),
+    ("js", "admin_index_js", "js/angular/admin/index.js"),
 
     ("css", "admin_login_css", "css/admin/login.css"),
     ("js", "admin_login_js", [])

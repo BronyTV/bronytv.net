@@ -1,7 +1,8 @@
 {% extends "layout.html.jinja2" %}
 {% block title %}Rules{% endblock %}
 {% block scripts %}
-    <script type="text/javascript" src="/static/js/angular/rules.js"></script>
+    {{ compressor("rules_js", inline=False) }}
+    {{ compressor("rules_css", inline=False) }}
 {% endblock %}
 {% block content %}
     <div class="row">

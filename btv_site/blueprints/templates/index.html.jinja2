@@ -21,8 +21,8 @@
         });
     });
     </script>
-    {{ compressor("index_css", inline=False) }}
     {{ compressor("index_js", inline=False) }}
+    {{ compressor("index_css", inline=False) }}
 {% endblock %}
 
 {% block content %}

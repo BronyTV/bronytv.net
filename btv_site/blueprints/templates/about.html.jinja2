@@ -1,7 +1,8 @@
 {% extends "layout.html.jinja2" %}
 {% block title %}About{% endblock %}
 {% block scripts %}
-    <script type="text/javascript" src="/static/js/angular/about.js"></script>
+    {{ compressor("about_js", inline=False) }}
+    {{ compressor("about_css", inline=False) }}
 {% endblock %}
 {% block content %}
     <div class="row">

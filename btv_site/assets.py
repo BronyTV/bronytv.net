@@ -40,70 +40,50 @@ def make_js(name, assets):
     return Bundle(name=name, assets=assets, mimetype="text/javascript", extension="js", processors=["jsmin"],
                   linked_template='<script type="{mimetype}" src="{url}"></script>')
 
-compressor.register_bundle(make_css(
-    "index_css",
-    global_css + [UnicodeFileAsset("css/index.css")]
-))
 
-compressor.register_bundle(make_js(
-    "index_js",
-    global_js + [UnicodeFileAsset("js/vendor/moment.js"), UnicodeFileAsset("js/vendor/moment-timezone-with-data-2010-2020.js"),
-                 UnicodeFileAsset("js/vendor/humanize-duration.js"), UnicodeFileAsset("js/vendor/angular-timer.js"),
-                 UnicodeFileAsset("js/angular/index.js")]
-))
+def register_all(lst):
+    for asset_type, bundle_name, asset_files in lst:
+        if isinstance(asset_files, str):
+            asset_files = [asset_files]
 
-compressor.register_bundle(make_css(
-    "stream_css",
-    global_css + [UnicodeFileAsset("css/vendor/video-js.min.css"), UnicodeFileAsset("css/stream.css")]
-))
+        assets = [UnicodeFileAsset(f) for f in asset_files]
 
-compressor.register_bundle(make_js(
-    "stream_js",
-    global_js + [UnicodeFileAsset("js/vendor/angular-animate.js"), UnicodeFileAsset("js/vendor/video.js"),
-                 UnicodeFileAsset("js/angular/stream.js")]
-))
+        if asset_type == "css":
+            compressor.register_bundle(make_css(bundle_name, global_css + assets))
+        else:
+            compressor.register_bundle(make_js(bundle_name, global_js + assets))
 
-compressor.register_bundle(make_css(
-    "about_css",
-    global_css
-))
+"""
+Assets definitions look like this:
 
-compressor.register_bundle(make_js(
-    "about_js",
-    global_js + [UnicodeFileAsset("js/angular/about.js")]
-))
+(asset_type, bundle_name, asset_files)
 
-compressor.register_bundle(make_css(
-    "rules_css",
-    global_css
-))
+Where:
+    asset_type is one of "css" or "js"
+    bundle_name is the asset bundle name that will be used in templates
+    asset_files is a list of file names to add to the bundle, or a single filename str if there's only one
+"""
 
-compressor.register_bundle(make_js(
-    "rules_js",
-    global_js + [UnicodeFileAsset("js/angular/rules.js")]
-))
+register_all([
+    ("css", "index_css", "css/index.css"),
+    ("js", "index_js", ["js/vendor/moment.js", "js/vendor/moment-timezone-with-data-2010-2020.js",
+                        "js/vendor/humanize-duration.js", "js/vendor/angular-timer.js", "js/angular/index.js"]),
 
-compressor.register_bundle(make_css(
-    "contact_css",
-    global_css
-))
+    ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css"]),
+    ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/angular/stream.js"]),
 
-compressor.register_bundle(make_js(
-    "contact_js",
-    global_js
-))
+    ("css", "about_css", []),
+    ("js", "about_js", "js/angular/about.js"),
 
-compressor.register_bundle(make_css(
-    "admin_index_css",
-    global_css + [UnicodeFileAsset("css/admin/index.css")]
-))
+    ("css", "rules_css", []),
+    ("js", "rules_js", "js/angular/rules.js"),
 
-compressor.register_bundle(make_js(
-    "admin_index_js",
-    global_js + [UnicodeFileAsset("js/angular/admin/index.js")]
-))
+    ("css", "contact_css", []),
+    ("css", "contact_js", []),
 
-compressor.register_bundle(make_css(
-    "admin_login_css",
-    global_css + [UnicodeFileAsset("css/admin/login.css")]
-))
+    ("css", "admin_index_css", "css/admin/index.css"),
+    ("css", "admin_index_js", "js/angular/admin/index.js"),
+
+    ("css", "admin_login_css", "css/admin/login.css"),
+    ("js", "admin_login_js", [])
+])

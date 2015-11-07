@@ -59,7 +59,7 @@ compressor.register_bundle(make_css(
 
 compressor.register_bundle(make_js(
     "stream_js",
-    global_js + [UnicodeFileAsset("js/vendor/angular-animate.js"), UnicodeFileAsset("js/vendor/video.min.js"),
+    global_js + [UnicodeFileAsset("js/vendor/angular-animate.js"), UnicodeFileAsset("js/vendor/video.js"),
                  UnicodeFileAsset("js/angular/stream.js")]
 ))
 

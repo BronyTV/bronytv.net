@@ -20,7 +20,9 @@ def api_key_required(f):
 
 
 def add_response_headers(headers=None):
-    """This decorator adds the headers passed in to the response"""
+    """
+    This decorator adds the headers passed in to the response
+    """
     if not headers:
         headers = {}
 

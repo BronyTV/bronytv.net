@@ -3,12 +3,10 @@ import requests
 
 from config import *
 from btv_site.database import db
-from btv_site.models import PlaylistItem
 from btv_site.models import SiteProperty
 from flask import Blueprint, jsonify, request
-from btv_site.decorators import api_key_required
 from requests.exceptions import RequestException
-
+from btv_site.decorators import api_key_required, add_response_headers
 
 api = Blueprint("api", __name__, template_folder="templates")
 
@@ -31,16 +29,19 @@ def api_news():
 
 
 @api.route("/properties")
+@add_response_headers({"Vary": "Accept-Encoding"})
 def api_properties():
     properties = db.session.query(SiteProperty).all()
     return jsonify({"properties": {p.name: p.value for p in properties}})
 
 
 @api.route("/playlist", methods=["GET"])
+@add_response_headers({"Vary": "Accept-Encoding"})
 def api_playlist_get():
     prop = db.session.query(SiteProperty).filter(SiteProperty.name == "playlist").first()
     return jsonify({"playlist": json.loads(prop.value) if prop else []})
-    
+
+
 @api.route("/playlist", methods=["POST"])
 @api_key_required
 def api_playlist_post():
@@ -60,6 +61,7 @@ def api_now_streaming_get():
     prop = db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming").first()
     return jsonify({"now_streaming": prop.value if prop else "Offline"})
 
+
 @api.route("/now_streaming", methods=["POST"])
 @api_key_required
 def api_now_streaming_post():
@@ -72,4 +74,3 @@ def api_now_streaming_post():
 
     db.session.commit()
     return jsonify({"error": False})
-

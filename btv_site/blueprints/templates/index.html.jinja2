@@ -2,6 +2,11 @@
 {% block title %}Index{% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript" src="/static/js/moment.js"></script>
+    <script type="text/javascript" src="/static/js/moment-timezone-with-data-2010-2020.js"></script>
+    <script type="text/javascript" src="/static/js/humanize-duration.js"></script>
+    <script type="text/javascript" src="/static/js/angular-timer.js"></script>
+    <script type="text/javascript" src="/static/js/angular/index.js"></script>
     <script>
     $(document).ready(function() {
         $(window).scroll(function() {
@@ -21,8 +26,7 @@
         });
     });
     </script>
-    {{ compressor("index_js", inline=False) }}
-    {{ compressor("index_css", inline=False) }}
+    <link rel="stylesheet" href="/static/css/index.css" />
 {% endblock %}
 
 {% block content %}

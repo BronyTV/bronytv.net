@@ -23,26 +23,16 @@
                 <span ng-if="!streaming">(Offline)</span>
             </h3>
             <div align="center">
-                <div ng-if="!altStream" class="aspect-ratio">
+                <div class="aspect-ratio">
                     <iframe id="stream-frame" ng-src="{[ properties.stream_url | trustAsResourceUrl ]}"
-                        style="border: 0 none transparent; overflow: hidden;" webkitallowfullscreen allowfullscreen
+                        style="border: 0 none transparent; overflow: hidden;" allowfullscreen
                         frameborder="no" scrolling="no"></iframe>
-                </div>
-                <div ng-if="altStream">
-                    <div id="player" class="video" style="text-align:center;">
-                        <div id="vid">
-                            <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" height="600" width="800" autoplay poster="/static/img/logo.png" data-setup="{}">
-					            <source src="rtmp://dusky.horse:1935/live/bwu2as4hc738" type="rtmp/mp4">
-					            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-                            </video>
-			            </div>
-                    </div>
                 </div>
                 <div id="stream-buttons">
                     <button class="btn btn-purple btn-xs" ng-click="reloadStream()">Reload Stream</button>
                     <button class="btn btn-purple btn-xs" ng-click="popoutChat()">Pop Out Chat</button>
                     <button class="btn btn-purple btn-xs" ng-click="toggleChat()"><span ng-show="chatShown">Hide</span><span ng-hide="chatShown">Show</span> Chat</button>
-                    <button class="btn btn-purple btn-xs" ng-click="swapStream()">Broken Stream?</button>
+                    <button class="btn btn-purple btn-xs" ng-click="popoutAlternateStream()">Alternate Stream</button>
                 </div>
             </div>
         </div>

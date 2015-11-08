@@ -14,7 +14,7 @@ def api_key_required(f):
             user = db.session.query(User).filter(User.api_key == api_key).first()
             if not user:
                 return Response(json.dumps({"error": True, "message": "Invalid API key supplied"}), 403, None,
-                            "application/json", "application/json")
+                                "application/json", "application/json")
         return f(*args, **kwargs)
     return decorated_function
 

@@ -42,6 +42,7 @@
                         An error occurred fetching the news!
                     </div>
                     <div ng-repeat="item in news.posts" ng-switch="item.type">
+                        <hr ng-if="$index > 0" />
                         <div ng-switch-when="quote">
                             <h3><a href="{[ item.short_url ]}">{[ item.text ]}</a></h3>
                             <span ng-bind-html="item.source | unsafe"></span>

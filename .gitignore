@@ -4,3 +4,5 @@ config.py
 *.pyc
 alembic.ini
 *~
+static/min/
+static/.webassets-cache

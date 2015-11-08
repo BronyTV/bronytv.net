@@ -71,6 +71,8 @@
                             <span ng-bind-html="item.body | unsafe">
                             </span>
                         </div>
+
+                        <small>Posted: {[ item.date | convertToLocalTime ]}</small>
                     </div>
                 </div>
             </div>

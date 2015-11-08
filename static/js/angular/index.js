@@ -1,5 +1,12 @@
 var btvIndexApp = btvApp("btvIndexApp", ['timer']);
 
+btvIndexApp.filter("convertToLocalTime", function() {
+   return function(value) {
+       // 2015-11-01 17:29:49 GMT
+       return moment.tz(value, "YYYY-MM-DD hh:mm:ss", "UTC").local().format("MM-DD-YYYY hh:mm:ss");
+   };
+});
+
 btvIndexApp.controller('NewsCtrl', function($scope, $http) {
     $scope.news = { fetching: true, error: false, posts: [] };
 

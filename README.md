@@ -12,7 +12,7 @@ It runs on Python 2, and depends on the following `pip` packages:
 * flask-sqlalchemy
 * psycopg2
 * bcrypt
-* flask-compressor
+* flask-assets
 * cssmin
 * jsmin
 

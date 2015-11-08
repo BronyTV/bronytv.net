@@ -1,8 +1,13 @@
 {% extends "layout.html.jinja2" %}
 {% block title %}Rules{% endblock %}
 {% block scripts %}
-    {{ compressor("rules_js", inline=False) }}
-    {{ compressor("rules_css", inline=False) }}
+    {% assets "rules_js" %}
+        <script type="text/javascript" src="{{  ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "rules_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
 {% endblock %}
 {% block content %}
     <div class="row">

@@ -1,44 +1,18 @@
-import os
+from flask.ext.assets import Environment, Bundle
 
-from flask import current_app
-from flask.ext.compressor import Compressor, Bundle, Asset, memoized
+assets = Environment()
 
-compressor = Compressor()
-
-
-class UnicodeFileAsset(Asset):
-    def __init__(self, filename, *args, **kwargs):
-        self.filename = filename
-        super(UnicodeFileAsset, self).__init__(None, *args, **kwargs)
-
-    @property
-    @memoized
-    def raw_content(self):
-        abs_path = os.path.join(current_app.static_folder, self.filename)
-
-        with open(abs_path) as handle:
-            self._raw_content = handle.read().decode("utf-8")
-
-        return self._raw_content
-
-    @property
-    def name(self):
-        """ The asset is identified by the filename """
-        return self.filename
-
-global_css = [UnicodeFileAsset("css/vendor/bootstrap.css"), UnicodeFileAsset("css/global.css")]
-global_js = [UnicodeFileAsset("js/vendor/angular.js"), UnicodeFileAsset("js/angular/common.js"),
-             UnicodeFileAsset("js/header.js")]
+global_css = ["css/vendor/bootstrap.css", "css/global.css"]
+global_js = ["js/vendor/angular.js", "js/angular/common.js",
+             "js/header.js"]
 
 
 def make_css(name, assets):
-    return Bundle(name=name, assets=assets, mimetype="text/css", extension="css", processors=["cssmin"],
-                  linked_template='<link rel="stylesheet" type="{mimetype}" href="{url}" />')
+    return Bundle(*assets, filters="cssmin", output="min/css/%s.css" % name)
 
 
 def make_js(name, assets):
-    return Bundle(name=name, assets=assets, mimetype="text/javascript", extension="js", processors=["jsmin"],
-                  linked_template='<script type="{mimetype}" src="{url}"></script>')
+    return Bundle(*assets, filters="jsmin", output="min/js/%s.js" % name)
 
 
 def register_all(lst):
@@ -46,12 +20,10 @@ def register_all(lst):
         if isinstance(asset_files, str):
             asset_files = [asset_files]
 
-        assets = [UnicodeFileAsset(f) for f in asset_files]
-
         if asset_type == "css":
-            compressor.register_bundle(make_css(bundle_name, global_css + assets))
+            assets.register(bundle_name, make_css(bundle_name, global_css + asset_files))
         else:
-            compressor.register_bundle(make_js(bundle_name, global_js + assets))
+            assets.register(bundle_name, make_js(bundle_name, global_js + asset_files))
 
 """
 Assets definitions look like this:

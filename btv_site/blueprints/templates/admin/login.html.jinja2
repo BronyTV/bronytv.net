@@ -1,7 +1,13 @@
 {% extends "layout.html.jinja2" %}
 {% block title %}Admin{% endblock %}
 {% block scripts %}
-    {{ compressor("admin_login_css", inline=False) }}
+    {% assets "admin_login_js" %}
+        <script type="text/javascript" src="{{  ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "admin_login_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
 {% endblock %}
 {% block content %}
     <div class="row">

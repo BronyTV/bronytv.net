@@ -1,8 +1,13 @@
 {% extends "layout.html.jinja2" %}
 {% block title %}About{% endblock %}
 {% block scripts %}
-    {{ compressor("about_js", inline=False) }}
-    {{ compressor("about_css", inline=False) }}
+    {% assets "about_js" %}
+        <script type="text/javascript" src="{{  ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "about_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
 {% endblock %}
 {% block content %}
     <div class="row">

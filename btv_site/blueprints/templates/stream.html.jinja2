@@ -2,8 +2,13 @@
 {% block title %}Stream{% endblock %}
 
 {% block scripts %}
-    {{ compressor("stream_js", inline=False) }}
-    {{ compressor("stream_css", inline=False) }}
+    {% assets "stream_js" %}
+        <script type="text/javascript" src="{{  ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "stream_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
     <script type="text/javascript">
         videojs.options.flash.swf = "/static/swf/video-js.swf";
     </script>

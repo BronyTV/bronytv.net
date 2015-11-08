@@ -5,7 +5,7 @@ import subprocess
 
 from config import *
 from database import db
-from assets import compressor
+from assets import assets
 from flask import Flask, request
 
 # Blueprints
@@ -19,7 +19,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
 app.secret_key = SECRET_KEY
 
 db.init_app(app)
-compressor.init_app(app)
+assets.init_app(app)
 
 app.register_blueprint(blueprints.static_pages.static_pages, url_prefix="")
 app.register_blueprint(blueprints.admin.admin, url_prefix="/admin")

@@ -21,8 +21,13 @@
         });
     });
     </script>
-    {{ compressor("index_js", inline=False) }}
-    {{ compressor("index_css", inline=False) }}
+    {% assets "index_js" %}
+        <script type="text/javascript" src="{{  ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "index_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
 {% endblock %}
 
 {% block content %}

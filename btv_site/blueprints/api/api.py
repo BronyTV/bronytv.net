@@ -12,6 +12,7 @@ api = Blueprint("api", __name__, template_folder="templates")
 
 
 @api.route("/news")
+@add_response_headers({"Vary": "Accept-Encoding"})
 def api_news():
     base_url = "https://api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=%s&limit=5" % TUMBLR_API_KEY
     posts = []

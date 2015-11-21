@@ -39,6 +39,10 @@ btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
         });
     };
 
+    $scope.isDistant = function() {
+        return moment().add(7, 'days').isBefore($scope.time);
+    }
+
     $scope.isPonyTime = function() {
         return moment().isAfter($scope.time);
     }

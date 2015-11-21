@@ -101,8 +101,8 @@
                                 <div class="numbers" id="dsec">{[ seconds ]}</div>
                                 <div class="title" id="seconds">Second{[ secondsS ]}</div>
                             </timer>
-                            <h5>{[target]} at<br />{[btvtime.format('h:mm A [EST on] dddd')]}</h5>
-                            <h5>(That's {[time.format('dddd h:mm A')]} for you.)</h5>
+                            <h5 ng-if="!isDistant()">{[target]} at<br />{[btvtime.format('h:mm A [EST on] dddd')]}<br />(That's {[time.format('dddd h:mm A')]} for you.)</h5>
+                            <h5 ng-if="isDistant()">{[target]} at<br />{[btvtime.format('h:mm A [EST on] MMMM Do')]}</h5>
                         </div>
                         <h3 class="light-purple" ng-if="isPonyTime()">{[done]}</h3>
                     </div>

@@ -32,7 +32,10 @@ btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
         $http.get("/api/properties").success(function(data) {
             $scope.props = data["properties"];
             $scope.streaming = typeof($scope.props.now_streaming) != "undefined" && $scope.props.now_streaming != null && $scope.props.now_streaming != "";
-            $scope.time = moment.tz($scope.props["countdown_date"], "MM-DD-YYYY hh:mm:ss", "America/New_York").local();
+            $scope.btvtime = moment.tz($scope.props["countdown_date"], "MM-DD-YYYY hh:mm:ss", "America/New_York");
+            $scope.time = moment($scope.btvtime).local();
+            $scope.target = $scope.props.countdown_target || "The next episode airs";
+            $scope.done = $scope.props.countdown_done || "It's Pony Time!";
         });
     };
 

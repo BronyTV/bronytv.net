@@ -88,21 +88,23 @@
                         <hr>
                     </div>
                     <div class="countdown centered">
-                        <timer interval="1000" end-time="time" ng-if="!isPonyTime()">
-                            <h3 class="light-purple">How long until Pony Time?</h3>
-                            <div class="numbers" id="count2" style="text-align: center;"></div>
-                            <div class="numbers" id="dday">{[ days ]}</div>
-                            <div class="title" id="days">Day{[ daysS ]}</div>
-                            <div class="numbers" id="dhour">{[ hours ]}</div>
-                            <div class="title" id="hours">Hour{[ hoursS ]}</div>
-                            <div class="numbers" id="dmin">{[ minutes ]}</div>
-                            <div class="title" id="minutes">Minute{[ minutesS ]}</div>
-                            <div class="numbers" id="dsec">{[ seconds ]}</div>
-                            <div class="title" id="seconds">Second{[ secondsS ]}</div>
-                            <h5>The next episode airs at 11:30 AM EST on Saturday</h5>
-                        </timer>
-
-                        <h3 class="light-purple" ng-if="isPonyTime()">It's Pony Time!</h3>
+                        <div ng-if="!isPonyTime()">
+                            <timer interval="1000" end-time="time">
+                                <h3 class="light-purple">How long until Pony Time?</h3>
+                                <div class="numbers" id="count2" style="text-align: center;"></div>
+                                <div class="numbers" id="dday">{[ days ]}</div>
+                                <div class="title" id="days">Day{[ daysS ]}</div>
+                                <div class="numbers" id="dhour">{[ hours ]}</div>
+                                <div class="title" id="hours">Hour{[ hoursS ]}</div>
+                                <div class="numbers" id="dmin">{[ minutes ]}</div>
+                                <div class="title" id="minutes">Minute{[ minutesS ]}</div>
+                                <div class="numbers" id="dsec">{[ seconds ]}</div>
+                                <div class="title" id="seconds">Second{[ secondsS ]}</div>
+                            </timer>
+                            <h5>{[target]} at<br />{[btvtime.format('h:mm A [EST on] dddd')]}</h5>
+                            <h5>(That's {[time.format('dddd h:mm A')]} for you.)</h5>
+                        </div>
+                        <h3 class="light-purple" ng-if="isPonyTime()">{[done]}</h3>
                     </div>
                     <hr>
                     <p><a href="https://www.facebook.com/TVBrony" target="_blank">Our Facebook Page!</a></p>

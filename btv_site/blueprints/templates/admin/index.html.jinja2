@@ -24,8 +24,16 @@
                         <input id="alternate-stream-url" name="alternate-stream-url" ng-model="data.alternate_stream_url" type="text" class="form-control" />
                     </div>
                     <div class="form-group">
+                        <label for="countdown-target">Counting Down To:</label>
+                        <input id="countdown-target" name="countdown-target" ng-model="data.countdown_target" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
                         <label for="countdown-date">Countdown Date:</label>
                         <input id="countdown-date" name="countdown-date" ng-model="data.countdown_date" type="text" class="form-control" placeholder="MM-DD-YYYY hh:mm:ss" />
+                    </div>
+                    <div class="form-group">
+                        <label for="countdown-done">Countdown Done:</label>
+                        <input id="countdown-done" name="countdown-done" ng-model="data.countdown_done" type="text" class="form-control" />
                     </div>
                     <button type="submit" class="btn btn-purple" ng-click="updateProperties()" ng-disabled="submitting">Update</button>
                 </form>

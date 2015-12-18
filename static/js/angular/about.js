@@ -87,7 +87,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     description: ''
                 },
                 {
-                    name: 'Twitchy',
+                    name: 'Nerdy Facts',
                     title: '',
                     description: ''
                 }

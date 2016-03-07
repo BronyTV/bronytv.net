@@ -23,6 +23,10 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
         $interval(function () {
             $scope.updateValues();
         }, 5000);
+
+        if ($(document).width() < 768) {
+            $scope.chatShown = !$scope.chatShown;
+        }
     };
 
     $scope.toggleChat = function() {

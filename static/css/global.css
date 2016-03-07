@@ -25,12 +25,17 @@ body {
     padding-top: 2.2em;
     margin-bottom: 0.5em;
 }
-
 #nav-links {
-    display: inline-block;
-    margin-left: 0.938em;
-    margin-top: 2.2em;
-    position: absolute;
+    margin-left: -1em;
+    margin-top: 0.4em;
+}
+@media (min-width: 756px) {
+  #nav-links {
+      display: inline-block;
+      margin-left: 0.938em;
+      margin-top: 2.2em;
+      position: absolute;
+  }
 }
 
 /* Makes the links purple */

@@ -76,7 +76,8 @@
                         by <a ng-href="//{[ item.post_author ]}.tumblr.com/">{[ item.post_author ]}
                         <img ng-src="//api.tumblr.com/v2/blog/{[ item.post_author ]}.tumblr.com/avatar/16" width="16" height="16" /></a>
                         <span ng-if="item.trail[0].blog.name &amp;&amp; item.trail[0].blog.name != 'btv-news'">
-                        (reblogged from {[ item.trail[0].blog.name ]})</span></small>
+                        (reblogged from {[ item.trail[0].blog.name ]})</span>
+                        <span ng-if="item.source_url">(Source: <a ng-href="{[ item.source_url ]}">{[ item.source_title ]}"</a>)</small>
                     </div>
                 </div>
             </div>

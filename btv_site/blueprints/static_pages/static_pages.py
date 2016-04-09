@@ -1,12 +1,13 @@
 from btv_site.utils import site_revision
 from flask import Blueprint, render_template
+from datetime import date
 
 static_pages = Blueprint("static_pages", __name__, template_folder="../templates")
 
 
 @static_pages.context_processor
-def inject_revision():
-    return {"site_revision": site_revision}
+def inject_variables():
+    return {"site_revision": site_revision, "current_year": date.today().year}
 
 
 @static_pages.route("/")

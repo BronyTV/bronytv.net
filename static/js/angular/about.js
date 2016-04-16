@@ -61,11 +61,11 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     title: '',
                     description: ''
                 },
-                {
+                /*{
                     name: 'AppleDash',
                     title: '',
                     description: ''
-                }
+                }*/
             ]
         },
         general: {

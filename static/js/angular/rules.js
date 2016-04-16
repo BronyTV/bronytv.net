@@ -12,7 +12,7 @@ btvRulesApp.controller("RulesCtrl", function($scope) {
         },
         {
             rule: "No spoilers in Mane Chat",
-            description: "We try and keep our chat room spoiler-free as much as possible. So if a clip or episode is released/leaked before a Saturday Premiere, we would prefer if you take all spoiler discussion to #SpoilerWagonBTV until <b>after</b> the new ep airs on The HUB."
+            description: "We try and keep our chat room spoiler-free as much as possible. So if a clip or episode is released/leaked before a Saturday Premiere, we would prefer if you take all spoiler discussion to #SpoilerWagonBTV until AFTER the new ep airs on The HUB."
         },
         {
             rule: "Be nice to the streamer",

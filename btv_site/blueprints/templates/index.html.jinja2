@@ -66,11 +66,18 @@
                                 <span ng-bind-html="item.caption | unsafe"></span>
                             </span>
                         </div>
+                        <div ng-switch-when="audio">
+                            <h3><a href="{[ item.short_url ]}">{[ item.track_name || "BronyTV" ]}</a></h3>
+                            <span>
+                                <span ng-bind-html="item.player | unsafe"></span>
+                                <br>
+                                <span ng-bind-html="item.caption | unsafe"></span>
+                            </span>
+                        </div>
                         <div ng-switch-default>
                             <h3><a href="{[ item.short_url ]}">{[ item.title || "BronyTV" ]}</a></h3>
-                            <span ng-bind-html="item.player | unsafe"></span>
-                            <span ng-bind-html="item.body | unsafe"></span>
-                            <span ng-bind-html="item.caption | unsafe"></span>
+                            <span ng-bind-html="item.body | unsafe">
+                            </span>
                         </div>
 
                         <small>Posted: {[ item.date | convertToLocalTime ]}

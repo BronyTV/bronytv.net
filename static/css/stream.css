@@ -95,6 +95,7 @@ ul {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  left: -40px;
 }
 
 .alert-bronytv:after {
@@ -124,7 +125,7 @@ ul {
 [data-notify="message"] {
   padding: 10px;
   position: relative;
-  top: 8px;
+  top: 11px;
 }
 [data-notify="icon"] {
   max-height: 230px;

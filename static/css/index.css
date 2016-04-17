@@ -22,3 +22,9 @@
 #right-box {
     max-width: 55em;
 }
+
+#news img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

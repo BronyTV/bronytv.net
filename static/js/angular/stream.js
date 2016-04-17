@@ -32,16 +32,6 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
       '<div data-notify="message"></div></div>' + '<div class="pull-right"><img data-notify="icon"></div></div>'
     });
 
-    if ($(document).width() > 768) {
-      rariboard_enabled = true;
-      notify = $.notify({
-        icon: '',
-        message: "Fetching Rariboard..."
-      });
-    } else {
-      rariboard_enabled = false;
-      $.notifyClose();
-    };
 
     $scope.updateValues = function() {
         $http.get("/api/properties").success(function(data) {
@@ -63,6 +53,7 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
                     icon: rariboard_image,
                     message: rariboard_message
                   });
+                  notify.update('message', rariboard_message);
                 };
               } else {
                 rariboard_enabled = false;

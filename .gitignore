@@ -6,3 +6,6 @@ alembic.ini
 *~
 static/min/
 static/.webassets-cache
+*.log
+*.pid
+*.pid.lock

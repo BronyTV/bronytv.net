@@ -74,3 +74,58 @@ ul {
 .playlist-item.ng-enter.ng-enter-active, .playlist-item.ng-leave {
     max-height: 20px;
 }
+
+.rariboard_alert {
+  display: inline-block;
+  margin: 0px auto;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
+.alert-bronytv {
+  color: white;
+  position: relative;
+  width: 250px;
+  min-height: 100px;
+  height: 100%;
+  padding: 0px;
+  background: #4F23A2;
+  border: #9d75e3 solid 3px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.alert-bronytv:after {
+  position: absolute;
+  top: 54px;
+  right: -38;
+  border-style: solid;
+  border-width: 19px 0 19px 38px;
+  border-color: transparent #4F23A2;
+  display: block;
+  width: 0;
+  z-index: 1;
+}
+
+.alert-bronytv:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 253px;
+  border-style: solid;
+  border-width: 21px 0 21px 40px;
+  border-color: transparent #9d75e3;
+  display: block;
+  width: 0;
+  z-index: 0;
+}
+[data-notify="message"] {
+  padding: 10px;
+  position: relative;
+  top: 8px;
+}
+[data-notify="icon"] {
+  max-height: 230px;
+}

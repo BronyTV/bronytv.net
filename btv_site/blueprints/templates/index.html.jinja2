@@ -68,8 +68,9 @@
                         </div>
                         <div ng-switch-default>
                             <h3><a href="{[ item.short_url ]}">{[ item.title || "BronyTV" ]}</a></h3>
-                            <span ng-bind-html="item.body | unsafe">
-                            </span>
+                            <span ng-bind-html="item.player | unsafe"></span>
+                            <span ng-bind-html="item.body | unsafe"></span>
+                            <span ng-bind-html="item.caption | unsafe"></span>
                         </div>
 
                         <small>Posted: {[ item.date | convertToLocalTime ]}

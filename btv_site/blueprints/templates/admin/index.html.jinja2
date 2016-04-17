@@ -11,8 +11,17 @@
 {% endblock %}
 {% block content %}
     <div class="row" id="container" ng-app="btvAdminApp" ng-controller="FormsCtrl" ng-init="init()">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <div id="submit-success" class="alert alert-success" ng-show="success">
+              Successfully updated!<button type="button" class="close" ng-click="success = false;">&times;</button>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
         <div class="col-md-5 col-md-offset-1 purple-box-hack" id="left-box">
-            <h3>Stream Stuff</h3>
+            <h3>Stream</h3>
             <div class="form-limit-width">
                 <form id="stream-form" novalidate>
                     <div class="form-group">
@@ -35,33 +44,30 @@
                         <label for="countdown-done">Countdown Done:</label>
                         <input id="countdown-done" name="countdown-done" ng-model="data.countdown_done" type="text" class="form-control" />
                     </div>
-                    <button type="submit" class="btn btn-purple" ng-click="updateProperties()" ng-disabled="submitting">Update</button>
+                    <button type="submit" class="btn btn-purple pull-right" ng-click="updateProperties()" ng-disabled="submitting" style="display: none;">Update</button>
                 </form>
-                <div id="submit-success" class="alert alert-success" ng-show="success">
-                    Successfully updated!<button type="button" class="close" ng-click="success = false;">&times;</button>
-                </div>
             </div>
             <h3>API</h3>
             <form class="form-limit-width">
                 <div class="form-group">
                     <label for="api_key">Your API Key:</label>
-                    <input class="form-control" type="text" value="{{ user.get_api_key() }}" id="api_key" readonly="readonly" />
+                    <input class="form-control" type="text" value="{{ user.get_api_key() }}" id="api_key" readonly="readonly" onClick="this.setSelectionRange(0, this.value.length)" />
                 </div>
             </form>
         </div>
-        <div class="col-md-5 purple-box-hack" id="right-box">
-            <h3>Dumb Stuff</h3>
+        <div class="col-md-5 purple-box-hack fill" id="right-box">
+            <h3>Rariboard</h3>
             <div class="form-limit-width">
-                <form id="dumb-form" novalidate>
+                <form id="rariboard-form" novalidate>
                     <div class="form-group">
-                        <label for="raribox-image-url">Raribox Image URL:</label>
+                        <label for="raribox-image-url">Rariboard Image URL:</label>
                         <input id="raribox-image-url" name="raribox-image-url" ng-model="data.raribox_image_url" type="text" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label for="raribox-text">Raribox Text:</label>
+                        <label for="raribox-text">Rariboard Text:</label>
                         <textarea id="raribox-text" name="raribox-text" ng-model="data.raribox_text" class="form-control"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-purple" ng-click="updateProperties()" ng-disabled="submitting">Update</button>
+                    <button type="submit" class="btn btn-purple pull-right" ng-click="updateProperties()" ng-disabled="submitting">Update</button>
                 </form>
             </div>
         </div>

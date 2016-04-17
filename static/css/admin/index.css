@@ -10,7 +10,13 @@
     padding-left: 10px;
     padding-right: 10px;
     color: white;
-    min-height: 38em;
+    min-height: 23em;
+}
+
+@media (min-width: 992px) {
+  .purple-box-hack {
+    min-height: 50em;
+  }
 }
 
 #left-box {

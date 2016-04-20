@@ -2,7 +2,7 @@ var btvStreamApp = btvApp("btvStreamApp", ["ngAnimate"]);
 
 btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.properties = { stream_url: '', alternate_stream_url: '', now_streaming: null };
-    $scope.chat_url = 'https://kiwiirc.com/client?settings=3eda7e82f0210b259be287b5bfa1a89d'; // Do NOT change this from single quotes. Double quotes make the minifier interpret the slashes as a comment.
+    $scope.chat_url = 'https://bronytv.net/kiwi/'; // Do NOT change this from single quotes. Double quotes make the minifier interpret the slashes as a comment.
     $scope.chatShown = true;
     $scope.altStream = false;
     $scope.showPlaylist = false;

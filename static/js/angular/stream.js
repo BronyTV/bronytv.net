@@ -3,7 +3,7 @@ var btvStreamApp = btvApp("btvStreamApp", ["ngAnimate"]);
 btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.properties = { stream_url: '', alternate_stream_url: '', now_streaming: null };
     $scope.chat_url = 'https://bronytv.net/kiwi/'; // Do NOT change this from single quotes. Double quotes make the minifier interpret the slashes as a comment.
-    $scope.chatShown = true;
+    $scope.chatShown = false;
     $scope.altStream = false;
     $scope.showPlaylist = false;
     $scope.streaming = false;
@@ -71,10 +71,6 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
         $interval(function () {
             $scope.updateValues();
         }, 5000);
-
-        if ($(document).width() < 768) {
-            $scope.chatShown = !$scope.chatShown;
-        }
     };
 
     $scope.toggleChat = function() {

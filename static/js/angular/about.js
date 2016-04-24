@@ -52,6 +52,11 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
             title: 'Our Tech Gurus',
             staff: [
                 {
+                  name: 'EndenDragon',
+                  title: '',
+                  description: ''
+                },
+                {
                     name: 'catnickfl',
                     title: '',
                     description: ''
@@ -60,7 +65,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     name: 'Cuddles',
                     title: '',
                     description: ''
-                },
+                }
                 /*{
                     name: 'AppleDash',
                     title: '',

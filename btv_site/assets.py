@@ -44,6 +44,9 @@ register_all([
     ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css"]),
     ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/angular/stream.js"]),
 
+    ("css", "chat_css", ["css/stream.css"]),
+    ("js", "chat_js", []),
+
     ("css", "about_css", []),
     ("js", "about_js", "js/angular/about.js"),
 

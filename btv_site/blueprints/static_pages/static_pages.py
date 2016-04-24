@@ -19,6 +19,10 @@ def index():
 def stream():
     return render_template("stream.html.jinja2")
 
+@static_pages.route("/chat")
+def chat():
+    return render_template("chat.html.jinja2")
+
 
 @static_pages.route("/about")
 def about():

@@ -29,7 +29,7 @@ body {
     margin-left: -1em;
     margin-top: 0.4em;
 }
-@media (min-width: 756px) {
+@media (min-width: 817px) {
   #nav-links {
       display: inline-block;
       margin-left: 0.938em;

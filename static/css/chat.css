@@ -1,0 +1,11 @@
+@media (max-width: 992px) {
+  .chatbox {
+      height: 700px !important;
+  }
+  .embed-responsive-16by9 {
+    height: 700px !important;
+  }
+}
+ul {
+    list-style-position: inside;
+}

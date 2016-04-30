@@ -1,0 +1,42 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Schedule{% endblock %}
+
+{% block scripts %}
+    {% assets "schedule_js" %}
+        <script type="text/javascript" src="{{  ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "schedule_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.0/fullcalendar.min.css' />
+    <script src='static/js/vendor/moment.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.0/fullcalendar.min.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.0/gcal.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <div class="purple-box purple-box-hack"><div id="calendar"></div></div>
+
+          <script type="text/javascript">
+            $(function() {
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    googleCalendarApiKey: '{{ gCalAPIKey }}',
+                    editable: false,
+                    eventLimit: true,
+                    events: {
+                        googleCalendarId: '{{ gCalID }}'
+                    }
+                });
+            });
+          </script>
+        </div>
+      </div>
+{% endblock %}

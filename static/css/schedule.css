@@ -1,0 +1,36 @@
+#calendar {
+  margin: 0 auto;
+  max-width: 1500px;
+}
+@media (min-width: 768px) {
+  #calendar {
+    padding: 30px;
+  }
+}
+.fc-today {
+  background: #331B63 !important;
+}
+.fc-event {
+  border: 1px solid #4f23a2 !important;
+  background-color: #4f23a2 !important;
+}
+td {
+  border-color: inherit !important;
+  background: inherit;
+  background-color: inherit;
+}
+.purple-box-hack {
+    background: rgba(171, 137, 227, 0.25) none repeat scroll 0 0;
+    background-size:  100%;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    min-height: 23em;
+}
+
+@media (min-width: 992px) {
+  .purple-box-hack {
+    min-height: 50em;
+  }
+}

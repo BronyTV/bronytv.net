@@ -1,13 +1,14 @@
 from btv_site.utils import site_revision
 from flask import Blueprint, render_template
 from datetime import date
+from config import *
 
 static_pages = Blueprint("static_pages", __name__, template_folder="../templates")
 
 
 @static_pages.context_processor
 def inject_variables():
-    return {"site_revision": site_revision, "current_year": date.today().year}
+    return {"site_revision": site_revision, "current_year": date.today().year, "gCalAPIKey": GOOGLE_CALENDAR_API_KEY, "gCalID": GOOGLE_CALENDAR_ID}
 
 
 @static_pages.route("/")
@@ -23,6 +24,9 @@ def stream():
 def chat():
     return render_template("chat.html.jinja2")
 
+@static_pages.route("/schedule")
+def schedule():
+    return render_template("schedule.html.jinja2")
 
 @static_pages.route("/about")
 def about():

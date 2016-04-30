@@ -47,6 +47,9 @@ register_all([
     ("css", "chat_css", ["css/chat.css"]),
     ("js", "chat_js", []),
 
+    ("css", "schedule_css", ["css/schedule.css"]),
+    ("js", "schedule_js", []),
+
     ("css", "about_css", []),
     ("js", "about_js", "js/angular/about.js"),
 

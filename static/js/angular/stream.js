@@ -9,8 +9,16 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.streaming = false;
 
     rariboard_message = "";
+    rariboard_message_cache = ""
     rariboard_image = "";
+    rariboard_image_cache = ""
     rariboard_enabled = false;
+
+    function onRariboardClose() {
+        rariboard_enabled = false;
+        rariboard_message_cache = rariboard_message; //When the rariboard is manually closed, it saves the message to the cache to have it be compared to later.
+        rariboard_image_cache = rariboard_image; //And if rariboard_message does not equal to the cache, it will reactivate the rariboard message.
+    }
 
     $.notifyDefaults({
       type: 'bronytv',
@@ -27,11 +35,11 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
         enter: 'animated zoomInUp',
         exit: 'animated zoomOutDown'
       },
+      onClosed: onRariboardClose,
       template: '<div class="rariboard_alert"><div data-notify="container" class="col-sm-4 alert alert-bronytv" role="alert">' +
       '<button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">×</button>' +
       '<div data-notify="message"></div></div>' + '<div class="pull-right"><img data-notify="icon"></div></div>'
     });
-
 
     $scope.updateValues = function() {
         $http.get("/api/properties").success(function(data) {
@@ -48,18 +56,21 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
                   notify.update('icon', rariboard_image);
                   notify.update('message', rariboard_message);
                 } else {
-                  rariboard_enabled = true;
-                  notify = $.notify({
-                    icon: rariboard_image,
-                    message: rariboard_message
-                  });
-                  notify.update('message', rariboard_message);
+                  if (rariboard_message != rariboard_message_cache || rariboard_image != rariboard_image_cache) {
+                    rariboard_enabled = true;
+                    notify = $.notify({
+                      icon: rariboard_image,
+                      message: rariboard_message
+                    });
+                    notify.update('message', rariboard_message);
+                  }
+                  //do nothing if rariboard cache equals with rariboard_message
                 };
-              } else {
+              } else { //if both the message and image is blank, it kills the rariboard
                 rariboard_enabled = false;
                 $.notifyClose();
               };
-            } else {
+            } else { //if you are a mobile user, the rariboard doesnt show.
               rariboard_enabled = false;
               $.notifyClose();
             };

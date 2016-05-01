@@ -12,7 +12,7 @@
     <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.0/fullcalendar.min.css' />
     <script src='static/js/vendor/moment.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.0/fullcalendar.min.js'></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.0/gcal.js"></script>
+    <script type="text/javascript" src="/static/js/vendor/gcal.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -28,6 +28,7 @@
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
+                    timezone: "local",
                     googleCalendarApiKey: '{{ gCalAPIKey }}',
                     editable: false,
                     eventLimit: true,

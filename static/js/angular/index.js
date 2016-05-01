@@ -47,3 +47,24 @@ btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
         return moment().isAfter($scope.time);
     }
 });
+
+btvIndexApp.controller('EventsListCtrl', function($scope, $http) {
+    $scope.sideevents = { fetching: true, error: false, events: [] };
+
+    $scope.init = function() {
+        var now = moment();
+        var utcOffset = moment.parseZone(now).format('Z');
+
+        var evresp = $http.get("/api/schedule?offsettoday=1&maxresults=3&tzoffset=" + utcOffset);
+
+        evresp.success(function(data) {
+            $scope.sideevents.fetching = false;
+            $scope.sideevents.events = data.events;
+        });
+
+        evresp.error(function(data) {
+            $scope.sideevents.fetching = false;
+            $scope.sideevents.error = true;
+        });
+    };
+});

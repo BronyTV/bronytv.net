@@ -120,6 +120,20 @@
                         <h3 class="light-purple" ng-if="isPonyTime()">{[done]}</h3>
                     </div>
                     <hr>
+                    <div class="centered" ng-controller="EventsListCtrl" ng-init="init()">
+                      <h3 class="light-purple">Upcoming Events</h3>
+                      <div ng-show="sideevents.fetching">
+                          Fetching events...
+                      </div>
+                      <div ng-show="sideevents.error">
+                          An error occurred fetching the events!
+                      </div>
+                      <ul class="events">
+                        <li ng-repeat="item in sideevents.events"><a href="event/{[ item.id ]}">{[ item.summary ]}</a> on {[ item.start.dateTime | date:"MMM d, y 'at' h:mm a"]}</li>
+
+                      </ul>
+                        <hr>
+                    </div>
                     <p><a href="https://www.facebook.com/TVBrony" target="_blank">Our Facebook Page!</a></p>
                     <p><a href="https://twitter.com/TVBrony" target="_blank">Follow us on Twitter!</a></p>
                     <p><a href="http://www.youtube.com/user/TheBronyTV" target="_blank">See past recordings on YouTube!</a></p>

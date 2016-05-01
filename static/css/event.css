@@ -1,0 +1,8 @@
+.purple-box-hack {
+    background: rgba(171, 137, 227, 0.25) none repeat scroll 0 0;
+    background-size:  100%;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+}

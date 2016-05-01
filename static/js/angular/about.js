@@ -7,7 +7,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
             title: 'Our Executive Team',
             staff: [
                 {
-                    name: 'Ashfire',
+                    name: 'Ember Melodica',
                     title: 'Site Owner',
                     description: ''
                 },

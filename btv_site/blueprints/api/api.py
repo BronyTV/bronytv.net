@@ -7,6 +7,8 @@ from btv_site.models import SiteProperty
 from flask import Blueprint, jsonify, request
 from requests.exceptions import RequestException
 from btv_site.decorators import api_key_required, add_response_headers
+import datetime
+import urllib
 
 api = Blueprint("api", __name__, template_folder="templates")
 
@@ -75,3 +77,41 @@ def api_now_streaming_post():
 
     db.session.commit()
     return jsonify({"error": False})
+
+@api.route("/schedule", methods=["GET"])
+def api_schedule_get():
+    tzoffset = urllib.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
+    offsettoday = int(float(str(request.args.get('offsettoday', 0))))
+    maxresults = request.args.get('maxresults', 250)
+
+    if offsettoday == 1:
+        timenow = urllib.quote_plus(str(datetime.datetime.now().isoformat("T"))) + tzoffset
+        base_url = "https://www.googleapis.com/calendar/v3/calendars/{}/events?maxResults={}&orderBy=startTime&singleEvents=true&timeMin={}&timeZone=UTC{}&key={}".format(GOOGLE_CALENDAR_ID, maxresults, timenow, tzoffset, GOOGLE_CALENDAR_API_KEY)
+    else:
+        base_url = "https://www.googleapis.com/calendar/v3/calendars/{}/events?maxResults={}&orderBy=startTime&singleEvents=true&timeZone=UTC{}&key={}".format(GOOGLE_CALENDAR_ID, maxresults, tzoffset, GOOGLE_CALENDAR_API_KEY)
+    events = []
+    try:
+        res = requests.get(base_url)
+        j = json.loads(res.text)
+        if "items" in j:
+            events = j["items"]
+    except KeyError:  # Invalid response for some reason
+        pass
+    except RequestException:  # Request somehow failed
+        pass
+    return jsonify(events=events)
+
+@api.route("/event", methods=["GET"])
+def api_event_get():
+    tzoffset = urllib.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
+    eventid = request.args.get('eventid', 0)
+
+    base_url = "https://www.googleapis.com/calendar/v3/calendars/{}/events/{}?timeZone=UTC{}&key={}".format(GOOGLE_CALENDAR_ID, eventid, tzoffset, GOOGLE_CALENDAR_API_KEY)
+    try:
+        res = requests.get(base_url)
+        j = json.loads(res.text)
+    except KeyError:  # Invalid response for some reason
+        pass
+    except RequestException:  # Request somehow failed
+        pass
+    return jsonify(events=j)

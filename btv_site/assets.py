@@ -50,6 +50,9 @@ register_all([
     ("css", "schedule_css", ["css/schedule.css"]),
     ("js", "schedule_js", []),
 
+    ("css", "event_css", ["css/event.css"]),
+    ("js", "event_js", ["js/vendor/moment.js", "js/angular/event.js"]),
+
     ("css", "about_css", []),
     ("js", "about_js", "js/angular/about.js"),
 

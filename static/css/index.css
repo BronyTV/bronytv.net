@@ -32,3 +32,9 @@
 blockquote {
   border-color: #9E75E3;
 }
+ul.events {
+    list-style-position: inside;
+    position: relative;
+    left: -20px;
+    list-style: none;
+}

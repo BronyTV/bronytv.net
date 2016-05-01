@@ -28,6 +28,10 @@ def chat():
 def schedule():
     return render_template("schedule.html.jinja2")
 
+@static_pages.route("/event/<eventID>")
+def event(eventID):
+    return render_template("event.html.jinja2")
+
 @static_pages.route("/about")
 def about():
     return render_template("about.html.jinja2")

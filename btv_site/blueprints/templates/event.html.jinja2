@@ -1,0 +1,44 @@
+{% extends "layout.html.jinja2" %}
+{% block title %}Event{% endblock %}
+
+{% block scripts %}
+    {% assets "event_js" %}
+        <script type="text/javascript" src="{{  ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "event_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    {% endassets %}
+{% endblock %}
+
+{% block content %}
+    <div class="row" ng-app="btvEventApp">
+        <div class="col-md-offset-1 col-md-10">
+          <div class="purple-box purple-box-hack" ng-controller="EventCtrl" ng-init="init()">
+            <span ng-if="sideevents.events.summary">
+              <h3>Viewing Event: {[ sideevents.events.summary ]}</h3>
+              <div ng-show="sideevents.fetching">
+                  Loading event...
+              </div>
+              <div ng-show="sideevents.error">
+                  Error: cannot load event!
+              </div>
+              <h4 class="light-purple">Time</h4>
+              <p>{[ sideevents.events.start.dateTime | date:"MMM d, y 'at' h:mm a" ]} to {[ sideevents.events.end.dateTime | date:"MMM d, y 'at' h:mm a" ]}</p>
+              <br>
+              <span ng-if="sideevents.events.description">
+                <h4 class="light-purple">Description</h4>
+                <p>{[ sideevents.events.description ]}</p>
+                <br>
+              </span>
+            </span>
+            <span ng-if="!sideevents.events.summary">
+              <h3>Viewing Event</h3>
+              <p>Error! Event not found!</p>
+              <br>
+            </span>
+            <button class="btn btn-purple" onclick="window.history.go(-1);">Back</button><br><br>
+          </div>
+        </div>
+      </div>
+{% endblock %}

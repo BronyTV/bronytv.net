@@ -16,7 +16,6 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
         resp.success(function(data) {
             $scope.news.fetching = false;
             $scope.news.posts = data.posts;
-            console.log($scope.news.posts);
             angular.forEach($scope.news.posts, function(value, key) {
               $http.get('/api/tumblr_primaryblog_name/' + value["post_author"]).then(function(response) {
                   value["post_author"] = response.data;

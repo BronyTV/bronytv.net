@@ -16,12 +16,21 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
         resp.success(function(data) {
             $scope.news.fetching = false;
             $scope.news.posts = data.posts;
+            angular.forEach($scope.news.posts, function(value, key) {
+              $http.get('/api/tumblr_primaryblog_name/' + value["post_author"]).then(function(response) {
+                  value["post_author"] = response.data;
+              });
+            });
         });
 
         resp.error(function(data) {
             $scope.news.fetching = false;
             $scope.news.error = true;
         });
+    };
+    $scope.getprimaryblogname = function(user) {
+      var pblogname = $http.get("/api/tumblr_primaryblog_name/" + user);
+      return pblogname;
     };
 });
 

@@ -28,10 +28,6 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
             $scope.news.error = true;
         });
     };
-    $scope.getprimaryblogname = function(user) {
-      var pblogname = $http.get("/api/tumblr_primaryblog_name/" + user);
-      return pblogname;
-    };
 });
 
 btvIndexApp.controller("CountdownCtrl", function($scope, $http) {

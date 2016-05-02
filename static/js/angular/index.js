@@ -18,7 +18,7 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
             $scope.news.posts = data.posts;
             angular.forEach($scope.news.posts, function(value, key) {
               $http.get('/api/tumblr_primaryblog_name/' + value["post_author"]).then(function(response) {
-                  value["post_author"] = response.data;
+                  value["post_author_pblog"] = response.data;
               });
             });
         });

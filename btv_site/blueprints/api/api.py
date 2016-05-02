@@ -16,7 +16,7 @@ api = Blueprint("api", __name__, template_folder="templates")
 @api.route("/news")
 @add_response_headers({"Vary": "Accept-Encoding"})
 def api_news():
-    base_url = "https://api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=%s&limit=5" % TUMBLR_API_KEY
+    base_url = "https://api.tumblr.com/v2/blog/btv-news.tumblr.com/posts?api_key=%s&limit=7" % TUMBLR_API_KEY
     posts = []
     try:
         res = requests.get(base_url)
@@ -29,6 +29,21 @@ def api_news():
         pass
 
     return jsonify(posts=posts)
+
+@api.route("/tumblr_primaryblog_name/<user>") #This api takes in a tumblr username and get their primary blog's name. Sorry I cant do this in JS.
+def tumblr_primaryblog_name(user):
+    base_url = "http://{}.tumblr.com/api/read/json?num=0".format(user)
+    posts = []
+    try:
+        res = requests.get(base_url)
+        j = res.text[35:]
+        j = j[:j.find("}")+1]
+        j = json.loads(j)
+        return j['title']
+    except KeyError:  # Invalid response for some reason
+        pass
+    except RequestException:  # Request somehow failed
+        pass
 
 
 @api.route("/properties")

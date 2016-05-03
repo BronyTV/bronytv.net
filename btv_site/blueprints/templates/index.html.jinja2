@@ -129,7 +129,7 @@
                           An error occurred fetching the events!
                       </div>
                       <ul class="events">
-                        <li ng-repeat="item in sideevents.events"><a href="event/{[ item.id ]}">{[ item.summary ]}</a> on {[ item.start.dateTime | date:"MMM d, y 'at' h:mm a"]}</li>
+                        <li ng-repeat="item in sideevents.events"><a href="event/{[ item.id ]}">{[ item.summary ]}</a> on {[ item.start.dateTime | date:"MMM d, y 'at' h:mm a"]}{[ item.start.date | date:"MMM d, y '(All Day Event)'"]}</li>
 
                       </ul>
                         <hr>

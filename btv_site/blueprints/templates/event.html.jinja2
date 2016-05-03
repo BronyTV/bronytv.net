@@ -24,7 +24,7 @@
                   Error: cannot load event!
               </div>
               <h4 class="light-purple">Time</h4>
-              <p>{[ sideevents.events.start.dateTime | date:"MMM d, y 'at' h:mm a" ]} to {[ sideevents.events.end.dateTime | date:"MMM d, y 'at' h:mm a" ]}</p>
+              <p>{[ sideevents.events.start.dateTime | date:"MMM d, y 'at' h:mm a 'to'" ]}{[ sideevents.events.start.date | date:"MMM d, y '(All Day Event)'" ]} {[ sideevents.events.end.dateTime | date:"MMM d, y 'at' h:mm a" ]}</p>
               <br>
               <span ng-if="sideevents.events.description">
                 <h4 class="light-purple">Description</h4>

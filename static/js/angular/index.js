@@ -12,14 +12,19 @@ btvIndexApp.controller('NewsCtrl', function($scope, $http) {
 
     $scope.init = function() {
         var resp = $http.get("/api/news");
-
+        var postAuthorCache = new Array();
         resp.success(function(data) {
             $scope.news.fetching = false;
             $scope.news.posts = data.posts;
             angular.forEach($scope.news.posts, function(value, key) {
-              $http.get('/api/tumblr_primaryblog_name/' + value["post_author"]).then(function(response) {
-                  value["post_author_pblog"] = response.data;
-              });
+              if (postAuthorCache[value["post_author"]] == undefined) {
+                $http.get('/api/tumblr_primaryblog_name/' + value["post_author"]).then(function(response) {
+                    postAuthorCache[value["post_author"]] = response.data;
+                    value["post_author_pblog"] = postAuthorCache[value["post_author"]];
+                });
+              } else {
+                value["post_author_pblog"] = postAuthorCache[value["post_author"]]; //I cannot seem to make this else statement run. Therefore not getting the things "cached" inside the "postAuthorCache" variable. I need a bit help please!
+              }; //It currently just will get the usernames as if it was not caching.
             });
         });
 

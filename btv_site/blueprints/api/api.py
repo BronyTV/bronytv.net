@@ -32,14 +32,11 @@ def api_news():
 
 @api.route("/tumblr_primaryblog_name/<user>") #This api takes in a tumblr username and get their primary blog's name. Sorry I cant do this in JS.
 def tumblr_primaryblog_name(user):
-    base_url = "http://{}.tumblr.com/api/read/json?num=0".format(user)
-    posts = []
+    base_url = "https://api.tumblr.com/v2/blog/{}.tumblr.com/info?api_key={}".format(user, TUMBLR_API_KEY)
     try:
         res = requests.get(base_url)
-        j = res.text[35:]
-        j = j[:j.find("}")+1]
-        j = json.loads(j)
-        return j['title']
+        j = json.loads(res.text)
+        return j["response"]["blog"]["title"]
     except KeyError:  # Invalid response for some reason
         pass
     except RequestException:  # Request somehow failed

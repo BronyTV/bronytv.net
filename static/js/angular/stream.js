@@ -51,7 +51,7 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
             rariboard_image = $scope.properties.raribox_image_url;
 
             if ($(document).width() > 768) {
-              if (rariboard_message != "" || rariboard_image != "") {
+              if (rariboard_message != "") {
                 if (rariboard_enabled == true) {
                   notify.update('icon', rariboard_image);
                   notify.update('message', rariboard_message);
@@ -66,7 +66,7 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
                   }
                   //do nothing if rariboard cache equals with rariboard_message
                 };
-              } else { //if both the message and image is blank, it kills the rariboard
+              } else { //if the message is blank, it kills the rariboard
                 rariboard_enabled = false;
                 $.notifyClose();
               };

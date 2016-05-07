@@ -12,6 +12,13 @@ import urllib
 
 api = Blueprint("api", __name__, template_folder="templates")
 
+def write_property(pname, pvalue):
+    q = db.session.query(SiteProperty).filter(SiteProperty.name == pname)
+    if q.count() == 0:
+        db.session.add(SiteProperty(name=pname, value=pvalue))
+    else:
+        q.first().value = pvalue
+
 
 @api.route("/news")
 @add_response_headers({"Vary": "Accept-Encoding"})
@@ -60,13 +67,7 @@ def api_playlist_get():
 @api.route("/playlist", methods=["POST"])
 @api_key_required
 def api_playlist_post():
-    playlist = request.json["playlist"]
-    q = db.session.query(SiteProperty).filter(SiteProperty.name == "playlist")
-    if q.count() == 0:
-        db.session.add(SiteProperty(name="playlist", value=json.dumps(playlist)))
-    else:
-        q.first().value = json.dumps(playlist)
-
+    write_property("playlist", json.dumps(request.json["playlist"]))
     db.session.commit()
     return jsonify({"error": False})
 
@@ -80,15 +81,29 @@ def api_now_streaming_get():
 @api.route("/now_streaming", methods=["POST"])
 @api_key_required
 def api_now_streaming_post():
-    now_streaming = request.json["now_streaming"]
-    q = db.session.query(SiteProperty).filter(SiteProperty.name == "now_streaming")
-    if q.count() == 0:
-        db.session.add(SiteProperty(name="now_streaming", value=now_streaming))
-    else:
-        q.first().value = now_streaming
+    write_property("now_streaming", request.json["now_streaming"])
+    db.session.commit()
+    return jsonify({"error": False})
+
+
+@api.route("/raribox", methods=["GET"])
+def api_raribox_get():
+    image_url = db.session.query(SiteProperty).filter(SiteProperty.name == "raribox_image_url").first()
+    text = db.session.query(SiteProperty).filter(SiteProperty.name == "raribox_text").first()
+    return jsonify({"image_url": image_url.value if image_url else "", "text": text.value if text else ""})
+
+
+@api.route("/raribox", methods=["POST"])
+@api_key_required
+def api_raribox_post():
+    if "image_url" in request.json:
+        write_property("raribox_image_url", request.json["image_url"])
+    if "text" in request.json:
+        write_property("raribox_text", request.json["text"])
 
     db.session.commit()
     return jsonify({"error": False})
+
 
 @api.route("/schedule", methods=["GET"])
 def api_schedule_get():

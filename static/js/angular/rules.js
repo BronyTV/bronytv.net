@@ -12,7 +12,7 @@ btvRulesApp.controller("RulesCtrl", function($scope) {
         },
         {
             rule: "No spoilers in Mane Chat",
-            description: "We try and keep our chat room spoiler-free as much as possible. So if a clip or episode is released/leaked before a it's premiere (usually on Saturdays), we would prefer if you take all spoiler discussion to #SpoilerWagonBTV until one day AFTER the new episode/movie originally airs on Discovery Family."
+            description: "We try and keep our chat room spoiler-free as much as possible. So if a clip or episode is released/leaked before it's premiere (usually on Saturdays), we would prefer if you take all spoiler discussion to #SpoilerWagonBTV until one day AFTER the new episode/movie originally airs on Discovery Family."
         },
         {
             rule: "Be nice to the streamer",

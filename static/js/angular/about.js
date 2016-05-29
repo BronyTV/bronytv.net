@@ -92,7 +92,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     description: ''
                 },
                 {
-                    name: 'Nerdy Facts',
+                    name: 'The Nerdy Temmie',
                     title: '',
                     description: ''
                 }
@@ -101,7 +101,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
     };
 
     $scope.imgName = function(name) {
-        return name.replace(" ", "_") + ".png";
+        return name.replace(/ /g, "_") + ".png";
     };
 
     $scope.init = function() {
@@ -113,7 +113,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     if (staff_list.hasOwnProperty(staff_index)) {
                         var staff_object = staff_list[staff_index];
                         (function (staff_obj) {
-                            var resp = $http.get('/static/txt/staff/' + staff_obj.name.replace(" ", "_") + '.txt');
+                            var resp = $http.get('/static/txt/staff/' + staff_obj.name.replace(/ /g, "_") + '.txt');
                             resp.success(function(data, status, headers, config) {
                                 staff_obj.description = data;
                             });

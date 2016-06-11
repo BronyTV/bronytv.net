@@ -3,7 +3,7 @@ from flask.ext.assets import Environment, Bundle
 assets = Environment()
 
 global_css = ["css/vendor/bootstrap.css", "css/global.css"]
-global_js = ["js/vendor/angular.js", "js/angular/common.js",
+global_js = ["js/vendor/jquery.js", "js/vendor/angular.js", "js/angular/common.js",
              "js/header.js"]
 
 
@@ -41,8 +41,8 @@ register_all([
     ("js", "index_js", ["js/vendor/moment.js", "js/vendor/moment-timezone-with-data-2010-2020.js",
                         "js/vendor/humanize-duration.js", "js/vendor/angular-timer.js", "js/angular/index.js"]),
 
-    ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css"]),
-    ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/angular/stream.js"]),
+    ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css", "css/vendor/animate.css"]),
+    ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/vendor/bootstrap-notify.js", "js/angular/stream.js"]),
 
     ("css", "chat_css", ["css/chat.css"]),
     ("js", "chat_js", []),

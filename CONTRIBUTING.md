@@ -11,6 +11,9 @@ Contributing
 * Open with one level of indentation inside of Jinja2 template blocks before starting the actual HTML code.
 * Anything not explicitly outlined, try to find an example of it in the existing code and follow it.
 
+#### General best practices
+* Don't link to external CSS/JS/other assets. Instead, add them to the static folder and configure the minifier to add them to whatever page you please.
+
 ##### Git strategies
 
 * The `master` branch is the currently deployed code. Do not commit directly to it under any circumstances.

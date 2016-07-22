@@ -22,7 +22,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     description: ''
                 },
                 {
-                    name: 'Mercury',
+                    name: 'Dusk',
                     title: 'Head Moderator',
                     description: ''
                 }

@@ -3,12 +3,15 @@ import requests
 
 from config import *
 from btv_site.database import db, cache
-from btv_site.models import SiteProperty
-from flask import Blueprint, jsonify, request
+from btv_site.models import SiteProperty, StreamViewer
+from flask import Blueprint, jsonify, request, session, url_for, redirect
 from requests.exceptions import RequestException
 from btv_site.decorators import api_key_required, add_response_headers, cached
+import time
 import datetime
 import urllib
+import random
+import string
 
 api = Blueprint("api", __name__, template_folder="templates")
 
@@ -111,6 +114,27 @@ def api_raribox_post():
     db.session.commit()
     return jsonify({"error": False})
 
+@api.route("/viewercount", methods=["GET"])
+def api_viewercount_get():
+    time_past = (datetime.datetime.now() - datetime.timedelta(seconds = 10)).strftime('%Y-%m-%d %H:%M:%S')
+    viewerquery = db.session.query(StreamViewer).filter(StreamViewer.timestamp > time_past).all()
+    return jsonify(viewercount=len(viewerquery))
+
+@api.route("/viewercount", methods=["POST"])
+def api_viewercount_post():
+    if "unique_viewercount_id" not in session:
+        session["unique_viewercount_id"] = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)])
+    viewerquery = StreamViewer.query.filter_by(unique=session["unique_viewercount_id"]).first()
+    time_now = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    if viewerquery is None:
+        viewer = StreamViewer(session["unique_viewercount_id"], time_now)
+        db.session.add(viewer)
+        db.session.commit()
+    else:
+        viewerquery.timestamp = time_now
+        db.session.commit()
+    return redirect(url_for('api.api_viewercount_get'))
+
 
 @api.route("/schedule", methods=["GET"])
 @cached(timeout=300)
@@ -151,4 +175,3 @@ def api_event_get():
     except RequestException:  # Request somehow failed
         pass
     return jsonify(events=j)
-

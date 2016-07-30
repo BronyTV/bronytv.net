@@ -98,6 +98,7 @@
                             <span ng-if="streaming">Now Streaming: <span ng-bind-html="props.now_streaming | unsafe"></span></span>
                             <span ng-if="!streaming">Stream Offline</span>
                         </h3>
+                        <h5 ng-if="streaming">Watching: <span id="viewercounter"></span></h5>
                         <hr>
                     </div>
                     <div class="countdown centered">

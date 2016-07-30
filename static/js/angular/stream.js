@@ -76,11 +76,25 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
             };
         });
     };
+    $scope.updateCounter = function() {
+      $.ajax({
+          url: '/api/viewercount',
+          type: 'POST',
+          success: function(json) {
+            document.getElementById("viewercounter").innerHTML = json["viewercount"];
+          },
+          error: function() {
+            document.getElementById("viewercounter").innerHTML = "-1";
+          }
+      });
+    };
     $scope.init = function() {
         $scope.updateValues();
+        $scope.updateCounter();
 
         $interval(function () {
             $scope.updateValues();
+            $scope.updateCounter();
         }, 5000);
     };
 

@@ -46,6 +46,20 @@ btvIndexApp.controller("CountdownCtrl", function($scope, $http) {
             $scope.time = moment($scope.btvtime).local();
             $scope.target = $scope.props.countdown_target || "The next episode airs";
             $scope.done = $scope.props.countdown_done || "It's Pony Time!";
+            $.ajax({
+                url: '/api/viewercount',
+                type: 'GET',
+                success: function(json) {
+                  if ($scope.streaming) {
+                    document.getElementById("viewercounter").innerHTML = json["viewercount"];
+                  }
+                },
+                error: function() {
+                  if ($scope.streaming) {
+                    document.getElementById("viewercounter").innerHTML = "Error fetching the current view count.";
+                  }
+                }
+            });
         });
     };
 

@@ -3,4 +3,3 @@ from werkzeug.contrib.cache import SimpleCache
 
 db = SQLAlchemy()
 cache = SimpleCache()
-

@@ -41,7 +41,7 @@ register_all([
     ("js", "index_js", ["js/vendor/moment.js", "js/vendor/moment-timezone-with-data-2010-2020.js",
                         "js/vendor/humanize-duration.js", "js/vendor/angular-timer.js", "js/angular/index.js"]),
 
-    ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css", "css/vendor/animate.css"]),
+    ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css", "css/vendor/animate.css", "css/vendor/font-awesome.min.css"]),
     ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/vendor/bootstrap-notify.js", "js/angular/stream.js"]),
 
     ("css", "chat_css", ["css/chat.css"]),

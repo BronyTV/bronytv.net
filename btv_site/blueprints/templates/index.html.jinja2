@@ -49,10 +49,11 @@
                         </div>
                         <div ng-switch-when="photo">
                             <h3><a href="{[ item.short_url ]}">BronyTV</a></h3>
-                            <span>
-                                <img ng-src="{[ item.photos[0].original_size.url ]}" /><br>
-                                <span ng-bind-html="item.caption | unsafe"></span>
-                            </span>
+                            <figure>
+                                <a ng-if="item.link_url" href="{[ item.link_url ]}"><img ng-src="{[ item.photos[0].original_size.url ]}" /></a>
+                                <img ng-if="!item.link_url" ng-src="{[ item.photos[0].original_size.url ]}" /><br>
+                                <figcaption ng-bind-html="item.caption | unsafe"></figcaption>
+                            </figure>
                         </div>
                         <div ng-switch-when="link">
                             <h3><a href="{[ item.url ]}">{[ item.title || "Quote" ]}</a></h3>

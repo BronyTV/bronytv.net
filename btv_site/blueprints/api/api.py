@@ -137,7 +137,7 @@ def api_viewercount_post():
 
 
 @api.route("/schedule", methods=["GET"])
-@cached(timeout=300)
+@cached(timeout=300, requestvals=["tzoffset", "offsettoday", "maxresults"])
 def api_schedule_get():
     tzoffset = urllib.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
     offsettoday = int(float(str(request.args.get('offsettoday', 0))))
@@ -161,7 +161,7 @@ def api_schedule_get():
     return jsonify(events=events)
 
 @api.route("/event", methods=["GET"])
-@cached(timeout=300)
+@cached(timeout=300, requestvals=["tzoffset", "eventid"])
 def api_event_get():
     tzoffset = urllib.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
     eventid = request.args.get('eventid', 0)

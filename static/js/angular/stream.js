@@ -114,4 +114,7 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.popoutAlternateStream = function() {
         window.open($scope.properties.alternate_stream_url, 'Alternate Stream', 'width=800,height=600');
     };
+
+    var viewer = UstreamEmbed("UstreamFrame");
+    viewer.callMethod('load', 'channel', "20768037");
 });

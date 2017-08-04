@@ -18,13 +18,23 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                 },
                 {
                     name: 'Oatzmeal',
-                    title: 'Head of Streaming',
+                    title: '',
                     description: ''
                 },
                 {
                     name: 'Mercury',
                     title: 'Head Moderator',
                     description: ''
+                },
+                {
+                    name: 'Mirality',
+                    title: 'Head of Streaming',
+                    description: ''
+                },
+                {
+                  name: 'EndenDragon',
+                  title: 'Developer of Titan Embeds',
+                  description: ''
                 }
             ]
         },
@@ -37,12 +47,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     description: ''
                 },
                 {
-                    name: 'Mirality',
-                    title: '',
-                    description: ''
-                },
-                {
-                    name: 'Jolly',
+                    name: 'catnickfl',
                     title: '',
                     description: ''
                 }
@@ -51,16 +56,6 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
         tech: {
             title: 'Our Tech Gurus',
             staff: [
-                {
-                  name: 'EndenDragon',
-                  title: '',
-                  description: ''
-                },
-                {
-                    name: 'catnickfl',
-                    title: '',
-                    description: ''
-                },
                 {
                     name: 'Cuddles',
                     title: '',
@@ -78,11 +73,6 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
             staff: [
                 {
                     name: 'Delsin7Pony',
-                    title: '',
-                    description: ''
-                },
-                {
-                    name: 'Ditznata',
                     title: '',
                     description: ''
                 },

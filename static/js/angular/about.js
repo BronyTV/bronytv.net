@@ -42,11 +42,6 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
             title: 'Our Awesome Stream-Team',
             staff: [
                 {
-                    name: 'Lightning Ferron',
-                    title: '',
-                    description: ''
-                },
-                {
                     name: 'catnickfl',
                     title: '',
                     description: ''
@@ -71,6 +66,11 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
         general: {
             title: 'General mods and other cool peeps',
             staff: [
+                {
+                    name: 'Lightning Ferron',
+                    title: '',
+                    description: ''
+                },
                 {
                     name: 'Delsin7Pony',
                     title: '',

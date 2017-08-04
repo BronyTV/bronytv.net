@@ -38,7 +38,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                 }
             ]
         },
-        stream: {
+        /*stream: {
             title: 'Our Awesome Stream-Team',
             staff: [
                 {
@@ -48,42 +48,48 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                 }
             ]
         },
-        tech: {
+        /*tech: {
             title: 'Our Tech Gurus',
             staff: [
+
                 {
-                    name: 'Cuddles',
-                    title: '',
-                    description: ''
-                }
-                /*{
                     name: 'AppleDash',
                     title: '',
                     description: ''
-                }*/
+                }
             ]
-        },
+        },*/
         general: {
             title: 'General mods and other cool peeps',
             staff: [
                 {
+                    name: 'catnickfl',
+                    title: 'Streamer',
+                    description: ''
+                },
+                {
+                    name: 'Cuddles',
+                    title: 'Moderator',
+                    description: ''
+                },
+                {
                     name: 'Lightning Ferron',
-                    title: '',
+                    title: 'Moderator',
                     description: ''
                 },
                 {
                     name: 'Delsin7Pony',
-                    title: '',
+                    title: 'Moderator',
                     description: ''
                 },
                 {
                     name: 'Envirotech',
-                    title: '',
+                    title: 'Moderator',
                     description: ''
                 },
                 {
                     name: 'The Nerdy Temmie',
-                    title: '',
+                    title: 'Ex Show Host',
                     description: ''
                 }
             ]

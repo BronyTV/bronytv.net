@@ -114,11 +114,14 @@ def api_raribox_post():
     db.session.commit()
     return jsonify({"error": False})
 
-@api.route("/viewercount", methods=["GET"])
-def api_viewercount_get():
+def get_viewercount():
     time_past = (datetime.datetime.now() - datetime.timedelta(seconds = 10)).strftime('%Y-%m-%d %H:%M:%S')
     viewerquery = db.session.query(StreamViewer).filter(StreamViewer.timestamp > time_past).all()
-    return jsonify(viewercount=len(viewerquery))
+    return len(viewerquery)
+
+@api.route("/viewercount", methods=["GET"])
+def api_viewercount_get():
+    return jsonify(viewercount=get_viewercount())
 
 @api.route("/viewercount", methods=["POST"])
 def api_viewercount_post():
@@ -133,7 +136,7 @@ def api_viewercount_post():
     else:
         viewerquery.timestamp = time_now
         db.session.commit()
-    return redirect(url_for('api.api_viewercount_get'))
+    return jsonify(viewercount=get_viewercount())
 
 
 @api.route("/schedule", methods=["GET"])

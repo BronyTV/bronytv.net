@@ -82,13 +82,11 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
           type: 'POST',
           success: function(json) {
             document.getElementById("viewercounter").innerHTML = json["viewercount"];
-          },
-          error: function() {
-            document.getElementById("viewercounter").innerHTML = "-1";
           }
       });
     };
     $scope.init = function() {
+        document.getElementById("viewercounter").innerHTML = "-1";
         $scope.updateValues();
         $scope.updateCounter();
 

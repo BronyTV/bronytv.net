@@ -7,6 +7,7 @@ from btv_site.models import SiteProperty, StreamViewer
 from flask import Blueprint, jsonify, request, session, url_for, redirect
 from requests.exceptions import RequestException
 from btv_site.decorators import api_key_required, add_response_headers, cached
+from sqlalchemy import func
 import time
 import datetime
 import urllib
@@ -116,8 +117,8 @@ def api_raribox_post():
 
 def get_viewercount():
     time_past = (datetime.datetime.now() - datetime.timedelta(seconds = 10)).strftime('%Y-%m-%d %H:%M:%S')
-    viewerquery = db.session.query(StreamViewer).filter(StreamViewer.timestamp > time_past).all()
-    return len(viewerquery)
+    count = db.session.query(func.count(StreamViewer.id)).filter(StreamViewer.timestamp > time_past).scalar()
+    return count
 
 @api.route("/viewercount", methods=["GET"])
 def api_viewercount_get():

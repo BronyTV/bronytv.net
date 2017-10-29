@@ -2,7 +2,7 @@ var btvStreamApp = btvApp("btvStreamApp", ["ngAnimate"]);
 
 btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.properties = { stream_url: '', alternate_stream_url: '', now_streaming: null };
-    $scope.chat_url = 'https://titanembeds.com/embed/81387914189078528?defaultchannel=81387914189078528&css=42'; // Do NOT change this from single quotes. Double quotes make the minifier interpret the slashes as a comment.
+    $scope.chat_url = 'https://titanembeds.com/embed/81387914189078528?defaultchannel=90956726219571200&css=42&noscroll=true'; // Do NOT change this from single quotes. Double quotes make the minifier interpret the slashes as a comment.
     $scope.chatShown = false;
     $scope.altStream = false;
     $scope.showPlaylist = false;

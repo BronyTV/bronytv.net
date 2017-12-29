@@ -89,7 +89,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                 },
                 {
                     name: 'The Nerdy Temmie',
-                    title: 'Ex Show Host',
+                    title: 'Show Host & Spoiler Czar',
                     description: ''
                 }
             ]

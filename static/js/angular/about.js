@@ -17,7 +17,7 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     description: ''
                 },
                 {
-                    name: 'Oatzmeal',
+                    name: 'NeighSayer',
                     title: '',
                     description: ''
                 },
@@ -46,6 +46,11 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                     title: '',
                     description: ''
                 }
+                {
+                    name: 'Cuddles',
+                    title: 'Moderator',
+                    description: ''
+                },
             ]
         },
         /*tech: {
@@ -65,11 +70,6 @@ btvAboutApp.controller("AboutCtrl", function($scope, $http) {
                 {
                     name: 'catnickfl',
                     title: 'Streamer',
-                    description: ''
-                },
-                {
-                    name: 'Cuddles',
-                    title: 'Moderator',
                     description: ''
                 },
                 {

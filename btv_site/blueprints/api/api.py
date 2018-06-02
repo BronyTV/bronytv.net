@@ -5,6 +5,9 @@ from config import *
 from btv_site.database import db, cache
 from btv_site.models import SiteProperty, StreamViewer
 from flask import Blueprint, jsonify, request, session, url_for, redirect
+from flask_socketio import SocketIO, emit
+from engineio.socket import Socket as EngineSocket
+from engineio.packet import Packet as EnginePacket
 from requests.exceptions import RequestException
 from btv_site.decorators import api_key_required, add_response_headers, cached
 from sqlalchemy import func
@@ -13,15 +16,21 @@ import datetime
 import urllib
 import random
 import string
+import six
 
 api = Blueprint("api", __name__, template_folder="templates")
+sio = SocketIO(logging=True)
 
-def write_property(pname, pvalue):
+last_viewercount = -1
+
+def write_property(pset, pname, pvalue):
+    pset[pname] = pvalue
+    dvalue = pvalue if isinstance(pvalue, six.string_types) else json.dumps(pvalue)
     q = db.session.query(SiteProperty).filter(SiteProperty.name == pname)
     if q.count() == 0:
-        db.session.add(SiteProperty(name=pname, value=pvalue))
+        db.session.add(SiteProperty(name=pname, value=dvalue))
     else:
-        q.first().value = pvalue
+        q.first().value = dvalue
 
 
 @api.route("/news")
@@ -59,7 +68,6 @@ def tumblr_primaryblog_name(user):
     except RequestException:  # Request somehow failed
         pass
 
-
 @api.route("/properties")
 @add_response_headers({"Vary": "Accept-Encoding"})
 def api_properties():
@@ -77,8 +85,10 @@ def api_playlist_get():
 @api.route("/playlist", methods=["POST"])
 @api_key_required
 def api_playlist_post():
-    write_property("playlist", json.dumps(request.json["playlist"]))
+    properties = {}
+    write_property(properties, "playlist", request.json["playlist"])
     db.session.commit()
+    sio.emit("properties", properties)
     return jsonify({"error": False})
 
 
@@ -92,8 +102,10 @@ def api_now_streaming_get():
 @api.route("/now_streaming", methods=["POST"])
 @api_key_required
 def api_now_streaming_post():
-    write_property("now_streaming", request.json["now_streaming"])
+    properties = {}
+    write_property(properties, "now_streaming", request.json["now_streaming"])
     db.session.commit()
+    sio.emit("properties", properties)
     return jsonify({"error": False})
 
 
@@ -107,25 +119,23 @@ def api_raribox_get():
 @api.route("/raribox", methods=["POST"])
 @api_key_required
 def api_raribox_post():
+    properties = {}
     if "image_url" in request.json:
-        write_property("raribox_image_url", request.json["image_url"])
+        write_property(properties, "raribox_image_url", request.json["image_url"])
     if "text" in request.json:
-        write_property("raribox_text", request.json["text"])
+        write_property(properties, "raribox_text", request.json["text"])
 
     db.session.commit()
+    sio.emit("properties", properties)
     return jsonify({"error": False})
 
 def get_viewercount():
-    time_past = (datetime.datetime.now() - datetime.timedelta(seconds = 10)).strftime('%Y-%m-%d %H:%M:%S')
+    time_past = (datetime.datetime.now() - datetime.timedelta(seconds = 60)).strftime('%Y-%m-%d %H:%M:%S')
     count = db.session.query(func.count(StreamViewer.id)).filter(StreamViewer.timestamp > time_past).scalar()
     return count
 
-@api.route("/viewercount", methods=["GET"])
-def api_viewercount_get():
-    return jsonify(viewercount=get_viewercount())
-
-@api.route("/viewercount", methods=["POST"])
-def api_viewercount_post():
+def update_viewercount():
+    global last_viewercount
     if "unique_viewercount_id" not in session:
         session["unique_viewercount_id"] = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)])
     viewerquery = StreamViewer.query.filter_by(unique=session["unique_viewercount_id"]).first()
@@ -137,7 +147,20 @@ def api_viewercount_post():
     else:
         viewerquery.timestamp = time_now
         db.session.commit()
+
+    viewercount = get_viewercount()
+    if viewercount != last_viewercount:
+        last_viewercount = viewercount
+        sio.emit("properties", {"viewercount": viewercount})
+    return viewercount
+
+@api.route("/viewercount", methods=["GET"])
+def api_viewercount_get():
     return jsonify(viewercount=get_viewercount())
+
+@api.route("/viewercount", methods=["POST"])
+def api_viewercount_post():
+    return jsonify(viewercount=update_viewercount())
 
 
 @api.route("/schedule", methods=["GET"])
@@ -179,3 +202,32 @@ def api_event_get():
     except RequestException:  # Request somehow failed
         pass
     return jsonify(events=j)
+
+
+@sio.on("connect")
+def api_ws_connect():
+    properties = {p.name: p.value for p in db.session.query(SiteProperty).all()}
+    properties["playlist"] = json.loads(properties["playlist"]) if properties["playlist"] else []
+    emit("properties", properties)
+    update_viewercount()
+
+@sio.on("disconnect")
+def api_ws_disconnect():
+    # we could make the viewercount update a little faster if we mess with the date here
+    pass
+
+@sio.on("ping")
+def api_ws_ping():
+    update_viewercount()
+
+# this is an evil evil hack to intercept the internal pings
+# so that we don't have to add our own one
+def my_receive(self, pkt):
+    global sio_receive
+    if pkt.packet_type == 2:
+        sio_receive(self, EnginePacket(4, '2["ping"]'))
+    return sio_receive(self, pkt)
+
+sio_receive = EngineSocket.receive
+EngineSocket.receive = my_receive
+

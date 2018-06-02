@@ -1,6 +1,11 @@
-var btvStreamApp = btvApp("btvStreamApp", ["ngAnimate"]);
+var btvStreamApp = btvApp("btvStreamApp", ["ngAnimate", "btford.socket-io"]);
 
-btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
+btvStreamApp.factory("sio", function(socketFactory) {
+    var sio = socketFactory();
+    sio.forward('properties');
+    return sio;
+});
+btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval, sio) {
     $scope.properties = { stream_url: '', alternate_stream_url: '', now_streaming: null };
     $scope.chat_url = 'https://titanembeds.com/embed/81387914189078528?defaultchannel=90956726219571200&css=42&noscroll=true'; // Do NOT change this from single quotes. Double quotes make the minifier interpret the slashes as a comment.
     $scope.chatShown = false;
@@ -8,11 +13,11 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
     $scope.showPlaylist = false;
     $scope.streaming = false;
 
-    rariboard_message = "";
-    rariboard_message_cache = ""
-    rariboard_image = "";
-    rariboard_image_cache = ""
-    rariboard_enabled = false;
+    var rariboard_message = "";
+    var rariboard_message_cache = ""
+    var rariboard_image = "";
+    var rariboard_image_cache = ""
+    var rariboard_enabled = false;
 
     function onRariboardClose() {
         rariboard_enabled = false;
@@ -41,60 +46,44 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval) {
       '<div data-notify="message"></div></div>' + '<div class="pull-right"><img data-notify="icon"></div></div>'
     });
 
-    $scope.updateValues = function() {
-        $http.get("/api/properties").success(function(data) {
-            $scope.properties = data["properties"];
-            $scope.streaming = typeof($scope.properties.now_streaming) != "undefined" && $scope.properties.now_streaming != null && $scope.properties.now_streaming != "";
-            $scope.playlist = angular.fromJson($scope.properties.playlist) || [];
-            $scope.showPlaylist = !!$scope.playlist;
-            rariboard_message = $scope.properties.raribox_text;
-            rariboard_image = $scope.properties.raribox_image_url;
+    $scope.$on('socket:properties', function (ev, data) {
+        for (var k in data) {
+            $scope.properties[k] = data[k];
+        }
+        $scope.streaming = typeof($scope.properties.now_streaming) != "undefined"
+                && $scope.properties.now_streaming != null
+                && $scope.properties.now_streaming != "";
+        $scope.playlist = angular.fromJson($scope.properties.playlist) || [];
+        $scope.showPlaylist = !!$scope.playlist;
+        rariboard_message = $scope.properties.raribox_text;
+        rariboard_image = $scope.properties.raribox_image_url;
 
-            if ($(document).width() > 768) {
-              if (rariboard_message != "") {
+        if ($(document).width() > 768) {
+            if (rariboard_message != "") {
                 if (rariboard_enabled == true) {
-                  notify.update('icon', rariboard_image);
-                  notify.update('message', rariboard_message);
-                } else {
-                  if (rariboard_message != rariboard_message_cache || rariboard_image != rariboard_image_cache) {
-                    rariboard_enabled = true;
-                    notify = $.notify({
-                      icon: rariboard_image,
-                      message: rariboard_message
-                    });
+                    notify.update('icon', rariboard_image);
                     notify.update('message', rariboard_message);
-                  }
-                  //do nothing if rariboard cache equals with rariboard_message
-                };
-              } else { //if the message is blank, it kills the rariboard
+                } else {
+                    if (rariboard_message != rariboard_message_cache
+                            || rariboard_image != rariboard_image_cache) {
+                        rariboard_enabled = true;
+                        notify = $.notify({
+                            icon: rariboard_image,
+                            message: rariboard_message
+                        });
+                        notify.update('message', rariboard_message);
+                    }
+                    //do nothing if rariboard cache equals with rariboard_message
+                }
+            } else { //if the message is blank, it kills the rariboard
                 rariboard_enabled = false;
                 $.notifyClose();
-              };
-            } else { //if you are a mobile user, the rariboard doesnt show.
-              rariboard_enabled = false;
-              $.notifyClose();
-            };
-        });
-    };
-    $scope.updateCounter = function() {
-      $.ajax({
-          url: '/api/viewercount',
-          type: 'POST',
-          success: function(json) {
-            document.getElementById("viewercounter").innerHTML = json["viewercount"];
-          }
-      });
-    };
-    $scope.init = function() {
-        document.getElementById("viewercounter").innerHTML = "-1";
-        $scope.updateValues();
-        $scope.updateCounter();
-
-        $interval(function () {
-            $scope.updateValues();
-            $scope.updateCounter();
-        }, 5000);
-    };
+            }
+        } else { //if you are a mobile user, the rariboard doesnt show.
+            rariboard_enabled = false;
+            $.notifyClose();
+        }
+    });
 
     $scope.toggleChat = function() {
         $scope.chatShown = !$scope.chatShown;

@@ -42,7 +42,7 @@ register_all([
                         "js/vendor/humanize-duration.js", "js/vendor/angular-timer.js", "js/angular/index.js"]),
 
     ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css", "css/vendor/animate.css"]),
-    ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/vendor/bootstrap-notify.js", "js/angular/stream.js"]),
+    ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/vendor/bootstrap-notify.js", "js/vendor/socket.js", "js/angular/stream.js"]),
 
     ("css", "chat_css", ["css/chat.css"]),
     ("js", "chat_js", []),

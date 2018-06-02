@@ -13,12 +13,14 @@ It runs on Python 2, and depends on the following `pip` packages:
 * psycopg2
 * bcrypt
 * flask-assets
+* flask-socketio
+* eventlet
 * cssmin
 * jsmin
 
 The frontend of the app is powered by AngularJS, the source files of which are included in this repository.
 
-In production, the application is served by [Phusion Passenger](https://www.phusionpassenger.com/), behind nginx.
+In production, the application is served by gunicorn, behind nginx.
 
 Deployment is managed with Ansible, using our [playbooks](https://github.com/BronyTV/ansible-playbooks).
 

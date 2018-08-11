@@ -65,8 +65,8 @@ PlaylistManager.prototype = {
           } else {
             item.text(v.name);
           }
-          if (v.author) {
-            item.append($('<span/>', { text: ' - ' + v.author }));
+          if (v.artist) {
+            item.append($('<span/>', { text: ' - ' + v.artist }));
           }
           actions.add.push(item[0]);
         } else {
@@ -88,8 +88,8 @@ PlaylistManager.prototype = {
       dataType: 'json',
     }).done(function(data) {
       if (typeof data !== 'undefined') {
-        mgr.data = data;
-        sync(data);
+        mgr.data = data.playlist;
+        sync(data.playlist);
       } else {
         await();
       }

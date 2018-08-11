@@ -99,6 +99,9 @@
         } else if ( data.type == 'video' ) {
           blogTitle = '<a href="' + data.short_url + '">BronyTV</a>';
           blogContent = data.player[2].embed_code + '<br />' + data.caption
+        } else if ( data.type == 'audio' ) {
+          blogTitle = '<a href="' + data.short_url + '">' + (data.track_name || "BronyTV") + '</a>';
+          blogContent = data.player + '<br />' + data.caption
         } else {
           blogTitle = '<a href="' + data.short_url + '">' + (data.title || 'BronyTV') + '</a>';
           blogContent = data.body
@@ -107,7 +110,7 @@
         $('#Post'+i+'Date').html('<strong>'+postTime(data.timestamp)+'</strong> ' +
             (data.reblog ? 'reblogged ' : '') + 'by <a href="//' + data.post_author + '.tumblr.com/">' +
             data.post_author + ' <img src="//api.tumblr.com/v2/blog/' +
-            data.post_author + '.tumblr.com/avatar/16" width="16" height="16" /></a>');
+            data.post_author + '.tumblr.com/avatar/16" width="16" height="16" style="display: inline" /></a>');
         $('#Post'+i+'Content').html(blogContent);
       }
     });

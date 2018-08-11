@@ -13,7 +13,7 @@ $(document).ready(function () {
         document.getElementById("discordPop").src = "https://discordapp.com/widget?id=81387914189078528&theme=dark";
         document.getElementById("discordPop").width = "300px";
         document.getElementById("discordPop").height = "400px";
-		document.getElementById("mane").src = "/Pictures/rariLogo.png";
+		//document.getElementById("mane").src = "/Pictures/rariLogo.png";
         $('#trigger').animate({
             right: 315
         }, 'slow');

@@ -6,7 +6,7 @@ RewriteRule ^(.*)\.php$ $1.html [R=301,L]
 
 ErrorDocument 404 /404.html
 
-Redirect 301 /stream* /stream.html
+Redirect 301 /stream /stream.html
 
 DirectoryIndex mane.html
 

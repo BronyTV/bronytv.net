@@ -28,7 +28,7 @@
                 <div class="aspect-ratio">
                     <iframe id="stream-frame" ng-src="{[ properties.stream_url | trustAsResourceUrl ]}"
                         style="border: 0 none transparent; overflow: hidden;" allowfullscreen
-                        frameborder="no" scrolling="no"></iframe>
+                        frameborder="no" scrolling="no" sandbox="allow-scripts allow-same-origin"></iframe>
                 </div>
                 <div id="stream-buttons">
                     <button class="btn btn-purple btn-xs" ng-click="reloadStream()">Reload Stream</button>

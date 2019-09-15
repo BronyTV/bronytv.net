@@ -19,7 +19,7 @@ import string
 import six
 
 api = Blueprint("api", __name__, template_folder="templates")
-sio = SocketIO(logging=True)
+sio = SocketIO(logger=False, manage_session=False)
 
 last_viewercount = -1
 
@@ -148,11 +148,13 @@ def update_viewercount():
         viewerquery.timestamp = time_now
         db.session.commit()
 
+    sent = False
     viewercount = get_viewercount()
     if viewercount != last_viewercount:
         last_viewercount = viewercount
         sio.emit("properties", {"viewercount": viewercount})
-    return viewercount
+        sent = True
+    return viewercount, sent
 
 @api.route("/viewercount", methods=["GET"])
 def api_viewercount_get():
@@ -160,7 +162,7 @@ def api_viewercount_get():
 
 @api.route("/viewercount", methods=["POST"])
 def api_viewercount_post():
-    return jsonify(viewercount=update_viewercount())
+    return jsonify(viewercount=update_viewercount()[0])
 
 
 @api.route("/schedule", methods=["GET"])
@@ -207,9 +209,11 @@ def api_event_get():
 @sio.on("connect")
 def api_ws_connect():
     properties = {p.name: p.value for p in db.session.query(SiteProperty).all()}
-    properties["playlist"] = json.loads(properties["playlist"]) if properties["playlist"] else []
+    properties["playlist"] = json.loads(properties["playlist"]) if "playlist" in properties and properties["playlist"] else []
     emit("properties", properties)
-    update_viewercount()
+    viewercount, sent = update_viewercount()
+    if not sent:
+        emit("properties", {"viewercount": viewercount})
 
 @sio.on("disconnect")
 def api_ws_disconnect():

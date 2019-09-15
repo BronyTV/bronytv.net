@@ -7,7 +7,11 @@ from btv_site.models.site_property import SiteProperty
 from flask import Blueprint, render_template, redirect, session, request, jsonify
 
 admin = Blueprint("admin", __name__, template_folder="../templates")
+api_emit = None
 
+def set_api_emit(emit):
+    global api_emit
+    api_emit = emit
 
 @admin.context_processor
 def inject_revision():
@@ -63,5 +67,8 @@ def api_values():
             q.first().value = value
 
         db.session.commit()
+
+    if api_emit:
+        api_emit("properties", properties)
 
     return jsonify({"error": False})

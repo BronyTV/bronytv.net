@@ -7,6 +7,7 @@ from config import *
 from database import db
 from assets import assets
 from flask import Flask, request
+from flask_session import Session
 
 # Blueprints
 import blueprints.api
@@ -14,13 +15,17 @@ import blueprints.admin
 import blueprints.static_pages
 
 sio = blueprints.api.sio
+blueprints.admin.set_api_emit(sio.emit)
 
 os.chdir(APP_BASE)
 app = Flask(__name__, static_folder="../static")  # We keep the static folder here to make IDEs happy with paths.
 app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
+app.config["SESSION_TYPE"] = "sqlalchemy"
+app.config["SESSION_SQLALCHEMY"] = db
 app.secret_key = SECRET_KEY
 
 db.init_app(app)
+Session(app)
 assets.init_app(app)
 sio.init_app(app)
 

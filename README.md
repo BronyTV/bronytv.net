@@ -10,6 +10,7 @@ It runs on Python 2, and depends on the following `pip` packages:
 * flask
 * requests
 * flask-sqlalchemy
+* flask-session
 * psycopg2
 * bcrypt
 * flask-assets

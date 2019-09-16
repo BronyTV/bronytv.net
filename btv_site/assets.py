@@ -45,7 +45,7 @@ register_all([
     ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/vendor/bootstrap-notify.js", "js/vendor/socket.js", "js/angular/stream.js"]),
 
     ("css", "chat_css", ["css/chat.css"]),
-    ("js", "chat_js", []),
+    ("js", "chat_js", ["js/angular/chat.js"]),
 
     ("css", "schedule_css", ["css/schedule.css"]),
     ("js", "schedule_js", []),

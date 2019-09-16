@@ -6,8 +6,7 @@ btvStreamApp.factory("sio", function(socketFactory) {
     return sio;
 });
 btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval, sio) {
-    $scope.properties = { stream_url: '', alternate_stream_url: '', now_streaming: null };
-    $scope.chat_url = 'https://titanembeds.com/embed/81387914189078528?defaultchannel=90956726219571200&css=42&noscroll=true'; // Do NOT change this from single quotes. Double quotes make the minifier interpret the slashes as a comment.
+    $scope.properties = { stream_url: '', alternate_stream_url: '', chat_url: '', now_streaming: null };
     $scope.chatShown = false;
     $scope.altStream = false;
     $scope.showPlaylist = false;
@@ -95,7 +94,7 @@ btvStreamApp.controller("StreamCtrl", function($scope, $http, $interval, sio) {
     };
 
     $scope.popoutChat = function() {
-        window.open($scope.chat_url, 'Chat', 'width=800,height=600');
+        window.open($scope.properties.chat_url, 'Chat', 'width=800,height=600');
     };
 
     $scope.popoutAlternateStream = function() {

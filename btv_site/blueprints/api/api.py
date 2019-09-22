@@ -25,7 +25,7 @@ last_viewercount = -1
 
 def write_property(pset, pname, pvalue):
     pset[pname] = pvalue
-    dvalue = pvalue if isinstance(pvalue, six.string_types) else json.dumps(pvalue)
+    dvalue = pvalue if pvalue is None or isinstance(pvalue, six.string_types) else json.dumps(pvalue)
     q = db.session.query(SiteProperty).filter(SiteProperty.name == pname)
     if q.count() == 0:
         db.session.add(SiteProperty(name=pname, value=dvalue))

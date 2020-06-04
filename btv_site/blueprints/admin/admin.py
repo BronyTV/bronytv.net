@@ -58,7 +58,7 @@ def api_values():
 
     properties = request.json["properties"]
 
-    for name, value in properties.iteritems():
+    for name, value in properties.items():
         q = db.session.query(SiteProperty).filter(SiteProperty.name == name)
         if q.count() == 0:
             prop = SiteProperty(name=name, value=value)

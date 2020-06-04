@@ -1,3 +1,3 @@
-import commands
+import subprocess
 
-site_revision = commands.getoutput("git rev-parse --short HEAD")
+site_revision = subprocess.getoutput("git rev-parse --short HEAD")

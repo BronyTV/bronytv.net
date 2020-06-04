@@ -1,1 +1,1 @@
-from static_pages import static_pages
+from .static_pages import static_pages

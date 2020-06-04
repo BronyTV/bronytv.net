@@ -1,7 +1,7 @@
 import json
 
-from database import db, cache
-from models import User
+from .database import db, cache
+from .models import User
 from functools import wraps
 from flask import request, Response, make_response
 
@@ -31,7 +31,7 @@ def add_response_headers(headers=None):
         def decorated_function(*args, **kwargs):
             resp = make_response(f(*args, **kwargs))
             h = resp.headers
-            for header, value in headers.items():
+            for header, value in list(headers.items()):
                 h[header] = value
             return resp
         return decorated_function

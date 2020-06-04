@@ -4,18 +4,16 @@ import hashlib
 import subprocess
 
 from config import *
-from database import db
-from assets import assets
+from .database import db
+from .assets import assets
 from flask import Flask, request
 from flask_session import Session
 
 # Blueprints
-import blueprints.api
-import blueprints.admin
-import blueprints.static_pages
+from .blueprints import api, admin, static_pages
 
-sio = blueprints.api.sio
-blueprints.admin.set_api_emit(sio.emit)
+sio = api.sio
+admin.set_api_emit(sio.emit)
 
 os.chdir(APP_BASE)
 app = Flask(__name__, static_folder="../static")  # We keep the static folder here to make IDEs happy with paths.
@@ -29,9 +27,9 @@ Session(app)
 assets.init_app(app)
 sio.init_app(app)
 
-app.register_blueprint(blueprints.static_pages.static_pages, url_prefix="")
-app.register_blueprint(blueprints.admin.admin, url_prefix="/admin")
-app.register_blueprint(blueprints.api.api, url_prefix="/api")
+app.register_blueprint(static_pages.static_pages, url_prefix="")
+app.register_blueprint(admin.admin, url_prefix="/admin")
+app.register_blueprint(api.api, url_prefix="/api")
 
 
 # This is here because there's not really a good place to put it and it doesn't need its own blueprint.

@@ -5,7 +5,7 @@ bronytv.net
 
 This is the Flask app that powers [BronyTV](http://bronytv.net).
 
-It runs on Python 2, and depends on the following `pip` packages:
+It runs on Python 3, and depends on the following `pip` packages:
 
 * flask
 * requests

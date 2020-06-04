@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.contrib.cache import SimpleCache
+from cachelib import SimpleCache
 
 db = SQLAlchemy()
 cache = SimpleCache()

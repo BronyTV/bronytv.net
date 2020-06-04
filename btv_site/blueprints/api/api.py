@@ -13,7 +13,7 @@ from btv_site.decorators import api_key_required, add_response_headers, cached
 from sqlalchemy import func
 import time
 import datetime
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import random
 import string
 import six
@@ -137,7 +137,7 @@ def get_viewercount():
 def update_viewercount():
     global last_viewercount
     if "unique_viewercount_id" not in session:
-        session["unique_viewercount_id"] = ''.join([random.choice(string.ascii_letters + string.digits) for n in xrange(32)])
+        session["unique_viewercount_id"] = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
     viewerquery = StreamViewer.query.filter_by(unique=session["unique_viewercount_id"]).first()
     time_now = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     if viewerquery is None:
@@ -168,12 +168,12 @@ def api_viewercount_post():
 @api.route("/schedule", methods=["GET"])
 @cached(timeout=300, requestvals=["tzoffset", "offsettoday", "maxresults"])
 def api_schedule_get():
-    tzoffset = urllib.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
+    tzoffset = urllib.parse.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
     offsettoday = int(float(str(request.args.get('offsettoday', 0))))
     maxresults = request.args.get('maxresults', 250)
 
     if offsettoday == 1:
-        timenow = urllib.quote_plus(str(datetime.datetime.now().isoformat("T"))) + tzoffset
+        timenow = urllib.parse.quote_plus(str(datetime.datetime.now().isoformat("T"))) + tzoffset
         base_url = "https://www.googleapis.com/calendar/v3/calendars/{}/events?maxResults={}&orderBy=startTime&singleEvents=true&timeMin={}&timeZone=UTC{}&key={}".format(GOOGLE_CALENDAR_ID, maxresults, timenow, tzoffset, GOOGLE_CALENDAR_API_KEY)
     else:
         base_url = "https://www.googleapis.com/calendar/v3/calendars/{}/events?maxResults={}&orderBy=startTime&singleEvents=true&timeZone=UTC{}&key={}".format(GOOGLE_CALENDAR_ID, maxresults, tzoffset, GOOGLE_CALENDAR_API_KEY)
@@ -192,7 +192,7 @@ def api_schedule_get():
 @api.route("/event", methods=["GET"])
 @cached(timeout=300, requestvals=["tzoffset", "eventid"])
 def api_event_get():
-    tzoffset = urllib.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
+    tzoffset = urllib.parse.quote_plus(request.args.get('tzoffset', "-08:00")).replace("+", "%2B") #Pacific Standard Time for the win
     eventid = request.args.get('eventid', 0)
 
     base_url = "https://www.googleapis.com/calendar/v3/calendars/{}/events/{}?timeZone=UTC{}&key={}".format(GOOGLE_CALENDAR_ID, eventid, tzoffset, GOOGLE_CALENDAR_API_KEY)

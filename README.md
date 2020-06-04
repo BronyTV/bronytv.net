@@ -11,7 +11,7 @@ It runs on Python 3, and depends on the following `pip` packages:
 * requests
 * flask-sqlalchemy
 * flask-session
-* psycopg2
+* psycopg2-binary
 * bcrypt
 * flask-assets
 * flask-socketio

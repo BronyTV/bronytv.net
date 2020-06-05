@@ -3,8 +3,8 @@ import requests
 
 from config import *
 from btv_site.database import db, cache
-from btv_site.models import SiteProperty, StreamViewer
-from flask import Blueprint, jsonify, request, session, url_for, redirect
+from btv_site.models import SiteProperty, StreamViewer, User
+from flask import Blueprint, Response, jsonify, request, session, url_for, redirect, current_app
 from flask_socketio import SocketIO, emit
 from engineio.socket import Socket as EngineSocket
 from engineio.packet import Packet as EnginePacket
@@ -17,6 +17,9 @@ import urllib.request, urllib.parse, urllib.error
 import random
 import string
 import six
+
+class FixedLocationResponse(Response):
+    autocorrect_location_header = False
 
 api = Blueprint("api", __name__, template_folder="templates")
 sio = SocketIO(logger=False, manage_session=False)
@@ -108,6 +111,19 @@ def api_now_streaming_post():
     sio.emit("properties", properties)
     return jsonify({"error": False})
 
+@api.route("/verify_stream", methods=["POST"])
+def api_verify_stream():
+    #current_app.logger.info("verify_stream: %s", request.form)
+    key = request.form.get("name", "")
+    name = request.form.get("id", "bronytv")
+    if '/' in name or key == "":
+        return '', 400
+
+    user = db.session.query(User).filter(User.api_key == key).first()
+    if not user:
+        return '', 403
+
+    return redirect(name, Response=FixedLocationResponse)
 
 @api.route("/raribox", methods=["GET"])
 def api_raribox_get():

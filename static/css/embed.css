@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+#offline {
+  color: #555;
+  position: relative;
+  top: 0;
+  text-align: center;
+  font-size: 36px;
+  line-height: 45px;
+  height: 100%;
+}
+
+#offline img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+#video {
+  display: none;
+  height: 100vh;
+}

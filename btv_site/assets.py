@@ -41,8 +41,11 @@ register_all([
     ("js", "index_js", ["js/vendor/moment.js", "js/vendor/moment-timezone-with-data-2010-2020.js",
                         "js/vendor/humanize-duration.js", "js/vendor/angular-timer.js", "js/angular/index.js"]),
 
-    ("css", "stream_css", ["css/vendor/video-js.css", "css/stream.css", "css/vendor/animate.css"]),
-    ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/video.js", "js/vendor/bootstrap-notify.js", "js/vendor/socket.js", "js/angular/stream.js"]),
+    ("css", "stream_css", ["css/vendor/animate.css", "css/stream.css"]),
+    ("js", "stream_js", ["js/vendor/angular-animate.js", "js/vendor/bootstrap-notify.js", "js/vendor/socket.js", "js/angular/stream.js"]),
+
+    ("css", "embed_css", ["css/vendor/video-js.css", "css/vendor/video-forest.css", "css/embed.css"]),
+    ("js", "embed_js", ["js/vendor/video.js", "js/embed.js"]),
 
     ("css", "chat_css", ["css/chat.css"]),
     ("js", "chat_js", ["js/angular/chat.js"]),

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BronyTV - Embed</title>
+
+        <link rel="shortcut icon" href="/static/img/favicon.png" />
+        <meta name="theme-color" content="#4f23a2" />
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="Brony Stream, Pony Stream, MLP Stream, Brony TV, BronyTV, Pony Episodes" />
+        <meta name="description" content="An internet video stream by bronies, for bronies." />
+
+        {% assets "embed_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" />
+        {% endassets %}
+        {% assets "embed_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+        <!--script type="text/javascript">
+            videojs.options.flash.swf = "/static/swf/video-js.swf";
+        </script-->
+    </head>
+    <body onload="checkStream()">
+        <div id="offline"><img src="/static/img/offline.jpg"/></div>
+        <div id="video">
+            <video>
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank"
+                    >supports HTML5 video</a>
+                </p>
+            </video>
+        </div>
+    </body>
+</html>

@@ -20,6 +20,10 @@ def index():
 def stream():
     return render_template("stream.html.jinja2")
 
+@static_pages.route("/embed")
+def embed():
+    return render_template("embed.html.jinja2")
+
 @static_pages.route("/chat")
 def chat():
     return render_template("chat.html.jinja2")
